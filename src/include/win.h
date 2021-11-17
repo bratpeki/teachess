@@ -7,7 +7,7 @@
 #define WIN_TITLE "TeaChess"
 #define WIN_X     SDL_WINDOWPOS_CENTERED
 #define WIN_Y     SDL_WINDOWPOS_CENTERED
-#define WIN_H     540
+#define WIN_H     544
 #define WIN_W     1080
 #define WIN_FLAGS SDL_WINDOW_SHOWN
 

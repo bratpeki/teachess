@@ -2,7 +2,7 @@
 CC=gcc
 C=$(shell find . -name "*.c")
 OUT=teachess.out
-LNK=-lSDL2
+LNK=-lSDL2 -lSDL2_image
 
 all:
 	@make build exec

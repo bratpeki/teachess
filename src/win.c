@@ -10,7 +10,11 @@
  */
 
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+
+#include <SDL2/SDL_render.h>
 #include <SDL2/SDL_video.h>
+#include <stdio.h>
 
 #include "./include/win.h"
 
@@ -46,6 +50,8 @@ void winRender() {
 
 void winQuit() {
 
+	SDL_DestroyRenderer(renMain);
+	SDL_DestroyWindow(winMain);
 	SDL_Quit();
 
 }
