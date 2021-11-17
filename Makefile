@@ -8,7 +8,7 @@ all:
 	@make build exec
 
 build:
-	@$(CC) -o teachess $(C) $(LNK)
+	@$(CC) -o $(OUT) $(C) $(LNK)
 
 clean:
 	@if [ -f $(OUT) ]; then rm $(OUT); fi
