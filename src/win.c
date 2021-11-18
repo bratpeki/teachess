@@ -11,25 +11,46 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
-
 #include <SDL2/SDL_render.h>
-#include <SDL2/SDL_video.h>
+
 #include <stdio.h>
+#include <string.h>
 
 #include "./include/win.h"
+#include "./include/config.h"
 
-SDL_Window*   winMain = NULL;
-SDL_Renderer* renMain = NULL;
+SDL_Rect      rectBoard = { 104, 104, 512, 512 };
+SDL_Rect      rectPawn  = { 104, 488, 64, 64 };
+
+SDL_Renderer* renMain;
+
+SDL_Texture*  textBG;
+SDL_Texture*  textBoard;
+SDL_Texture*  textPawn;
+
+SDL_Window*   winMain;
+
+char          pathBG[128];
+char          pathBoard[128];
 
 int winInit() {
 
 	if (SDL_Init(SDL_INIT_EVERYTHING) >= 0) {
 
-		winMain = SDL_CreateWindow(WIN_TITLE, WIN_X, WIN_Y, WIN_W, WIN_H, WIN_FLAGS);
+		winMain = SDL_CreateWindow(WIN_TITLE, WIN_X, WIN_Y, WIN_W, WIN_H, 0);
 
 		if (winMain != 0) {
 
+			IMG_Init(IMG_INIT_PNG);
+
 			renMain = SDL_CreateRenderer(winMain, -1, 0);
+
+			sprintf(pathBoard, "./img/board/%s.png", IMG_BOARD);
+			sprintf(pathBG, "./img/background/%s.png", IMG_BG);
+
+			textBG    = IMG_LoadTexture(renMain, pathBG);
+			textBoard = IMG_LoadTexture(renMain, pathBoard);
+			textPawn  = IMG_LoadTexture(renMain, "./img/piece/default/P.png");
 
 		}
 
@@ -41,8 +62,11 @@ int winInit() {
 
 void winRender() {
 
-	SDL_SetRenderDrawColor(renMain, 0x4a, 0x4a, 0x4a, 0xFF);
 	SDL_RenderClear(renMain);
+
+	SDL_RenderCopy(renMain, textBG, NULL, NULL);
+	SDL_RenderCopy(renMain, textBoard, NULL, &rectBoard);
+	SDL_RenderCopy(renMain, textPawn, NULL, &rectPawn);
 
 	SDL_RenderPresent(renMain);
 
@@ -50,8 +74,14 @@ void winRender() {
 
 void winQuit() {
 
+	SDL_DestroyTexture(textPawn);
+
 	SDL_DestroyRenderer(renMain);
+	SDL_DestroyTexture(textBG);
+	SDL_DestroyTexture(textBoard);
 	SDL_DestroyWindow(winMain);
+
+	IMG_Quit();
 	SDL_Quit();
 
 }

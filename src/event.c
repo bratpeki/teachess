@@ -18,6 +18,10 @@ void eventHandle() {
 	while (SDL_PollEvent(&event)) {
 		switch (event.type) {
 
+			case SDL_QUIT:
+				stateRunning = 0;
+				break;
+
 			case SDL_KEYDOWN:
 				switch (event.key.keysym.sym) {
 
