@@ -6,5 +6,8 @@
  *                 are 1 (RUNNING) and 0 (NOT RUNNING)
  */
 
-int stateRunning = 0;
+#include <json-c/json.h>
+
+int          stateRunning = 0;
+json_object* jsonConfig   = NULL;
 

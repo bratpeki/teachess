@@ -7,6 +7,8 @@
  * eventHandle -> Go through key inputs and respond appropriately
  */
 
+#include <SDL2/SDL.h>
+
 #include "./include/event.h"
 
 SDL_Event event;
