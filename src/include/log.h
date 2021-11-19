@@ -6,7 +6,7 @@
 
 	#define DEBUG 1
 
-	#define dp(log) if (DEBUG) { printf("Log: "); printf(log); }
+	#define dp(log) if (DEBUG) { printf("Log: %s\n", log); }
 
 #endif
 
