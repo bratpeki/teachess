@@ -3,7 +3,7 @@
 #define H_TEACHESS_JSON
 
 int jsonLoad(char* pathToConfig);
-int jsonTextLoad(char *pathBG, char *pathBoard);
+int jsonTextLoad(char *pathBG, char *pathBoard, char *pathPiece);
 
 #endif
 

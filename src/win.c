@@ -22,7 +22,6 @@
 
 #include "./include/config.h"
 #include "./include/json.h"
-#include "./include/log.h"
 #include "./include/win.h"
 
 SDL_Rect      rectBoard = { 104, 104, 512, 512 };
@@ -33,16 +32,17 @@ SDL_Window*   winMain;
 
 char          pathBG   [64];
 char          pathBoard[64];
+char          pathPiece[64];
 
-extern SDL_Texture*  textBG;
-extern SDL_Texture*  textBoard;
+SDL_Texture*  textBG;
+SDL_Texture*  textBoard;
 
-extern SDL_Texture*  textB;
-extern SDL_Texture*  textK;
-extern SDL_Texture*  textN;
-extern SDL_Texture*  textP;
-extern SDL_Texture*  textQ;
-extern SDL_Texture*  textR;
+SDL_Texture*  textB;
+SDL_Texture*  textK;
+SDL_Texture*  textN;
+SDL_Texture*  textP;
+SDL_Texture*  textQ;
+SDL_Texture*  textR;
 
 extern json_object* jsonConfig;
 
@@ -52,8 +52,8 @@ int winInit() {
 
 		IMG_Init(IMG_INIT_PNG);
 
-		if (jsonLoad(PATH_JSON_CONFIG))      return 1;
-		if (jsonTextLoad(pathBG, pathBoard)) return 1;
+		if (jsonLoad(PATH_JSON_CONFIG))                 return 1;
+		if (jsonTextLoad(pathBG, pathBoard, pathPiece)) return 1;
 
 		winMain = SDL_CreateWindow(WIN_TITLE, WIN_X, WIN_Y, WIN_W, WIN_H, 0);
 
