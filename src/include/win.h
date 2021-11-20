@@ -2,7 +2,7 @@
 #ifndef H_TEACHESS_WINDOW
 #define H_TEACHESS_WINDOW
 
-// Window information, centered and 1080x540
+// Window information, centered and 1280x720
 
 #define WIN_TITLE "TeaChess"
 #define WIN_X     SDL_WINDOWPOS_CENTERED

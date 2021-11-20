@@ -13,11 +13,12 @@
 
 SDL_Event event;
 
-extern int stateRunning;
+extern int stateRunning; // -> main.c
 
 void eventHandle() {
 
 	while (SDL_PollEvent(&event)) {
+
 		switch (event.type) {
 
 			case SDL_QUIT:
@@ -34,6 +35,7 @@ void eventHandle() {
 				}
 
 		}
+
 	}
 
 }

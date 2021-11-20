@@ -26,13 +26,8 @@
 
 SDL_Rect      rectBoard = { 104, 104, 512, 512 };
 SDL_Rect      rectPawn  = { 104, 488, 64, 64 };
+
 SDL_Renderer* rndMain;
-
-SDL_Window*   winMain;
-
-char          pathBG   [64];
-char          pathBoard[64];
-char          pathPiece[64];
 
 SDL_Texture*  textBG;
 SDL_Texture*  textBoard;
@@ -43,8 +38,33 @@ SDL_Texture*  textN;
 SDL_Texture*  textP;
 SDL_Texture*  textQ;
 SDL_Texture*  textR;
+SDL_Texture*  textb;
+SDL_Texture*  textk;
+SDL_Texture*  textn;
+SDL_Texture*  textp;
+SDL_Texture*  textq;
+SDL_Texture*  textr;
 
-extern json_object* jsonConfig;
+SDL_Window*   winMain;
+
+char          pathBG    [PATH_TEXT_LENGHT];
+char          pathBoard [PATH_TEXT_LENGHT];
+char          pathPiece [PATH_TEXT_LENGHT];
+
+char          pathB     [PATH_TEXT_LENGHT];
+char          pathK     [PATH_TEXT_LENGHT];
+char          pathN     [PATH_TEXT_LENGHT];
+char          pathP     [PATH_TEXT_LENGHT];
+char          pathQ     [PATH_TEXT_LENGHT];
+char          pathR     [PATH_TEXT_LENGHT];
+char          pathb     [PATH_TEXT_LENGHT];
+char          pathk     [PATH_TEXT_LENGHT];
+char          pathn     [PATH_TEXT_LENGHT];
+char          pathp     [PATH_TEXT_LENGHT];
+char          pathq     [PATH_TEXT_LENGHT];
+char          pathr     [PATH_TEXT_LENGHT];
+
+extern json_object* jsonConfig; // -> json.c
 
 int winInit() {
 
@@ -60,8 +80,6 @@ int winInit() {
 		if (winMain != 0) {
 
 			rndMain = SDL_CreateRenderer(winMain, -1, 0);
-
-			// Asign the textures
 
 			textBG    = IMG_LoadTexture(rndMain, pathBG);
 			textBoard = IMG_LoadTexture(rndMain, pathBoard);
@@ -89,11 +107,24 @@ void winRender() {
 
 void winQuit() {
 
-	SDL_DestroyTexture(textP);
-
 	SDL_DestroyRenderer(rndMain);
+
 	SDL_DestroyTexture(textBG);
 	SDL_DestroyTexture(textBoard);
+
+	SDL_DestroyTexture(textB);
+	SDL_DestroyTexture(textb);
+	SDL_DestroyTexture(textK);
+	SDL_DestroyTexture(textk);
+	SDL_DestroyTexture(textN);
+	SDL_DestroyTexture(textn);
+	SDL_DestroyTexture(textP);
+	SDL_DestroyTexture(textp);
+	SDL_DestroyTexture(textQ);
+	SDL_DestroyTexture(textq);
+	SDL_DestroyTexture(textR);
+	SDL_DestroyTexture(textr);
+
 	SDL_DestroyWindow(winMain);
 
 	IMG_Quit();
