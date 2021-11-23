@@ -33,8 +33,8 @@ void setGlobalPath(char *src) {
 
 			if (tmpCountSlash == countSlash) {
 
-				pathProg = (char*)calloc(sizeof(char), i);
-				for (unsigned int j = 0; j <= i; j++) pathProg[j] = src[j];
+				pathProg = (char*)calloc(sizeof(char), i + 1);
+				memcpy(pathProg, src, i + 1);
 
 			}
 

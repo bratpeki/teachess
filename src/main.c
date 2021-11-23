@@ -9,7 +9,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
 char *pathProg;
 int   stateRunning;
@@ -18,7 +17,7 @@ int main(int argc, char* argv[]) {
 
 	setGlobalPath(argv[0]);
 
-	printf("Log: pathProg loaded as %s\n", pathProg);
+	printf("Log (main.c): pathProg loaded as %s\n", pathProg);
 
 	if ( !winInit() ) stateRunning = 1;
 	else              return 1;
@@ -30,11 +29,11 @@ int main(int argc, char* argv[]) {
 
 	winQuit();
 
-	printf("Log: Cleaning up memory allocations...\n");
+	printf("Log (main.c): Cleaning up memory allocations...\n");
 
 	free(pathProg);
 
-	printf("Log: Goodbye!\n");
+	printf("Log (main.c): Goodbye!\n");
 
 	return 0;
 
