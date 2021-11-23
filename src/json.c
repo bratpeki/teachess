@@ -4,7 +4,7 @@
  *
  * Header: ./include/json.h
  *
- * jsonLoad     -> Load the JSON file into the global json_object 'jsonConfig'
+ * jsonLoadConf -> Load the JSON file into the global json_object 'jsonConfig'
  * jsonTextLoad -> Load the JSON data into their assorted SDL_Texture objects
  */
 
@@ -24,9 +24,26 @@ char *tmp;
 
 json_object* jsonConfig;
 
-int jsonLoad(char* pathToConfig) {
+extern char pathBG    [PATH_TEXT_LENGHT]; // -> win.c
+extern char pathBoard [PATH_TEXT_LENGHT]; // -> win.c
+extern char pathPiece [PATH_TEXT_LENGHT]; // -> win.c
 
-	tmp = addToGlobalPath(pathToConfig);
+extern char pathB     [PATH_TEXT_LENGHT]; // -> win.c
+extern char pathK     [PATH_TEXT_LENGHT]; // -> win.c
+extern char pathN     [PATH_TEXT_LENGHT]; // -> win.c
+extern char pathP     [PATH_TEXT_LENGHT]; // -> win.c
+extern char pathQ     [PATH_TEXT_LENGHT]; // -> win.c
+extern char pathR     [PATH_TEXT_LENGHT]; // -> win.c
+extern char pathb     [PATH_TEXT_LENGHT]; // -> win.c
+extern char pathk     [PATH_TEXT_LENGHT]; // -> win.c
+extern char pathn     [PATH_TEXT_LENGHT]; // -> win.c
+extern char pathp     [PATH_TEXT_LENGHT]; // -> win.c
+extern char pathq     [PATH_TEXT_LENGHT]; // -> win.c
+extern char pathr     [PATH_TEXT_LENGHT]; // -> win.c
+
+int jsonLoadConf() {
+
+	tmp = addToGlobalPath(PATH_JSON_CONF);
 
 	if (!access(tmp, F_OK)) {
 
@@ -46,60 +63,61 @@ int jsonLoad(char* pathToConfig) {
 
 }
 
+int textLoadLocal(
+		char *key, struct json_object *val, char *pathVar, char *keycmp,
+		const char *pathToFile, const char *msgSuccess, const char *msgFailure
+		) {
+
+	if ( !strcmp(key, keycmp) ) {
+
+		sprintf(pathVar, pathToFile, json_object_get_string(val));
+
+		tmp = addToGlobalPath(pathVar);
+		strcpy(pathVar, tmp);
+
+		if ( access(pathVar, F_OK) == 0 ) {
+
+			printf(msgSuccess, pathVar);
+			free(tmp);
+
+		} else {
+
+			printf("%s", msgFailure);
+			free(tmp);
+			return 1;
+
+		}
+
+	}
+
+	return 0;
+
+}
+
 // TODO: Check that namestrings aren't too large
 // TODO: Implement the pathing function on the pawn textures
 
-int jsonTextLoad(char *pathBG, char *pathBoard, char *pathPiece) {
+int jsonTextLoad() {
 
 	json_object_object_foreach(jsonConfig, key, val) {
 
 		// THE BACKGROUND IMAGE
 
-		if ( !strcmp(key, "bgImage") ) {
-
-			sprintf(pathBG, "img/background/%s.png", json_object_get_string(val));
-
-			tmp = addToGlobalPath(pathBG);
-			strcpy(pathBG, tmp);
-
-			if ( access(pathBG, F_OK) == 0 ) {
-
-				printf("Log (json.c): Background image at %s loaded successfully.\n", pathBG);
-				free(tmp);
-
-			} else {
-
-				printf("Log (json.c): Background image couldn't be loaded. Check that the name from 'bgImage' in conf.json is correct.\n\n");
-				free(tmp);
-				return 1;
-
-			}
-
-		}
+		if (textLoadLocal(
+			key, val, pathBG, "bgImage",
+			"img/background/%s.png",
+			"Log (json.c): Background image at %s loaded successfully.\n",
+			"Log (json.c): Background image couldn't be loaded. Check that the name from 'bgImage' in conf.json is correct.\n\n"
+			) == 1) return 1;
 
 		// THE CHESS BOARD IMAGE
 
-		if ( !strcmp(key, "boardImage") ) {
-
-			sprintf(pathBoard, "img/board/%s.png", json_object_get_string(val));
-
-			tmp = addToGlobalPath(pathBoard);
-			strcpy(pathBoard, tmp);
-
-			if ( access(pathBoard, F_OK) == 0 ) {
-
-				printf("Log (json.c): Board image at %s loaded successfully.\n", pathBoard);
-				free(tmp);
-
-			} else {
-
-				printf("Log (json.c): Board image couldn't be loaded. Check that the name from 'boardImage' in conf.json is correct.\n");
-				free(tmp);
-				return 1;
-
-			}
-
-		}
+		if (textLoadLocal(
+			key, val, pathBoard, "boardImage",
+			"img/board/%s.png",
+			"Log (json.c): Board image at %s loaded successfully.\n",
+			"Log (json.c): Board image couldn't be loaded. Check that the name from 'boardImage' in conf.json is correct.\n"
+			) == 1) return 1;
 
 		// THE CHESS PIECES
 

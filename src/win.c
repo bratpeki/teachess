@@ -72,8 +72,8 @@ int winInit() {
 
 		IMG_Init(IMG_INIT_PNG);
 
-		if (jsonLoad(PATH_JSON_CONFIG))                 return 1;
-		if (jsonTextLoad(pathBG, pathBoard, pathPiece)) return 1;
+		if (jsonLoadConf()) return 1;
+		if (jsonTextLoad()) return 1;
 
 		winMain = SDL_CreateWindow(WIN_TITLE, WIN_X, WIN_Y, WIN_W, WIN_H, 0);
 
