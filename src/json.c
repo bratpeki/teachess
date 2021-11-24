@@ -29,7 +29,6 @@ json_object* jsonConfig;
 
 extern char pathBG    [PATH_TEXT_LENGHT]; // -> win.c
 extern char pathBoard [PATH_TEXT_LENGHT]; // -> win.c
-extern char pathPiece [PATH_TEXT_LENGHT]; // -> win.c
 
 extern char pathB     [PATH_TEXT_LENGHT]; // -> win.c
 extern char pathK     [PATH_TEXT_LENGHT]; // -> win.c
@@ -43,6 +42,25 @@ extern char pathn     [PATH_TEXT_LENGHT]; // -> win.c
 extern char pathp     [PATH_TEXT_LENGHT]; // -> win.c
 extern char pathq     [PATH_TEXT_LENGHT]; // -> win.c
 extern char pathr     [PATH_TEXT_LENGHT]; // -> win.c
+
+char *paths[14][3] = {
+
+	{ pathBG,    "bgImage",    "img/background/%s.png" },
+	{ pathBoard, "boardImage", "img/board/%s.png"      },
+	{ pathB,     "pieceImage", "img/piece/%s/B.png"    },
+	{ pathK,     "pieceImage", "img/piece/%s/K.png"    },
+	{ pathN,     "pieceImage", "img/piece/%s/N.png"    },
+	{ pathP,     "pieceImage", "img/piece/%s/P.png"    },
+	{ pathQ,     "pieceImage", "img/piece/%s/Q.png"    },
+	{ pathR,     "pieceImage", "img/piece/%s/R.png"    },
+	{ pathb,     "pieceImage", "img/piece/%s/b.png"    },
+	{ pathk,     "pieceImage", "img/piece/%s/k.png"    },
+	{ pathn,     "pieceImage", "img/piece/%s/n.png"    },
+	{ pathp,     "pieceImage", "img/piece/%s/p.png"    },
+	{ pathq,     "pieceImage", "img/piece/%s/q.png"    },
+	{ pathr,     "pieceImage", "img/piece/%s/r.png"    }
+
+};
 
 int jsonLoadConf() {
 
@@ -104,32 +122,16 @@ int jsonTextLoad() {
 
 	json_object_object_foreach(jsonConfig, key, val) {
 
-		// THE BACKGROUND IMAGE
+		for (int i = 0; i < 14; i++) {
 
-		if (textLoadLocal(
-			key, val, pathBG, "bgImage",
-			"img/background/%s.png",
-			"Log (json.c): %s loaded successfully.\n",
-			"Log (json.c): %s couldn't load. Check 'bgImage' in conf.json.\n"
-			)) return 1;
+			if (textLoadLocal(
+				key, val,
+				paths[i][0], paths[i][1], paths[i][2],
+				"Log (json.c): %s loaded successfully.\n",
+				"Log (json.c): %s couldn't load. Check 'bgImage' in conf.json.\n"
+				)) return 1;
 
-		// THE CHESS BOARD IMAGE
-
-		if (textLoadLocal(
-			key, val, pathBoard, "boardImage",
-			"img/board/%s.png",
-			"Log (json.c): %s loaded successfully.\n",
-			"Log (json.c): %s couldn't load. Check 'boardImage' in conf.json.\n"
-			)) return 1;
-
-		// THE CHESS PIECES
-
-		if (textLoadLocal(
-			key, val, pathP, "pieceImage",
-			"img/piece/%s/P.png",
-			"Log (json.c): %s loaded successfully.\n",
-			"Log (json.c): %s couldn't load. Check 'pieceImage' in conf.json.\n"
-			)) return 1;
+		}
 
 	}
 

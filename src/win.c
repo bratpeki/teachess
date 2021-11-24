@@ -49,7 +49,6 @@ SDL_Window*   winMain;
 
 char          pathBG    [PATH_TEXT_LENGHT];
 char          pathBoard [PATH_TEXT_LENGHT];
-char          pathPiece [PATH_TEXT_LENGHT];
 
 char          pathB     [PATH_TEXT_LENGHT];
 char          pathK     [PATH_TEXT_LENGHT];
