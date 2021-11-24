@@ -83,7 +83,7 @@ int winInit() {
 
 			textBG    = IMG_LoadTexture(rndMain, pathBG);
 			textBoard = IMG_LoadTexture(rndMain, pathBoard);
-			textP     = IMG_LoadTexture(rndMain, "./img/piece/default/P.png");
+			textP     = IMG_LoadTexture(rndMain, pathP);
 
 		}
 

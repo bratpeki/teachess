@@ -4,8 +4,11 @@
  *
  * Header: ./include/json.h
  *
- * jsonLoadConf -> Load the JSON file into the global json_object 'jsonConfig'
- * jsonTextLoad -> Load the JSON data into their assorted SDL_Texture objects
+ * jsonLoadConf  -> Load the JSON file into the global json_object 'jsonConfig'
+ * jsonTextLoad  -> Load the JSON data into their assorted SDL_Texture objects
+ *
+ * textLoadLocal -> Handle checking JSON strings and applying their value to
+ *                  their outputs (extern chars)
  */
 
 #include <json-c/json.h>
@@ -82,7 +85,7 @@ int textLoadLocal(
 
 		} else {
 
-			printf("%s", msgFailure);
+			printf(msgFailure, pathVar);
 			free(tmp);
 			return 1;
 
@@ -106,26 +109,27 @@ int jsonTextLoad() {
 		if (textLoadLocal(
 			key, val, pathBG, "bgImage",
 			"img/background/%s.png",
-			"Log (json.c): Background image at %s loaded successfully.\n",
-			"Log (json.c): Background image couldn't be loaded. Check that the name from 'bgImage' in conf.json is correct.\n\n"
-			) == 1) return 1;
+			"Log (json.c): %s loaded successfully.\n",
+			"Log (json.c): %s couldn't load. Check 'bgImage' in conf.json.\n"
+			)) return 1;
 
 		// THE CHESS BOARD IMAGE
 
 		if (textLoadLocal(
 			key, val, pathBoard, "boardImage",
 			"img/board/%s.png",
-			"Log (json.c): Board image at %s loaded successfully.\n",
-			"Log (json.c): Board image couldn't be loaded. Check that the name from 'boardImage' in conf.json is correct.\n"
-			) == 1) return 1;
+			"Log (json.c): %s loaded successfully.\n",
+			"Log (json.c): %s couldn't load. Check 'boardImage' in conf.json.\n"
+			)) return 1;
 
 		// THE CHESS PIECES
 
-		if ( !strcmp(key, "pieceImage") ) {
-
-			printf("Log (json.c): Piece theme is %s\n", json_object_get_string(val));
-
-		}
+		if (textLoadLocal(
+			key, val, pathP, "pieceImage",
+			"img/piece/%s/P.png",
+			"Log (json.c): %s loaded successfully.\n",
+			"Log (json.c): %s couldn't load. Check 'pieceImage' in conf.json.\n"
+			)) return 1;
 
 	}
 
