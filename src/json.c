@@ -104,7 +104,6 @@ int textLoadLocal(
 		} else {
 
 			printf(msgFailure, pathVar);
-			free(tmp);
 			return 1;
 
 		}
@@ -116,13 +115,12 @@ int textLoadLocal(
 }
 
 // TODO: Check that namestrings aren't too large
-// TODO: Implement the pathing function on the pawn textures
 
 int jsonTextLoad() {
 
 	json_object_object_foreach(jsonConfig, key, val) {
 
-		for (int i = 0; i < 14; i++) {
+		for (unsigned int i = 0; i < 14; i++) {
 
 			if (textLoadLocal(
 				key, val,
