@@ -22,10 +22,28 @@
 
 #include "./include/config.h"
 #include "./include/json.h"
+#include "./include/tchs.h"
 #include "./include/win.h"
 
 SDL_Rect      rectBoard = { 104, 104, 512, 512 };
-SDL_Rect      rectPawn  = { 104, 488, 64, 64 };
+
+SDL_Rect      rectP1 = { 104, 488, 64, 64 };
+SDL_Rect      rectP2 = { 168, 488, 64, 64 };
+SDL_Rect      rectP3 = { 232, 488, 64, 64 };
+SDL_Rect      rectP4 = { 296, 488, 64, 64 };
+SDL_Rect      rectP5 = { 360, 488, 64, 64 };
+SDL_Rect      rectP6 = { 424, 488, 64, 64 };
+SDL_Rect      rectP7 = { 488, 488, 64, 64 };
+SDL_Rect      rectP8 = { 552, 488, 64, 64 };
+
+SDL_Rect      rectR1 = { 104, 552, 64, 64 };
+SDL_Rect      rectN1 = { 168, 552, 64, 64 };
+SDL_Rect      rectB1 = { 232, 552, 64, 64 };
+SDL_Rect      rectK  = { 296, 552, 64, 64 };
+SDL_Rect      rectQ  = { 360, 552, 64, 64 };
+SDL_Rect      rectB2 = { 424, 552, 64, 64 };
+SDL_Rect      rectN2 = { 488, 552, 64, 64 };
+SDL_Rect      rectR2 = { 552, 552, 64, 64 };
 
 SDL_Renderer* rndMain;
 
@@ -76,6 +94,8 @@ int winInit() {
 
 		winMain = SDL_CreateWindow(WIN_TITLE, WIN_X, WIN_Y, WIN_W, WIN_H, 0);
 
+		tchsRead("default");
+
 		if (winMain != 0) {
 
 			rndMain = SDL_CreateRenderer(winMain, -1, 0);
@@ -110,7 +130,24 @@ void winRender() {
 
 	SDL_RenderCopy(rndMain, textBG, NULL, NULL);
 	SDL_RenderCopy(rndMain, textBoard, NULL, &rectBoard);
-	SDL_RenderCopy(rndMain, textP, NULL, &rectPawn);
+
+	SDL_RenderCopy(rndMain, textP, NULL, &rectP1);
+	SDL_RenderCopy(rndMain, textP, NULL, &rectP2);
+	SDL_RenderCopy(rndMain, textP, NULL, &rectP3);
+	SDL_RenderCopy(rndMain, textP, NULL, &rectP4);
+	SDL_RenderCopy(rndMain, textP, NULL, &rectP5);
+	SDL_RenderCopy(rndMain, textP, NULL, &rectP6);
+	SDL_RenderCopy(rndMain, textP, NULL, &rectP7);
+	SDL_RenderCopy(rndMain, textP, NULL, &rectP8);
+
+	SDL_RenderCopy(rndMain, textR, NULL, &rectR1);
+	SDL_RenderCopy(rndMain, textN, NULL, &rectN1);
+	SDL_RenderCopy(rndMain, textB, NULL, &rectB1);
+	SDL_RenderCopy(rndMain, textK, NULL, &rectK);
+	SDL_RenderCopy(rndMain, textQ, NULL, &rectQ);
+	SDL_RenderCopy(rndMain, textB, NULL, &rectB2);
+	SDL_RenderCopy(rndMain, textN, NULL, &rectN2);
+	SDL_RenderCopy(rndMain, textR, NULL, &rectR2);
 
 	SDL_RenderPresent(rndMain);
 
