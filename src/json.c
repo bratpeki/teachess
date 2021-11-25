@@ -103,7 +103,7 @@ int textLoadLocal(
 
 		} else {
 
-			printf(msgFailure, pathVar);
+			printf(msgFailure, pathVar, key);
 			return 1;
 
 		}
@@ -115,6 +115,7 @@ int textLoadLocal(
 }
 
 // TODO: Check that namestrings aren't too large
+// TODO: Check what happens with duplicate key objects in conf.json
 
 int jsonTextLoad() {
 
@@ -126,7 +127,7 @@ int jsonTextLoad() {
 				key, val,
 				paths[i][0], paths[i][1], paths[i][2],
 				"Log (json.c): %s loaded successfully.\n",
-				"Log (json.c): %s couldn't load. Check 'bgImage' in conf.json.\n"
+				"Log (json.c): %s couldn't load. Check '%s' in conf.json.\n"
 				)) return 1;
 
 		}

@@ -82,7 +82,19 @@ int winInit() {
 
 			textBG    = IMG_LoadTexture(rndMain, pathBG);
 			textBoard = IMG_LoadTexture(rndMain, pathBoard);
+
+			textB     = IMG_LoadTexture(rndMain, pathB);
+			textK     = IMG_LoadTexture(rndMain, pathK);
+			textN     = IMG_LoadTexture(rndMain, pathN);
 			textP     = IMG_LoadTexture(rndMain, pathP);
+			textQ     = IMG_LoadTexture(rndMain, pathQ);
+			textR     = IMG_LoadTexture(rndMain, pathR);
+			textb     = IMG_LoadTexture(rndMain, pathb);
+			textk     = IMG_LoadTexture(rndMain, pathk);
+			textn     = IMG_LoadTexture(rndMain, pathn);
+			textp     = IMG_LoadTexture(rndMain, pathp);
+			textq     = IMG_LoadTexture(rndMain, pathq);
+			textr     = IMG_LoadTexture(rndMain, pathr);
 
 		}
 
