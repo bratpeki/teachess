@@ -13,8 +13,6 @@
 char *pathProg;
 int   stateRunning;
 
-extern char *tchs; // -> tchs.c
-
 int main(int argc, char* argv[]) {
 
 	setGlobalPath(argv[0]);
@@ -34,7 +32,6 @@ int main(int argc, char* argv[]) {
 	printf("Log (main.c): Cleaning up memory allocations...\n");
 
 	free(pathProg);
-	free(tchs);
 
 	printf("Log (main.c): Goodbye!\n");
 

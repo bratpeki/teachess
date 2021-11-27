@@ -15,40 +15,16 @@
 #include "./include/path.h"
 
 /*
- *  tchs    - The TCHS file content
- *  tchsLen - The TCHS file string lenght
+ * tchs     - The TCHS data
+ * ctchs    - The TCHS file content
+ * ctchsLen - The TCHS file string lenght
  * ftchs    - The TCHS file
  * ptchs    - The TCHS file path
  */
 
-int   tchsLen;
-char *tchs;
+char tchs[64];
 
 int tchsRead(char *name) {
-
-	char *ptchs = (char*)calloc(sizeof(char), PATH_TEXT_LENGHT);
-
-	sprintf(ptchs, "tchs/%s.tchs", name);
-	ptchs = addToGlobalPath(ptchs);
-
-	FILE *ftchs = fopen(ptchs, "r");
-
-	if (!ftchs) {
-		printf ("Log (tchs.c): %s couldn't load.\n", ptchs);
-		return 1;
-	}
-
-	fseek(ftchs, 0, SEEK_END);
-		tchsLen = ftell(ftchs);
-	rewind(ftchs);
-
-	tchs = malloc(tchsLen);
-	fread(tchs, sizeof(char), tchsLen, ftchs);
-
-	printf("%s\n", tchs);
-
-	fclose(ftchs);
-	free(ptchs);
 
 	return 0;
 
