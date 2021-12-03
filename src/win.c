@@ -4,6 +4,7 @@
  *
  * Header: win.h
  *
+ * tchsLoad  -> Load the TCHS array contents onto the screen
  * winInit   -> Initialize the SDL window and necessary components
  * winRender -> Render the visual elements onto the window
  * winQuit   -> Quit the window and clean any memory allocations and calls
@@ -11,6 +12,7 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_rect.h>
 #include <SDL2/SDL_render.h>
 
 #include <json-c/json.h>
@@ -26,26 +28,11 @@
 #include "./include/win.h"
 
 SDL_Rect      rectBoard = { 104, 104, 512, 512 };
-
-SDL_Rect      rectP1 = { 104, 488, 64, 64 };
-SDL_Rect      rectP2 = { 168, 488, 64, 64 };
-SDL_Rect      rectP3 = { 232, 488, 64, 64 };
-SDL_Rect      rectP4 = { 296, 488, 64, 64 };
-SDL_Rect      rectP5 = { 360, 488, 64, 64 };
-SDL_Rect      rectP6 = { 424, 488, 64, 64 };
-SDL_Rect      rectP7 = { 488, 488, 64, 64 };
-SDL_Rect      rectP8 = { 552, 488, 64, 64 };
-
-SDL_Rect      rectR1 = { 104, 552, 64, 64 };
-SDL_Rect      rectN1 = { 168, 552, 64, 64 };
-SDL_Rect      rectB1 = { 232, 552, 64, 64 };
-SDL_Rect      rectK  = { 296, 552, 64, 64 };
-SDL_Rect      rectQ  = { 360, 552, 64, 64 };
-SDL_Rect      rectB2 = { 424, 552, 64, 64 };
-SDL_Rect      rectN2 = { 488, 552, 64, 64 };
-SDL_Rect      rectR2 = { 552, 552, 64, 64 };
+SDL_Rect      rectTmp   = { 0,   0,   64,  64  };
 
 SDL_Renderer* rndMain;
+
+SDL_Texture*  textTmp;
 
 SDL_Texture*  textBG;
 SDL_Texture*  textBoard;
@@ -81,7 +68,49 @@ char          pathp     [PATH_TEXT_LENGHT];
 char          pathq     [PATH_TEXT_LENGHT];
 char          pathr     [PATH_TEXT_LENGHT];
 
+extern char tchs[64];           // -> tchs.c
+
 extern json_object* jsonConfig; // -> json.c
+
+int tchsLoad() {
+
+	for (unsigned int i = 0; i < 8; i++) {
+		for (unsigned int j = 0; j < 8; j++) {
+
+			switch (tchs[i*8 + j]) {
+
+				case 'B': textTmp = textB; break;
+				case 'K': textTmp = textK; break;
+				case 'N': textTmp = textN; break;
+				case 'P': textTmp = textP; break;
+				case 'Q': textTmp = textQ; break;
+				case 'R': textTmp = textR; break;
+				case 'b': textTmp = textb; break;
+				case 'k': textTmp = textk; break;
+				case 'n': textTmp = textn; break;
+				case 'p': textTmp = textp; break;
+				case 'q': textTmp = textq; break;
+				case 'r': textTmp = textr; break;
+				default:  textTmp = NULL;
+
+			}
+
+			if (textTmp != NULL) {
+
+				rectTmp.x = 104 + j*64;
+				rectTmp.y = 104 + i*64;
+
+				SDL_RenderCopy(rndMain, textTmp, NULL, &rectTmp);
+
+			}
+
+		}
+
+	}
+
+	return 0;
+
+}
 
 int winInit() {
 
@@ -94,7 +123,7 @@ int winInit() {
 
 		winMain = SDL_CreateWindow(WIN_TITLE, WIN_X, WIN_Y, WIN_W, WIN_H, 0);
 
-		tchsRead("default");
+		printf("tchsRead out -> %d\n", tchsRead("default"));
 
 		if (winMain != 0) {
 
@@ -131,23 +160,7 @@ void winRender() {
 	SDL_RenderCopy(rndMain, textBG, NULL, NULL);
 	SDL_RenderCopy(rndMain, textBoard, NULL, &rectBoard);
 
-	SDL_RenderCopy(rndMain, textP, NULL, &rectP1);
-	SDL_RenderCopy(rndMain, textP, NULL, &rectP2);
-	SDL_RenderCopy(rndMain, textP, NULL, &rectP3);
-	SDL_RenderCopy(rndMain, textP, NULL, &rectP4);
-	SDL_RenderCopy(rndMain, textP, NULL, &rectP5);
-	SDL_RenderCopy(rndMain, textP, NULL, &rectP6);
-	SDL_RenderCopy(rndMain, textP, NULL, &rectP7);
-	SDL_RenderCopy(rndMain, textP, NULL, &rectP8);
-
-	SDL_RenderCopy(rndMain, textR, NULL, &rectR1);
-	SDL_RenderCopy(rndMain, textN, NULL, &rectN1);
-	SDL_RenderCopy(rndMain, textB, NULL, &rectB1);
-	SDL_RenderCopy(rndMain, textK, NULL, &rectK);
-	SDL_RenderCopy(rndMain, textQ, NULL, &rectQ);
-	SDL_RenderCopy(rndMain, textB, NULL, &rectB2);
-	SDL_RenderCopy(rndMain, textN, NULL, &rectN2);
-	SDL_RenderCopy(rndMain, textR, NULL, &rectR2);
+	tchsLoad();
 
 	SDL_RenderPresent(rndMain);
 
