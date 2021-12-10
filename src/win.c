@@ -72,6 +72,8 @@ extern char tchs[64];           // -> tchs.c
 
 extern json_object* jsonConfig; // -> json.c
 
+int moving = 0;
+
 int tchsLoad() {
 
 	for (unsigned int i = 0; i < 8; i++) {
@@ -123,8 +125,6 @@ int winInit() {
 
 		winMain = SDL_CreateWindow(WIN_TITLE, WIN_X, WIN_Y, WIN_W, WIN_H, 0);
 
-		printf("tchsRead out -> %d\n", tchsRead("default"));
-
 		if (winMain != 0) {
 
 			rndMain = SDL_CreateRenderer(winMain, -1, 0);
@@ -160,7 +160,12 @@ void winRender() {
 	SDL_RenderCopy(rndMain, textBG, NULL, NULL);
 	SDL_RenderCopy(rndMain, textBoard, NULL, &rectBoard);
 
-	tchsLoad();
+	if (moving) {
+
+
+
+	}
+	else tchsLoad();
 
 	SDL_RenderPresent(rndMain);
 

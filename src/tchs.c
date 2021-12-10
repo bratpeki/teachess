@@ -4,7 +4,8 @@
  *
  * Header: ./include/tchs.h
  *
- * tchsRead -> Read a TCHS file and return the exit code
+ * pieceLegalCheck -> Check if a piece is legal
+ * tchsRead        -> Read a TCHS file and return the exit code
  */
 
 #include <stdio.h>
@@ -14,7 +15,16 @@
 #include "./include/config.h"
 #include "./include/path.h"
 
-char tchs[64];
+char tchs[64] = {
+	'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r',
+	'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p',
+	'-', '-', '-', '-', '-', '-', '-', '-',
+	'-', '-', '-', '-', '-', '-', '-', '-',
+	'-', '-', '-', '-', '-', '-', '-', '-',
+	'-', '-', '-', '-', '-', '-', '-', '-',
+	'P', 'P', 'P', 'P', 'P', 'P', 'P', 'P',
+	'R', 'N', 'B', 'K', 'Q', 'B', 'N', 'R',
+};
 
 char pieceLegal[16] = {
 	'-', '.', 'b', 'B',
