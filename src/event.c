@@ -8,16 +8,21 @@
  */
 
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_mouse.h>
 
 #include "./include/event.h"
 
 SDL_Event event;
+
+int mouseX, mouseY;
 
 extern int stateRunning; // -> main.c
 
 void eventHandle() {
 
 	while (SDL_PollEvent(&event)) {
+
+		SDL_GetMouseState(&mouseX, &mouseY);
 
 		switch (event.type) {
 

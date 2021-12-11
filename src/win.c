@@ -72,6 +72,8 @@ extern char tchs[64];           // -> tchs.c
 
 extern json_object* jsonConfig; // -> json.c
 
+extern int mouseX, mouseY;      // -> event.c
+
 int moving = 0;
 
 int tchsLoad() {
@@ -159,6 +161,8 @@ void winRender() {
 
 	SDL_RenderCopy(rndMain, textBG, NULL, NULL);
 	SDL_RenderCopy(rndMain, textBoard, NULL, &rectBoard);
+
+	// printf("X: %d\tY: %d\n", mouseX, mouseY);
 
 	if (moving) {
 
