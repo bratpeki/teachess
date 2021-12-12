@@ -8,6 +8,7 @@
  */
 
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_events.h>
 #include <SDL2/SDL_mouse.h>
 
 #include "./include/event.h"
@@ -17,6 +18,7 @@ SDL_Event event;
 int mouseX, mouseY;
 
 extern int stateRunning; // -> main.c
+extern int moving;       // -> win.c
 
 void eventHandle() {
 
@@ -38,6 +40,14 @@ void eventHandle() {
 						break;
 
 				}
+
+			case SDL_MOUSEBUTTONDOWN:
+				moving = 1;
+				break;
+
+			case SDL_MOUSEBUTTONUP:
+				moving = 0;
+				break;
 
 		}
 

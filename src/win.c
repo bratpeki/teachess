@@ -147,6 +147,8 @@ int winInit() {
 			textq     = IMG_LoadTexture(rndMain, pathq);
 			textr     = IMG_LoadTexture(rndMain, pathr);
 
+			tchsRead("default");
+
 		}
 
 	} else return 1;
@@ -165,8 +167,6 @@ void winRender() {
 	// printf("X: %d\tY: %d\n", mouseX, mouseY);
 
 	if (moving) {
-
-
 
 	}
 	else tchsLoad();
