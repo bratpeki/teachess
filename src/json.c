@@ -29,7 +29,6 @@ json_object* jsonConfig;
 
 extern char pathBG    [PATH_TEXT_LENGHT]; // -> win.c
 extern char pathBoard [PATH_TEXT_LENGHT]; // -> win.c
-
 extern char pathB     [PATH_TEXT_LENGHT]; // -> win.c
 extern char pathK     [PATH_TEXT_LENGHT]; // -> win.c
 extern char pathN     [PATH_TEXT_LENGHT]; // -> win.c

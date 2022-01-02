@@ -15,10 +15,11 @@
 
 SDL_Event event;
 
-int mouseX, mouseY;
+int mouseHold = 0;
+int mouseX, mouseY = 0;
 
 extern int stateRunning; // -> main.c
-extern int moving;       // -> win.c
+extern int boardFlipped; // -> win.c
 
 void eventHandle() {
 
@@ -32,6 +33,14 @@ void eventHandle() {
 				stateRunning = 0;
 				break;
 
+			case SDL_MOUSEBUTTONDOWN:
+				mouseHold = 1;
+				break;
+
+			case SDL_MOUSEBUTTONUP:
+				mouseHold = 0;
+				break;
+
 			case SDL_KEYDOWN:
 				switch (event.key.keysym.sym) {
 
@@ -39,15 +48,11 @@ void eventHandle() {
 						stateRunning = 0;
 						break;
 
+					case SDLK_f:
+						boardFlipped = !boardFlipped;
+						break;
+
 				}
-
-			case SDL_MOUSEBUTTONDOWN:
-				moving = 1;
-				break;
-
-			case SDL_MOUSEBUTTONUP:
-				moving = 0;
-				break;
 
 		}
 

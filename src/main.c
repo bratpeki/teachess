@@ -9,6 +9,7 @@
 #include "./include/event.h"
 #include "./include/path.h"
 #include "./include/win.h"
+#include "./include/tchs.h"
 
 char *pathProg;
 int   stateRunning;
@@ -16,6 +17,8 @@ int   stateRunning;
 int main(int argc, char* argv[]) {
 
 	setGlobalPath(argv[0]);
+
+	// tchsRead("default");
 
 	printf("Log (main.c): pathProg loaded as %s\n", pathProg);
 

@@ -19,6 +19,7 @@
 #include <json-c/json_object.h>
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 
@@ -54,7 +55,6 @@ SDL_Window*   winMain;
 
 char          pathBG    [PATH_TEXT_LENGHT];
 char          pathBoard [PATH_TEXT_LENGHT];
-
 char          pathB     [PATH_TEXT_LENGHT];
 char          pathK     [PATH_TEXT_LENGHT];
 char          pathN     [PATH_TEXT_LENGHT];
@@ -68,13 +68,15 @@ char          pathp     [PATH_TEXT_LENGHT];
 char          pathq     [PATH_TEXT_LENGHT];
 char          pathr     [PATH_TEXT_LENGHT];
 
+extern int mouseHold;           // -> event.c
+extern int mouseX, mouseY;      // -> event.c
+extern json_object* jsonConfig; // -> json.c
 extern char tchs[64];           // -> tchs.c
 
-extern json_object* jsonConfig; // -> json.c
+int boardFlipped = 0;
+int mouseInBoard = 0;
 
-extern int mouseX, mouseY;      // -> event.c
-
-int moving = 0;
+int boardX, boardY;
 
 int tchsLoad() {
 
@@ -147,7 +149,7 @@ int winInit() {
 			textq     = IMG_LoadTexture(rndMain, pathq);
 			textr     = IMG_LoadTexture(rndMain, pathr);
 
-			tchsRead("default");
+			// tchsRead("default");
 
 		}
 
@@ -164,9 +166,24 @@ void winRender() {
 	SDL_RenderCopy(rndMain, textBG, NULL, NULL);
 	SDL_RenderCopy(rndMain, textBoard, NULL, &rectBoard);
 
-	// printf("X: %d\tY: %d\n", mouseX, mouseY);
+	if (mouseHold) {
 
-	if (moving) {
+		mouseInBoard = ((mouseX > 104)&&(mouseX < 616)&&(mouseY > 104)&&(mouseY < 616));
+
+		// printf("Mouse: %d\t%d\n", mouseX, mouseY);
+		// printf("Mouse in board bool: %d\n", mouseInBoard );
+
+		if (mouseInBoard) {
+
+			boardX = (int)((mouseX-104)/64);
+			boardY = (int)((mouseY-104)/64);
+			// printf("\tBoard: %d\t%d\n", boardX, boardY);
+			// printf("Flipped: %d\n", boardFlipped);
+
+		}
+
+		// TODO: Get the name of the piece on the current square
+
 
 	}
 	else tchsLoad();
