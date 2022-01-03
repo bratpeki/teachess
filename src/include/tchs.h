@@ -2,7 +2,8 @@
 #ifndef H_TEACHESS_TCHS
 #define H_TEACHESS_TCHS
 
-int tchsRead(char *tchsDist);
+char tchsGetPiece(int x, int y, int boardFlipped);
+int  tchsRead(char *tchsDist);
 
 #endif
 

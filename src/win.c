@@ -103,8 +103,8 @@ int tchsLoad() {
 
 			if (textTmp != NULL) {
 
-				rectTmp.x = 104 + j*64;
-				rectTmp.y = 104 + i*64;
+				rectTmp.x = 104 + (j*64)*(!boardFlipped) + ((7-j)*64)*(boardFlipped);
+				rectTmp.y = 104 + (i*64)*(!boardFlipped) + ((7-i)*64)*(boardFlipped);
 
 				SDL_RenderCopy(rndMain, textTmp, NULL, &rectTmp);
 
@@ -179,6 +179,7 @@ void winRender() {
 			boardY = (int)((mouseY-104)/64);
 			// printf("\tBoard: %d\t%d\n", boardX, boardY);
 			// printf("Flipped: %d\n", boardFlipped);
+			printf("%c\n", tchsGetPiece(boardX, boardY, boardFlipped));
 
 		}
 

@@ -5,6 +5,7 @@
  * Header: ./include/tchs.h
  *
  * pieceLegalCheck -> Check if a piece is legal
+ * tchsGetPiece    -> Get the piece character on given coordinate
  * tchsRead        -> Read a TCHS file and return the exit code
  */
 
@@ -36,9 +37,19 @@ char pieceLegal[16] = {
 int pieceLegalCheck(char piece) {
 
 	for (unsigned int i = 0; i < 16; i++)
-		if (piece == pieceLegal[i]) return 0;
+		if (piece == pieceLegal[i]) return 1;
 
-	return 1;
+	return 0;
+
+}
+
+char tchsGetPiece(int x, int y, int boardFlipped) {
+
+	return tchs[
+		(boardFlipped)*(7 - x + 56 - y*8) +
+		(!boardFlipped)*(x + y*8)
+	];
+
 }
 
 int tchsRead(char *name) {
@@ -71,7 +82,7 @@ int tchsRead(char *name) {
 
 	for (unsigned int i = 0; i < tchsLen - sizeof(char); i++) {
 
-		if (pieceLegalCheck(ctchs[i]) == 1) {
+		if (pieceLegalCheck(ctchs[i]) == 0) {
 			if ( (ctchs[i] != '\n') && (ctchs[i] != '\0') ) {
 				printf("Log (tchs.c): Unknown char in %s (%c)\n", gptchs, ctchs[i]);
 				return 1;
