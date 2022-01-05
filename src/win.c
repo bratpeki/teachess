@@ -149,8 +149,6 @@ int winInit() {
 			textq     = IMG_LoadTexture(rndMain, pathq);
 			textr     = IMG_LoadTexture(rndMain, pathr);
 
-			// tchsRead("default");
-
 		}
 
 	} else return 1;
@@ -170,21 +168,13 @@ void winRender() {
 
 		mouseInBoard = ((mouseX > 104)&&(mouseX < 616)&&(mouseY > 104)&&(mouseY < 616));
 
-		// printf("Mouse: %d\t%d\n", mouseX, mouseY);
-		// printf("Mouse in board bool: %d\n", mouseInBoard );
-
 		if (mouseInBoard) {
 
 			boardX = (int)((mouseX-104)/64);
 			boardY = (int)((mouseY-104)/64);
-			// printf("\tBoard: %d\t%d\n", boardX, boardY);
-			// printf("Flipped: %d\n", boardFlipped);
 			printf("%c\n", tchsGetPiece(boardX, boardY, boardFlipped));
 
 		}
-
-		// TODO: Get the name of the piece on the current square
-
 
 	}
 	else tchsLoad();

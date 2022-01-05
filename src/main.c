@@ -14,11 +14,11 @@
 char *pathProg;
 int   stateRunning;
 
+extern int gameTurn; // -> game.c
+
 int main(int argc, char* argv[]) {
 
 	setGlobalPath(argv[0]);
-
-	tchsRead("ruy-lopez-mainline");
 
 	printf("Log (main.c): pathProg loaded as %s\n", pathProg);
 

@@ -4,9 +4,12 @@
  *
  * Header: ./include/tchs.h
  *
- * pieceLegalCheck -> Check if a piece is legal
+ * pieceLegalCheck -> Check if a piece is legal (boolean output)
+ *                    Returns 0 (false) or 1 (true)
  * tchsGetPiece    -> Get the piece character on given coordinate
- * tchsRead        -> Read a TCHS file and return the exit code
+ *                    Returns a char
+ * tchsRead        -> Read a TCHS file and return the exit code (exit code output)
+ *                    Returns 0 (success), 1 (failure) or 2 (bad filename)
  */
 
 #include <stdio.h>
@@ -15,6 +18,9 @@
 
 #include "./include/config.h"
 #include "./include/path.h"
+#include "./include/game.h"
+
+extern int gameTurn; // -> game.c
 
 char tchs[64] = {
 	'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r',
@@ -52,6 +58,8 @@ char tchsGetPiece(int x, int y, int boardFlipped) {
 
 }
 
+// TODO: Block multiple same type kings from being
+
 int tchsRead(char *name) {
 
 	FILE *fp;
@@ -69,6 +77,12 @@ int tchsRead(char *name) {
 	if (!fp) {
 		printf ("Log (tchs.c): %s couldn't load.\n", ptchs);
 		return 1;
+	}
+
+	switch (name[0]) {
+		case 'b': gameTurn = TURN_BLACK; break;
+		case 'w': gameTurn = TURN_WHITE; break;
+		default:  return 2;
 	}
 
 	fseek(fp, 0, SEEK_END);
