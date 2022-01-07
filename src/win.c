@@ -12,8 +12,10 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_pixels.h>
 #include <SDL2/SDL_rect.h>
 #include <SDL2/SDL_render.h>
+#include <SDL2/SDL_ttf.h>
 
 #include <json-c/json.h>
 #include <json-c/json_object.h>
@@ -53,6 +55,13 @@ SDL_Texture*  textr;
 
 SDL_Window*   winMain;
 
+// FONTWORK
+SDL_Color colorFont = { 255, 255, 255 };
+SDL_Surface *surfFont;
+SDL_Texture *textFont;
+TTF_Font *fontMain;
+SDL_Rect rectFont = { 0, 0, 200, 200 };
+
 char          pathBG    [PATH_TEXT_LENGHT];
 char          pathBoard [PATH_TEXT_LENGHT];
 char          pathB     [PATH_TEXT_LENGHT];
@@ -67,6 +76,7 @@ char          pathn     [PATH_TEXT_LENGHT];
 char          pathp     [PATH_TEXT_LENGHT];
 char          pathq     [PATH_TEXT_LENGHT];
 char          pathr     [PATH_TEXT_LENGHT];
+char          pathFont  [PATH_TEXT_LENGHT];
 
 extern int mouseHold;           // -> event.c
 extern int mouseX, mouseY;      // -> event.c
@@ -123,6 +133,7 @@ int winInit() {
 	if (SDL_Init(SDL_INIT_EVERYTHING) >= 0) {
 
 		IMG_Init(IMG_INIT_PNG);
+		TTF_Init();
 
 		if (jsonLoadConf()) return 1;
 		if (jsonTextLoad()) return 1;
@@ -149,6 +160,11 @@ int winInit() {
 			textq     = IMG_LoadTexture(rndMain, pathq);
 			textr     = IMG_LoadTexture(rndMain, pathr);
 
+			// FONTWORK
+			fontMain = TTF_OpenFont(pathFont, 24);
+			surfFont = TTF_RenderText_Solid(fontMain, "Some test text", colorFont);
+			textFont = SDL_CreateTextureFromSurface(rndMain, surfFont);
+
 		}
 
 	} else return 1;
@@ -163,6 +179,9 @@ void winRender() {
 
 	SDL_RenderCopy(rndMain, textBG, NULL, NULL);
 	SDL_RenderCopy(rndMain, textBoard, NULL, &rectBoard);
+
+	// FONTWORK
+	SDL_RenderCopy(rndMain, textFont, NULL, &rectFont);
 
 	if (mouseHold) {
 
@@ -185,6 +204,10 @@ void winRender() {
 
 void winQuit() {
 
+	// FONTWORK
+	SDL_FreeSurface(surfFont);
+	SDL_DestroyTexture(textFont);
+
 	SDL_DestroyRenderer(rndMain);
 
 	SDL_DestroyTexture(textBG);
@@ -204,6 +227,10 @@ void winQuit() {
 	SDL_DestroyTexture(textr);
 
 	SDL_DestroyWindow(winMain);
+
+	// FONTWORK
+	TTF_CloseFont(fontMain);
+	TTF_Quit();
 
 	IMG_Quit();
 	SDL_Quit();

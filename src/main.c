@@ -25,6 +25,8 @@ int main(int argc, char* argv[]) {
 	if ( !winInit() ) stateRunning = 1;
 	else              return 1;
 
+	// tchsRead("b-ruy-lopez-mainline-5-moves");
+
 	while (stateRunning) {
 		eventHandle();
 		winRender();

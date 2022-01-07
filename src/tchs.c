@@ -19,6 +19,7 @@
 #include "./include/config.h"
 #include "./include/path.h"
 #include "./include/game.h"
+#include "./include/tchs.h"
 
 extern int gameTurn; // -> game.c
 

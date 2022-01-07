@@ -1,5 +1,6 @@
 {
 	"boardImage": "default",
 	"pieceImage": "default",
-	"bgImage":    "default"
+	"bgImage":    "default",
+	"font":       "Abaddon_Fonts/Abaddon Bold.ttf"
 }

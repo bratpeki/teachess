@@ -2,7 +2,7 @@
 CC=gcc
 C=$(shell find . -name "*.c")
 OUT=teachess.out
-LNK=-lSDL2 -lSDL2_image -ljson-c
+LNK=-lSDL2 -lSDL2_image -lSDL2_ttf -ljson-c
 
 build:
 	@$(CC) -o $(OUT) $(C) $(LNK)
