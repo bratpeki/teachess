@@ -12,6 +12,7 @@
 #include <SDL2/SDL_mouse.h>
 
 #include "./include/event.h"
+#include "./include/tchs.h"
 
 SDL_Event event;
 
@@ -50,6 +51,14 @@ void eventHandle() {
 
 					case SDLK_f:
 						boardFlipped = !boardFlipped;
+						break;
+
+					case SDLK_1:
+						tchsRead("w-default");
+						break;
+
+					case SDLK_2:
+						tchsRead("b-ruy-lopez-mainline-5-moves");
 						break;
 
 				}

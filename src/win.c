@@ -60,7 +60,7 @@ SDL_Color colorFont = { 255, 255, 255 };
 SDL_Surface *surfFont;
 SDL_Texture *textFont;
 TTF_Font *fontMain;
-SDL_Rect rectFont = { 0, 0, 200, 200 };
+SDL_Rect rectFont = { 740, 60, 480, 64 };
 
 char          pathBG    [PATH_TEXT_LENGHT];
 char          pathBoard [PATH_TEXT_LENGHT];

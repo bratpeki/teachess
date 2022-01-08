@@ -46,7 +46,7 @@ void setGlobalPath(char *src) {
 
 char *addToGlobalPath(char *src) {
 
-	char *out = (char*)calloc(sizeof(char), strlen(pathProg) + strlen(src));
+	char *out = (char*)calloc(sizeof(char), strlen(pathProg) + strlen(src) + 1);
 
 	sprintf(out, "%s%s", pathProg, src);
 
