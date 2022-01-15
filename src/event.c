@@ -9,6 +9,7 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_events.h>
+#include <SDL2/SDL_keycode.h>
 #include <SDL2/SDL_mouse.h>
 
 #include "./include/event.h"
@@ -21,6 +22,7 @@ int mouseX, mouseY = 0;
 
 extern int stateRunning; // -> main.c
 extern int boardFlipped; // -> win.c
+extern int offset;       // -> win.c
 
 void eventHandle() {
 
@@ -59,6 +61,14 @@ void eventHandle() {
 
 					case SDLK_2:
 						tchsRead("b-ruy-lopez-mainline-5-moves");
+						break;
+
+					case SDLK_a:
+						offset--;
+						break;
+
+					case SDLK_d:
+						offset++;
 						break;
 
 				}

@@ -4,10 +4,11 @@
  *
  * Header: win.h
  *
- * tchsLoad  -> Load the TCHS array contents onto the screen
- * winInit   -> Initialize the SDL window and necessary components
- * winRender -> Render the visual elements onto the window
- * winQuit   -> Quit the window and clean any memory allocations and calls
+ * tchsLoad      -> Load the TCHS array contents onto the screen
+ * tchsTitleEdit -> Format the TCHS title into TITLE_DISP_SIZE characters which are displayed
+ * winInit       -> Initialize the SDL window and necessary components
+ * winRender     -> Render the visual elements onto the window
+ * winQuit       -> Quit the window and clean any memory allocations and calls
  */
 
 #include <SDL2/SDL.h>
@@ -17,6 +18,7 @@
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_ttf.h>
 
+#include <SDL2/SDL_video.h>
 #include <json-c/json.h>
 #include <json-c/json_object.h>
 
@@ -62,31 +64,36 @@ SDL_Texture *textFont;
 TTF_Font *fontMain;
 SDL_Rect rectFont = { 740, 60, 480, 64 };
 
-char          pathBG    [PATH_TEXT_LENGHT];
-char          pathBoard [PATH_TEXT_LENGHT];
-char          pathB     [PATH_TEXT_LENGHT];
-char          pathK     [PATH_TEXT_LENGHT];
-char          pathN     [PATH_TEXT_LENGHT];
-char          pathP     [PATH_TEXT_LENGHT];
-char          pathQ     [PATH_TEXT_LENGHT];
-char          pathR     [PATH_TEXT_LENGHT];
-char          pathb     [PATH_TEXT_LENGHT];
-char          pathk     [PATH_TEXT_LENGHT];
-char          pathn     [PATH_TEXT_LENGHT];
-char          pathp     [PATH_TEXT_LENGHT];
-char          pathq     [PATH_TEXT_LENGHT];
-char          pathr     [PATH_TEXT_LENGHT];
-char          pathFont  [PATH_TEXT_LENGHT];
+char          pathBG    [PATH_TXT_LEN];
+char          pathBoard [PATH_TXT_LEN];
+char          pathB     [PATH_TXT_LEN];
+char          pathK     [PATH_TXT_LEN];
+char          pathN     [PATH_TXT_LEN];
+char          pathP     [PATH_TXT_LEN];
+char          pathQ     [PATH_TXT_LEN];
+char          pathR     [PATH_TXT_LEN];
+char          pathb     [PATH_TXT_LEN];
+char          pathk     [PATH_TXT_LEN];
+char          pathn     [PATH_TXT_LEN];
+char          pathp     [PATH_TXT_LEN];
+char          pathq     [PATH_TXT_LEN];
+char          pathr     [PATH_TXT_LEN];
+char          pathFont  [PATH_TXT_LEN];
 
-extern int mouseHold;           // -> event.c
-extern int mouseX, mouseY;      // -> event.c
-extern json_object* jsonConfig; // -> json.c
-extern char tchs[64];           // -> tchs.c
+// The "+1" is there to include the null escape character
+char tchsTitleFormat[TITLE_DISP_SIZE + 1];
+
+extern char tchsTitle[PATH_TXT_LEN];     // -> tchs.c
+extern char tchs[64];                    // -> tchs.c
+extern int mouseHold;                    // -> event.c
+extern int mouseX, mouseY;               // -> event.c
+extern json_object* jsonConfig;          // -> json.c
 
 int boardFlipped = 0;
 int mouseInBoard = 0;
 
 int boardX, boardY;
+int offset = 0;
 
 int tchsLoad() {
 
@@ -128,6 +135,29 @@ int tchsLoad() {
 
 }
 
+// TODO: If the last character is '\0', don't increase the offset
+
+void tchsTitleEdit(int offset) {
+
+	printf("tchsTitle: '%s'\n", tchsTitle);
+
+	if (offset < 0) offset = 0;
+
+	for (int i = 0; i < TITLE_DISP_SIZE; i++) {
+		if (tchsTitle[offset + i] != '\0') {
+			tchsTitleFormat[i] = tchsTitle[offset + i];
+		}
+		else {
+			for (int j = 0; j <= TITLE_DISP_SIZE - i; j++) {
+				tchsTitleFormat[i + j] = ' ';
+			}
+			printf("tchsTitleFormat: '%s'\n", tchsTitleFormat);
+			return;
+		}
+	}
+
+}
+
 int winInit() {
 
 	if (SDL_Init(SDL_INIT_EVERYTHING) >= 0) {
@@ -161,9 +191,10 @@ int winInit() {
 			textr     = IMG_LoadTexture(rndMain, pathr);
 
 			// FONTWORK
+			tchsTitleFormat[TITLE_DISP_SIZE] = '\0';
 			fontMain = TTF_OpenFont(pathFont, 24);
-			surfFont = TTF_RenderText_Solid(fontMain, "Some test text", colorFont);
-			textFont = SDL_CreateTextureFromSurface(rndMain, surfFont);
+			// surfFont = TTF_RenderText_Solid(fontMain, tchsTitleFormat, colorFont);
+			// textFont = SDL_CreateTextureFromSurface(rndMain, surfFont);
 
 		}
 
@@ -182,6 +213,9 @@ void winRender() {
 
 	// FONTWORK
 	SDL_RenderCopy(rndMain, textFont, NULL, &rectFont);
+	tchsTitleEdit(offset);
+	surfFont = TTF_RenderText_Solid(fontMain, tchsTitleFormat, colorFont);
+	textFont = SDL_CreateTextureFromSurface(rndMain, surfFont);
 
 	if (mouseHold) {
 

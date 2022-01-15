@@ -22,9 +22,6 @@ int main(int argc, char* argv[]) {
 
 	printf("Log (main.c): pathProg loaded as %s\n", pathProg);
 
-	// tchsRead("b-ruy-lopez-mainline-5-moves");
-	tchsRead("w-default");
-
 	if ( !winInit() ) stateRunning = 1;
 	else              return 1;
 

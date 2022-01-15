@@ -4,7 +4,8 @@
 
 #define PATH_JSON_CONF "conf/conf.json"
 
-#define PATH_TEXT_LENGHT 64
+#define PATH_TXT_LEN 128
+#define TITLE_DISP_SIZE 10
 
 #endif
 

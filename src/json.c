@@ -29,21 +29,21 @@ char *tmp;
 
 json_object* jsonConfig;
 
-extern char pathFont  [PATH_TEXT_LENGHT]; // -> win.c
-extern char pathBG    [PATH_TEXT_LENGHT]; // -> win.c
-extern char pathBoard [PATH_TEXT_LENGHT]; // -> win.c
-extern char pathB     [PATH_TEXT_LENGHT]; // -> win.c
-extern char pathK     [PATH_TEXT_LENGHT]; // -> win.c
-extern char pathN     [PATH_TEXT_LENGHT]; // -> win.c
-extern char pathP     [PATH_TEXT_LENGHT]; // -> win.c
-extern char pathQ     [PATH_TEXT_LENGHT]; // -> win.c
-extern char pathR     [PATH_TEXT_LENGHT]; // -> win.c
-extern char pathb     [PATH_TEXT_LENGHT]; // -> win.c
-extern char pathk     [PATH_TEXT_LENGHT]; // -> win.c
-extern char pathn     [PATH_TEXT_LENGHT]; // -> win.c
-extern char pathp     [PATH_TEXT_LENGHT]; // -> win.c
-extern char pathq     [PATH_TEXT_LENGHT]; // -> win.c
-extern char pathr     [PATH_TEXT_LENGHT]; // -> win.c
+extern char pathFont  [PATH_TXT_LEN]; // -> win.c
+extern char pathBG    [PATH_TXT_LEN]; // -> win.c
+extern char pathBoard [PATH_TXT_LEN]; // -> win.c
+extern char pathB     [PATH_TXT_LEN]; // -> win.c
+extern char pathK     [PATH_TXT_LEN]; // -> win.c
+extern char pathN     [PATH_TXT_LEN]; // -> win.c
+extern char pathP     [PATH_TXT_LEN]; // -> win.c
+extern char pathQ     [PATH_TXT_LEN]; // -> win.c
+extern char pathR     [PATH_TXT_LEN]; // -> win.c
+extern char pathb     [PATH_TXT_LEN]; // -> win.c
+extern char pathk     [PATH_TXT_LEN]; // -> win.c
+extern char pathn     [PATH_TXT_LEN]; // -> win.c
+extern char pathp     [PATH_TXT_LEN]; // -> win.c
+extern char pathq     [PATH_TXT_LEN]; // -> win.c
+extern char pathr     [PATH_TXT_LEN]; // -> win.c
 
 char *paths[15][3] = {
 

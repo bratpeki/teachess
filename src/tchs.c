@@ -22,6 +22,9 @@
 #include "./include/tchs.h"
 
 extern int gameTurn; // -> game.c
+extern int offset;   // -> win.c
+
+char tchsTitle[PATH_TXT_LEN] = "Default";
 
 char tchs[64] = {
 	'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r',
@@ -60,16 +63,20 @@ char tchsGetPiece(int x, int y, int boardFlipped) {
 }
 
 // TODO: Block multiple same type kings from being
+// TODO: Edit TCHS title
 
 int tchsRead(char *name) {
 
 	FILE *fp;
 	char *ctchs;
 	char *gptchs;
-	char  ptchs[PATH_TEXT_LENGHT];
+	char  ptchs[PATH_TXT_LEN];
 	int   tchsLen;
 
-	snprintf(ptchs, PATH_TEXT_LENGHT, "tchs/%s.tchs", name);
+	offset = 0;
+	strcpy(tchsTitle, name);
+
+	snprintf(ptchs, PATH_TXT_LEN, "tchs/%s.tchs", name);
 
 	gptchs = addToGlobalPath(ptchs);
 
