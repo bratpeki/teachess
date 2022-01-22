@@ -137,23 +137,21 @@ int tchsLoad() {
 
 // TODO: If the last character is '\0', don't increase the offset
 
-void tchsTitleEdit(int offset) {
+void tchsTitleEdit(int localOffset) {
 
-	printf("tchsTitle: '%s'\n", tchsTitle);
+	// Making sure the offset is proper
+	if (localOffset < 0) offset = 0;
+	if (localOffset > PATH_TXT_LEN - TITLE_DISP_SIZE) { offset--; return; }
 
-	if (offset < 0) offset = 0;
+	// Clearing tchsTitleFormat
+	for (int i = 0; i < TITLE_DISP_SIZE; i++) tchsTitleFormat[i] = ' ';
 
+	// Formatting
 	for (int i = 0; i < TITLE_DISP_SIZE; i++) {
-		if (tchsTitle[offset + i] != '\0') {
-			tchsTitleFormat[i] = tchsTitle[offset + i];
-		}
-		else {
-			for (int j = 0; j <= TITLE_DISP_SIZE - i; j++) {
-				tchsTitleFormat[i + j] = ' ';
-			}
-			printf("tchsTitleFormat: '%s'\n", tchsTitleFormat);
-			return;
-		}
+
+		if (tchsTitle[offset + i] == '\0') break;
+		else tchsTitleFormat[i] = tchsTitle[offset + i];
+
 	}
 
 }
@@ -191,10 +189,10 @@ int winInit() {
 			textr     = IMG_LoadTexture(rndMain, pathr);
 
 			// FONTWORK
-			tchsTitleFormat[TITLE_DISP_SIZE] = '\0';
+			tchsTitleFormat[TITLE_DISP_SIZE] = '\0'; // this can be defined just once
 			fontMain = TTF_OpenFont(pathFont, 24);
-			// surfFont = TTF_RenderText_Solid(fontMain, tchsTitleFormat, colorFont);
-			// textFont = SDL_CreateTextureFromSurface(rndMain, surfFont);
+			surfFont = TTF_RenderText_Solid(fontMain, tchsTitleFormat, colorFont);
+			textFont = SDL_CreateTextureFromSurface(rndMain, surfFont);
 
 		}
 
