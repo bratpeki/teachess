@@ -31,7 +31,7 @@ Its contents must contain 64 characters or less which can be:
 A normal TCHS file looks like this:
 
 ```sh
-$ cat ./tchs/w-default.tchs
+$ cat ./tchs/wDefault.tchs
 rnbqkbnr
 pppppppp
 --------
@@ -42,7 +42,7 @@ PPPPPPPP
 RNBKQBNR
 ```
 
-## How is is made?
+## How is it made?
 
 TeaChess is made using SDL2 for C.
 
