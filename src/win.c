@@ -135,7 +135,7 @@ int tchsLoad() {
 
 }
 
-// TODO: If the last character is '\0', don't increase the offset
+// TODO: Work on the system that stop you from overdoing the offsetting
 
 void tchsTitleEdit(int localOffset) {
 

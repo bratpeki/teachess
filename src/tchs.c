@@ -74,6 +74,7 @@ int tchsRead(char *name) {
 	int   tchsLen;
 
 	offset = 0;
+	for (unsigned int i = 0; i < PATH_TXT_LEN; i++) tchsTitle[i] = ' ';
 	strcpy(tchsTitle, name);
 
 	snprintf(ptchs, PATH_TXT_LEN, "tchs/%s.tchs", name);
