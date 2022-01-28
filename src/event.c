@@ -56,11 +56,11 @@ void eventHandle() {
 						break;
 
 					case SDLK_1:
-						tchsRead("w-default");
+						tchsRead("wDefault");
 						break;
 
 					case SDLK_2:
-						tchsRead("b-ruy-lopez-mainline-5-moves");
+						tchsRead("bRuy Lopez Mainline (5 Moves)");
 						break;
 
 					case SDLK_a:

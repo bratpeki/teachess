@@ -62,8 +62,8 @@ char tchsGetPiece(int x, int y, int boardFlipped) {
 
 }
 
-// TODO: Block multiple same type kings from being
-// TODO: Edit TCHS title
+// TODO: Block multiple same type kings from being on the board
+// TODO: Exclude the first letter
 
 int tchsRead(char *name) {
 
