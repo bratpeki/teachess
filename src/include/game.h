@@ -14,5 +14,7 @@
 #define VALUE_Q 9
 #define VALUE_K 0
 
+void gameGetMoves(int boardX, int boardY);
+
 #endif
 

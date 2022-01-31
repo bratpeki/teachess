@@ -24,7 +24,7 @@
 extern int gameTurn; // -> game.c
 extern int offset;   // -> win.c
 
-char tchsTitle[PATH_TXT_LEN] = "Default";
+char tchsTitle[PATH_TXT_LEN] = "TeaChess";
 
 char tchs[64] = {
 	'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r',
@@ -73,10 +73,6 @@ int tchsRead(char *name) {
 	char  ptchs[PATH_TXT_LEN];
 	int   tchsLen;
 
-	offset = 0;
-	for (unsigned int i = 0; i < PATH_TXT_LEN; i++) tchsTitle[i] = ' ';
-	strcpy(tchsTitle, name);
-
 	snprintf(ptchs, PATH_TXT_LEN, "tchs/%s.tchs", name);
 
 	gptchs = addToGlobalPath(ptchs);
@@ -87,6 +83,10 @@ int tchsRead(char *name) {
 		printf ("Log (tchs.c): %s couldn't load.\n", ptchs);
 		return 1;
 	}
+
+	offset = 0;
+	for (unsigned int i = 0; i < PATH_TXT_LEN; i++) tchsTitle[i] = ' ';
+	strcpy(tchsTitle, name);
 
 	switch (name[0]) {
 		case 'b': gameTurn = TURN_BLACK; break;

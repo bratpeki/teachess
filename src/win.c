@@ -28,20 +28,27 @@
 #include <unistd.h>
 
 #include "./include/config.h"
+#include "./include/game.h"
 #include "./include/json.h"
 #include "./include/tchs.h"
 #include "./include/win.h"
 
+SDL_Color     colorFont = { 153, 153, 153 };
+
 SDL_Rect      rectBoard = { 104, 104, 512, 512 };
+SDL_Rect      rectTitle = { 748, 68,  464, 48  };
 SDL_Rect      rectTmp   = { 0,   0,   64,  64  };
 
 SDL_Renderer* rndMain;
 
-SDL_Texture*  textTmp;
+SDL_Surface*  surfFont;
 
+TTF_Font*     fontMain;
+
+SDL_Texture*  textFont;
+SDL_Texture*  textTmp;
 SDL_Texture*  textBG;
 SDL_Texture*  textBoard;
-
 SDL_Texture*  textB;
 SDL_Texture*  textK;
 SDL_Texture*  textN;
@@ -56,13 +63,6 @@ SDL_Texture*  textq;
 SDL_Texture*  textr;
 
 SDL_Window*   winMain;
-
-// FONTWORK
-SDL_Color colorFont = { 255, 255, 255 };
-SDL_Surface *surfFont;
-SDL_Texture *textFont;
-TTF_Font *fontMain;
-SDL_Rect rectFont = { 740, 60, 480, 64 };
 
 char          pathBG    [PATH_TXT_LEN];
 char          pathBoard [PATH_TXT_LEN];
@@ -92,7 +92,6 @@ extern json_object* jsonConfig;          // -> json.c
 int boardFlipped = 0;
 int mouseInBoard = 0;
 
-int boardX, boardY;
 int offset = 0;
 
 int tchsLoad() {
@@ -188,11 +187,9 @@ int winInit() {
 			textq     = IMG_LoadTexture(rndMain, pathq);
 			textr     = IMG_LoadTexture(rndMain, pathr);
 
-			// FONTWORK
 			tchsTitleFormat[TITLE_DISP_SIZE] = '\0'; // this can be defined just once
+
 			fontMain = TTF_OpenFont(pathFont, 24);
-			surfFont = TTF_RenderText_Solid(fontMain, tchsTitleFormat, colorFont);
-			textFont = SDL_CreateTextureFromSurface(rndMain, surfFont);
 
 		}
 
@@ -208,10 +205,10 @@ void winRender() {
 
 	SDL_RenderCopy(rndMain, textBG, NULL, NULL);
 	SDL_RenderCopy(rndMain, textBoard, NULL, &rectBoard);
+	SDL_RenderCopy(rndMain, textFont, NULL, &rectTitle);
 
-	// FONTWORK
-	SDL_RenderCopy(rndMain, textFont, NULL, &rectFont);
 	tchsTitleEdit(offset);
+
 	surfFont = TTF_RenderText_Solid(fontMain, tchsTitleFormat, colorFont);
 	textFont = SDL_CreateTextureFromSurface(rndMain, surfFont);
 
@@ -221,9 +218,7 @@ void winRender() {
 
 		if (mouseInBoard) {
 
-			boardX = (int)((mouseX-104)/64);
-			boardY = (int)((mouseY-104)/64);
-			printf("%c\n", tchsGetPiece(boardX, boardY, boardFlipped));
+			gameGetMoves((int)((mouseX-104)/64), (int)((mouseY-104)/64));
 
 		}
 
