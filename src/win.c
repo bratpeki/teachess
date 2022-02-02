@@ -17,8 +17,8 @@
 #include <SDL2/SDL_rect.h>
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_ttf.h>
-
 #include <SDL2/SDL_video.h>
+
 #include <json-c/json.h>
 #include <json-c/json_object.h>
 
@@ -41,11 +41,11 @@ SDL_Rect      rectTmp   = { 0,   0,   64,  64  };
 
 SDL_Renderer* rndMain;
 
-SDL_Surface*  surfFont;
+SDL_Surface*  surfTitle;
 
 TTF_Font*     fontMain;
 
-SDL_Texture*  textFont;
+SDL_Texture*  textTitle;
 SDL_Texture*  textTmp;
 SDL_Texture*  textBG;
 SDL_Texture*  textBoard;
@@ -87,12 +87,14 @@ extern char tchsTitle[PATH_TXT_LEN];     // -> tchs.c
 extern char tchs[64];                    // -> tchs.c
 extern int mouseHold;                    // -> event.c
 extern int mouseX, mouseY;               // -> event.c
+extern int tchsTitleLen;                 // -> tchs.c
 extern json_object* jsonConfig;          // -> json.c
 
 int boardFlipped = 0;
 int mouseInBoard = 0;
 
 int offset = 0;
+int minOffset = 0;
 
 int tchsLoad() {
 
@@ -138,14 +140,13 @@ int tchsLoad() {
 
 void tchsTitleEdit(int localOffset) {
 
-	// Making sure the offset is proper
-	if (localOffset < 0) offset = 0;
+	if (localOffset < minOffset) offset = minOffset;
 	if (localOffset > PATH_TXT_LEN - TITLE_DISP_SIZE) { offset--; return; }
 
-	// Clearing tchsTitleFormat
+	/* printf("tchsTitleLen: %d\n", tchsTitleLen); */
+
 	for (int i = 0; i < TITLE_DISP_SIZE; i++) tchsTitleFormat[i] = ' ';
 
-	// Formatting
 	for (int i = 0; i < TITLE_DISP_SIZE; i++) {
 
 		if (tchsTitle[offset + i] == '\0') break;
@@ -205,12 +206,12 @@ void winRender() {
 
 	SDL_RenderCopy(rndMain, textBG, NULL, NULL);
 	SDL_RenderCopy(rndMain, textBoard, NULL, &rectBoard);
-	SDL_RenderCopy(rndMain, textFont, NULL, &rectTitle);
+	SDL_RenderCopy(rndMain, textTitle, NULL, &rectTitle);
 
 	tchsTitleEdit(offset);
 
-	surfFont = TTF_RenderText_Solid(fontMain, tchsTitleFormat, colorFont);
-	textFont = SDL_CreateTextureFromSurface(rndMain, surfFont);
+	surfTitle = TTF_RenderText_Solid(fontMain, tchsTitleFormat, colorFont);
+	textTitle = SDL_CreateTextureFromSurface(rndMain, surfTitle);
 
 	if (mouseHold) {
 
@@ -231,9 +232,8 @@ void winRender() {
 
 void winQuit() {
 
-	// FONTWORK
-	SDL_FreeSurface(surfFont);
-	SDL_DestroyTexture(textFont);
+	SDL_FreeSurface(surfTitle);
+	SDL_DestroyTexture(textTitle);
 
 	SDL_DestroyRenderer(rndMain);
 
@@ -255,7 +255,6 @@ void winQuit() {
 
 	SDL_DestroyWindow(winMain);
 
-	// FONTWORK
 	TTF_CloseFont(fontMain);
 	TTF_Quit();
 

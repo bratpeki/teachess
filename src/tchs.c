@@ -21,10 +21,13 @@
 #include "./include/game.h"
 #include "./include/tchs.h"
 
-extern int gameTurn; // -> game.c
-extern int offset;   // -> win.c
+extern int gameTurn;  // -> game.c
+extern int minOffset; // -> win.c
+extern int offset;    // -> win.c
 
 char tchsTitle[PATH_TXT_LEN] = "TeaChess";
+
+int tchsTitleLen = 8;
 
 char tchs[64] = {
 	'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r',
@@ -63,7 +66,7 @@ char tchsGetPiece(int x, int y, int boardFlipped) {
 }
 
 // TODO: Block multiple same type kings from being on the board
-// TODO: Exclude the first letter
+// TODO: Make a better system for ignoring the first character other than... literally skipping it.
 
 int tchsRead(char *name) {
 
@@ -84,9 +87,12 @@ int tchsRead(char *name) {
 		return 1;
 	}
 
-	offset = 0;
+	minOffset = 1;
+	offset    = 1;
 	for (unsigned int i = 0; i < PATH_TXT_LEN; i++) tchsTitle[i] = ' ';
 	strcpy(tchsTitle, name);
+
+	tchsTitleLen = strlen(name);
 
 	switch (name[0]) {
 		case 'b': gameTurn = TURN_BLACK; break;
