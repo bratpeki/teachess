@@ -15,6 +15,7 @@
 #define VALUE_K 0
 
 void gameGetMoves(int boardX, int boardY);
+void clearAvailableMoves();
 
 #endif
 

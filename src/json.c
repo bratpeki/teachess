@@ -29,9 +29,9 @@ char *tmp;
 
 json_object* jsonConfig;
 
-extern char pathFont  [PATH_TXT_LEN]; // -> win.c
 extern char pathBG    [PATH_TXT_LEN]; // -> win.c
 extern char pathBoard [PATH_TXT_LEN]; // -> win.c
+extern char pathAMove [PATH_TXT_LEN]; // -> win.c
 extern char pathB     [PATH_TXT_LEN]; // -> win.c
 extern char pathK     [PATH_TXT_LEN]; // -> win.c
 extern char pathN     [PATH_TXT_LEN]; // -> win.c
@@ -44,11 +44,13 @@ extern char pathn     [PATH_TXT_LEN]; // -> win.c
 extern char pathp     [PATH_TXT_LEN]; // -> win.c
 extern char pathq     [PATH_TXT_LEN]; // -> win.c
 extern char pathr     [PATH_TXT_LEN]; // -> win.c
+extern char pathFont  [PATH_TXT_LEN]; // -> win.c
 
-char *paths[15][3] = {
+char *paths[16][3] = {
 
 	{ pathBG,    "bgImage",    "img/background/%s.png" },
 	{ pathBoard, "boardImage", "img/board/%s.png"      },
+	{ pathAMove, "move",       "img/move/%s.png"       },
 	{ pathB,     "pieceImage", "img/piece/%s/B.png"    },
 	{ pathK,     "pieceImage", "img/piece/%s/K.png"    },
 	{ pathN,     "pieceImage", "img/piece/%s/N.png"    },
@@ -124,7 +126,7 @@ int jsonTextLoad() {
 
 	json_object_object_foreach(jsonConfig, key, val) {
 
-		for (unsigned int i = 0; i < 15; i++) {
+		for (unsigned int i = 0; i < 16; i++) {
 
 			if (textLoadLocal(
 				key, val,

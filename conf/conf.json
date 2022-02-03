@@ -2,5 +2,6 @@
 	"boardImage": "default",
 	"pieceImage": "default",
 	"bgImage":    "default",
+	"move":       "default",
 	"font":       "Kongtext/kongtext.ttf"
 }

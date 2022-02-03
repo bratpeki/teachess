@@ -4,14 +4,20 @@
  *
  * Header: game.h
  *
- * gameGetMoves -> Get all avalable moves for a piece on (boardX, boardY)
+ * dispAvailableMoves  -> Self-explanatory
+ * clearAvailableMoves -> Self-explanatory
+ * gameGetMoves        -> Get all avalable moves for a piece on (boardX, boardY)
+ * getPos64            -> Convert the X and Y into a single number from 0 to 63
  */
 
 #include <stdio.h>
 
 #include "./include/tchs.h"
 
+#define getPos64(x, y) (x + 8*(y))
+
 int gameTurn;
+int piecePos64;
 
 int availableMoves[64] = {
 	0, 0, 0, 0, 0, 0, 0, 0,
@@ -26,60 +32,91 @@ int availableMoves[64] = {
 
 extern int boardFlipped; // -> win.c
 
+// SUBJECT TO LATER REMOVAL
+
+void dispAvailableMoves() {
+	for (unsigned int i = 0; i < 64; i++) {
+
+		printf("%d", availableMoves[i]);
+
+		if ((i+1) % 8 == 0) printf("%c", '\n');
+
+	}
+	printf("===\n");
+}
+
+void clearAvailableMoves() {
+	for (unsigned int i = 0; i < 64; i++)
+		availableMoves[i] = 0;
+}
+
 void gameGetMoves(int boardX, int boardY) {
+
+	clearAvailableMoves();
 
 	switch (tchsGetPiece(boardX, boardY, boardFlipped)) {
 
 		case 'p':
-			printf("Black Pawn!\n");
 			break;
 
 		case 'b':
-			printf("Black Bishop!\n");
 			break;
 
 		case 'n':
-			printf("Black Knight!\n");
 			break;
 
 		case 'r':
-			printf("Black Rook!\n");
 			break;
 
 		case 'k':
-			printf("Black King!\n");
 			break;
 
 		case 'q':
-			printf("Black Queen!\n");
 			break;
 
 		case 'P':
-			printf("White Pawn!\n");
 			break;
 
 		case 'B':
-			printf("White Bishop!\n");
 			break;
 
 		case 'N':
-			printf("White Knight!\n");
 			break;
 
 		case 'R':
-			printf("White Rook!\n");
+
+			// WORKING HERE
+			// TODO: Check going through pieces
+
+			// up
+			for (int i = getPos64(boardX, boardY - 1); i >= 0; i -= 8) {
+				availableMoves[i] = 1;
+			}
+
+			// down
+			for (int i = getPos64(boardX, boardY + 1); i <= 64; i += 8) {
+				availableMoves[i] = 1;
+			}
+
+			// left
+			for (int i = getPos64(boardX - 1, boardY); i >= getPos64(0, boardY); i -= 1) {
+				availableMoves[i] = 1;
+			}
+
+			// right
+			for (int i = getPos64(boardX + 1, boardY); i <= getPos64(7, boardY); i += 1) {
+				availableMoves[i] = 1;
+			}
+
 			break;
 
 		case 'K':
-			printf("White King!\n");
 			break;
 
 		case 'Q':
-			printf("White Queen!\n");
 			break;
 
 		default:
-			printf("None!\n");
 			break;
 
 	}

@@ -63,6 +63,10 @@ void eventHandle() {
 						tchsRead("bRuy Lopez Mainline (5 Moves)");
 						break;
 
+					case SDLK_3:
+						tchsRead("wRook Endgame Example");
+						break;
+
 					case SDLK_a:
 						offset--;
 						break;

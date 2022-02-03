@@ -88,7 +88,6 @@ int tchsRead(char *name) {
 	}
 
 	minOffset = 1;
-	offset    = 1;
 	for (unsigned int i = 0; i < PATH_TXT_LEN; i++) tchsTitle[i] = ' ';
 	strcpy(tchsTitle, name);
 
@@ -129,6 +128,8 @@ int tchsRead(char *name) {
 		}
 
 	}
+
+	clearAvailableMoves();
 
 	fclose(fp);
 	free(ctchs);

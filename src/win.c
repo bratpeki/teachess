@@ -4,11 +4,12 @@
  *
  * Header: win.h
  *
- * tchsLoad      -> Load the TCHS array contents onto the screen
- * tchsTitleEdit -> Format the TCHS title into TITLE_DISP_SIZE characters which are displayed
- * winInit       -> Initialize the SDL window and necessary components
- * winRender     -> Render the visual elements onto the window
- * winQuit       -> Quit the window and clean any memory allocations and calls
+ * availableMovesLoad -> Render the availableMoves onto the screen
+ * tchsLoad           -> Render the TCHS array contents onto the screen
+ * tchsTitleEdit      -> Format the TCHS title into TITLE_DISP_SIZE characters which are displayed
+ * winInit            -> Initialize the SDL window and necessary components
+ * winRender          -> Render the visual elements onto the window
+ * winQuit            -> Quit the window and clean any memory allocations and calls
  */
 
 #include <SDL2/SDL.h>
@@ -49,6 +50,7 @@ SDL_Texture*  textTitle;
 SDL_Texture*  textTmp;
 SDL_Texture*  textBG;
 SDL_Texture*  textBoard;
+SDL_Texture*  textMove;
 SDL_Texture*  textB;
 SDL_Texture*  textK;
 SDL_Texture*  textN;
@@ -66,6 +68,7 @@ SDL_Window*   winMain;
 
 char          pathBG    [PATH_TXT_LEN];
 char          pathBoard [PATH_TXT_LEN];
+char          pathAMove [PATH_TXT_LEN];
 char          pathB     [PATH_TXT_LEN];
 char          pathK     [PATH_TXT_LEN];
 char          pathN     [PATH_TXT_LEN];
@@ -85,9 +88,10 @@ char tchsTitleFormat[TITLE_DISP_SIZE + 1];
 
 extern char tchsTitle[PATH_TXT_LEN];     // -> tchs.c
 extern char tchs[64];                    // -> tchs.c
+extern int tchsTitleLen;                 // -> tchs.c
+extern int availableMoves[64];           // -> game.c
 extern int mouseHold;                    // -> event.c
 extern int mouseX, mouseY;               // -> event.c
-extern int tchsTitleLen;                 // -> tchs.c
 extern json_object* jsonConfig;          // -> json.c
 
 int boardFlipped = 0;
@@ -95,6 +99,22 @@ int mouseInBoard = 0;
 
 int offset = 0;
 int minOffset = 0;
+
+void availableMovesLoad() {
+
+	rectTmp.h = 64;
+	rectTmp.w = 64;
+
+	for (int i = 0; i < 64; i++) {
+		if (availableMoves[i] == 1) {
+			rectTmp.x = 104 + 64*(i % 8);
+			rectTmp.y = 104 + 64*(int)(i/8);
+
+			SDL_RenderCopy(rndMain, textMove, NULL, &rectTmp);
+		}
+	}
+
+}
 
 int tchsLoad() {
 
@@ -143,8 +163,6 @@ void tchsTitleEdit(int localOffset) {
 	if (localOffset < minOffset) offset = minOffset;
 	if (localOffset > PATH_TXT_LEN - TITLE_DISP_SIZE) { offset--; return; }
 
-	/* printf("tchsTitleLen: %d\n", tchsTitleLen); */
-
 	for (int i = 0; i < TITLE_DISP_SIZE; i++) tchsTitleFormat[i] = ' ';
 
 	for (int i = 0; i < TITLE_DISP_SIZE; i++) {
@@ -174,6 +192,8 @@ int winInit() {
 
 			textBG    = IMG_LoadTexture(rndMain, pathBG);
 			textBoard = IMG_LoadTexture(rndMain, pathBoard);
+
+			textMove  = IMG_LoadTexture(rndMain, pathAMove);
 
 			textB     = IMG_LoadTexture(rndMain, pathB);
 			textK     = IMG_LoadTexture(rndMain, pathK);
@@ -213,18 +233,24 @@ void winRender() {
 	surfTitle = TTF_RenderText_Solid(fontMain, tchsTitleFormat, colorFont);
 	textTitle = SDL_CreateTextureFromSurface(rndMain, surfTitle);
 
+	availableMovesLoad();
+
 	if (mouseHold) {
 
 		mouseInBoard = ((mouseX > 104)&&(mouseX < 616)&&(mouseY > 104)&&(mouseY < 616));
 
 		if (mouseInBoard) {
 
+			/*
+			 * Either picking a new piece or moving a piece
+			 */
+
 			gameGetMoves((int)((mouseX-104)/64), (int)((mouseY-104)/64));
 
 		}
 
 	}
-	else tchsLoad();
+	tchsLoad();
 
 	SDL_RenderPresent(rndMain);
 
