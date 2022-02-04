@@ -7,9 +7,10 @@
 #include <stdlib.h>
 
 #include "./include/event.h"
+#include "./include/game.h"
 #include "./include/path.h"
-#include "./include/win.h"
 #include "./include/tchs.h"
+#include "./include/win.h"
 
 char *pathProg;
 int   stateRunning;
@@ -24,6 +25,8 @@ int main(int argc, char* argv[]) {
 
 	if ( !winInit() ) stateRunning = 1;
 	else              return 1;
+
+	gameTurn = PIECE_WHITE;
 
 	while (stateRunning) {
 		eventHandle();

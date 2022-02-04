@@ -6,8 +6,9 @@
  *
  * pieceLegalCheck -> Check if a piece is legal (boolean output)
  *                    Returns 0 (false) or 1 (true)
- * tchsGetPiece    -> Get the piece character on given coordinate
+ * tchsGetPiece    -> Get the piece character on given xy-coordinate
  *                    Returns a char
+ *                    The characters must properly search for the piece
  * tchsRead        -> Read a TCHS file and return the exit code (exit code output)
  *                    Returns 0 (success), 1 (failure) or 2 (bad filename)
  */
@@ -17,8 +18,8 @@
 #include <string.h>
 
 #include "./include/config.h"
-#include "./include/path.h"
 #include "./include/game.h"
+#include "./include/path.h"
 #include "./include/tchs.h"
 
 extern int gameTurn;  // -> game.c
@@ -56,15 +57,6 @@ int pieceLegalCheck(char piece) {
 
 }
 
-char tchsGetPiece(int x, int y, int boardFlipped) {
-
-	return tchs[
-		(boardFlipped)*(7 - x + 56 - y*8) +
-		(!boardFlipped)*(x + y*8)
-	];
-
-}
-
 // TODO: Block multiple same type kings from being on the board
 // TODO: Make a better system for ignoring the first character other than... literally skipping it.
 
@@ -88,14 +80,15 @@ int tchsRead(char *name) {
 	}
 
 	minOffset = 1;
+	offset = 1;
 	for (unsigned int i = 0; i < PATH_TXT_LEN; i++) tchsTitle[i] = ' ';
 	strcpy(tchsTitle, name);
 
 	tchsTitleLen = strlen(name);
 
 	switch (name[0]) {
-		case 'b': gameTurn = TURN_BLACK; break;
-		case 'w': gameTurn = TURN_WHITE; break;
+		case 'b': gameTurn = PIECE_BLACK; break;
+		case 'w': gameTurn = PIECE_WHITE; break;
 		default:  return 2;
 	}
 

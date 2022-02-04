@@ -4,9 +4,9 @@
  *
  * Header: win.h
  *
- * availableMovesLoad -> Render the availableMoves onto the screen
- * tchsLoad           -> Render the TCHS array contents onto the screen
+ * boardLoad          -> Render the TCHS array contents onto the screen
  * tchsTitleEdit      -> Format the TCHS title into TITLE_DISP_SIZE characters which are displayed
+ *
  * winInit            -> Initialize the SDL window and necessary components
  * winRender          -> Render the visual elements onto the window
  * winQuit            -> Quit the window and clean any memory allocations and calls
@@ -116,7 +116,7 @@ void availableMovesLoad() {
 
 }
 
-int tchsLoad() {
+int boardLoad() {
 
 	for (unsigned int i = 0; i < 8; i++) {
 		for (unsigned int j = 0; j < 8; j++) {
@@ -139,14 +139,15 @@ int tchsLoad() {
 
 			}
 
-			if (textTmp != NULL) {
+			rectTmp.x = 104 + (j*64)*(!boardFlipped) + ((7-j)*64)*(boardFlipped);
+			rectTmp.y = 104 + (i*64)*(!boardFlipped) + ((7-i)*64)*(boardFlipped);
 
-				rectTmp.x = 104 + (j*64)*(!boardFlipped) + ((7-j)*64)*(boardFlipped);
-				rectTmp.y = 104 + (i*64)*(!boardFlipped) + ((7-i)*64)*(boardFlipped);
+			if (availableMoves[i*8 + j])
+				SDL_RenderCopy(rndMain, textMove, NULL, &rectTmp);
 
+			if (textTmp != NULL)
 				SDL_RenderCopy(rndMain, textTmp, NULL, &rectTmp);
 
-			}
 
 		}
 
@@ -233,8 +234,6 @@ void winRender() {
 	surfTitle = TTF_RenderText_Solid(fontMain, tchsTitleFormat, colorFont);
 	textTitle = SDL_CreateTextureFromSurface(rndMain, surfTitle);
 
-	availableMovesLoad();
-
 	if (mouseHold) {
 
 		mouseInBoard = ((mouseX > 104)&&(mouseX < 616)&&(mouseY > 104)&&(mouseY < 616));
@@ -250,7 +249,7 @@ void winRender() {
 		}
 
 	}
-	tchsLoad();
+	boardLoad();
 
 	SDL_RenderPresent(rndMain);
 
