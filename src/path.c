@@ -19,7 +19,7 @@ unsigned int tmpCountSlash = 0;
 
 extern char* pathProg; // -> main.c
 
-void setGlobalPath(char *src) {
+void setGlobalPath(char* src) {
 
 	for (unsigned int i = 0; i < strlen(src); i++)
 		if (src[i] == '/')
@@ -33,7 +33,7 @@ void setGlobalPath(char *src) {
 
 			if (tmpCountSlash == countSlash) {
 
-				pathProg = (char*)calloc(sizeof(char), i + 1);
+				pathProg = (char*)calloc(i + 1, sizeof(char));
 				memcpy(pathProg, src, i + 1);
 
 			}
@@ -44,9 +44,9 @@ void setGlobalPath(char *src) {
 
 }
 
-char *addToGlobalPath(char *src) {
+char* addToGlobalPath(char* src) {
 
-	char *out = (char*)calloc(sizeof(char), strlen(pathProg) + strlen(src) + 1);
+	char* out = (char*)calloc(strlen(pathProg) + strlen(src) + 1, sizeof(char));
 
 	sprintf(out, "%s%s", pathProg, src);
 

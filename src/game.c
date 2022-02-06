@@ -57,16 +57,6 @@ int getPieceType(char c) {
 
 extern int boardFlipped; // -> win.c
 
-// SUBJECT TO LATER REMOVAL
-
-void dispAvailableMoves() {
-	for (unsigned int i = 0; i < 64; i++) {
-		printf("%d", availableMoves[i]);
-		if ((i+1) % 8 == 0) printf("%c", '\n');
-	}
-	printf("===\n");
-}
-
 void clearAvailableMoves() {
 	for (unsigned int i = 0; i < 64; i++)
 		availableMoves[i] = 0;

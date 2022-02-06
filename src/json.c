@@ -25,8 +25,9 @@
 #include "./include/json.h"
 #include "./include/path.h"
 
-char *tmp;
+char* tmp;
 
+json_object* jsonColors;
 json_object* jsonConfig;
 
 extern char pathBG    [PATH_TXT_LEN]; // -> win.c
@@ -46,7 +47,7 @@ extern char pathq     [PATH_TXT_LEN]; // -> win.c
 extern char pathr     [PATH_TXT_LEN]; // -> win.c
 extern char pathFont  [PATH_TXT_LEN]; // -> win.c
 
-char *paths[16][3] = {
+char* paths[16][3] = {
 
 	{ pathBG,    "bgImage",    "img/background/%s.png" },
 	{ pathBoard, "boardImage", "img/board/%s.png"      },
@@ -90,8 +91,8 @@ int jsonLoadConf() {
 }
 
 int textLoadLocal(
-		char *key, struct json_object *val, char *pathVar, char *keycmp,
-		const char *pathToFile, const char *msgSuccess, const char *msgFailure
+		char* key, struct json_object *val, char* pathVar, char* keycmp,
+		const char* pathToFile, const char* msgSuccess, const char* msgFailure
 		) {
 
 	if ( !strcmp(key, keycmp) ) {
@@ -134,6 +135,20 @@ int jsonTextLoad() {
 				"Log (json.c): %s loaded successfully.\n",
 				"Log (json.c): %s couldn't load. Check '%s' in conf.json.\n"
 				)) return 1;
+
+		}
+
+		// TODO: HERE
+
+		if (!strcmp(key, "colors")) {
+
+			jsonColors = json_object_object_get(jsonConfig, "colors");
+
+			json_object_object_foreach(jsonColors, key, val) {
+
+				printf("%s, %s\n", key, json_object_get_string(val));
+
+			}
 
 		}
 

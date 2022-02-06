@@ -1,7 +1,10 @@
 {
-	"boardImage": "default",
-	"pieceImage": "default",
 	"bgImage":    "default",
+	"boardImage": "default",
+	"colors": {
+		"text": "#999999"
+	},
+	"font":       "Kongtext/kongtext.ttf",
 	"move":       "default",
-	"font":       "Kongtext/kongtext.ttf"
+	"pieceImage": "default"
 }

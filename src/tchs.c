@@ -60,11 +60,11 @@ int pieceLegalCheck(char piece) {
 // TODO: Block multiple same type kings from being on the board
 // TODO: Make a better system for ignoring the first character other than... literally skipping it.
 
-int tchsRead(char *name) {
+int tchsRead(char* name) {
 
-	FILE *fp;
-	char *ctchs;
-	char *gptchs;
+	FILE* fp;
+	char* ctchs;
+	char* gptchs;
 	char  ptchs[PATH_TXT_LEN];
 	int   tchsLen;
 

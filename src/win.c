@@ -34,7 +34,9 @@
 #include "./include/tchs.h"
 #include "./include/win.h"
 
-SDL_Color     colorFont = { 153, 153, 153 };
+// https://stackoverflow.com/a/40493179/10857616
+
+SDL_Color     colorFont = { 153, 153, 153, 255 };
 
 SDL_Rect      rectBoard = { 104, 104, 512, 512 };
 SDL_Rect      rectTitle = { 748, 68,  464, 48  };
@@ -95,7 +97,6 @@ extern int mouseX, mouseY;               // -> event.c
 extern json_object* jsonConfig;          // -> json.c
 
 int boardFlipped = 0;
-int mouseInBoard = 0;
 
 int offset = 0;
 int minOffset = 0;
@@ -209,7 +210,7 @@ int winInit() {
 			textq     = IMG_LoadTexture(rndMain, pathq);
 			textr     = IMG_LoadTexture(rndMain, pathr);
 
-			tchsTitleFormat[TITLE_DISP_SIZE] = '\0'; // this can be defined just once
+			tchsTitleFormat[TITLE_DISP_SIZE] = '\0';
 
 			fontMain = TTF_OpenFont(pathFont, 24);
 
@@ -236,9 +237,9 @@ void winRender() {
 
 	if (mouseHold) {
 
-		mouseInBoard = ((mouseX > 104)&&(mouseX < 616)&&(mouseY > 104)&&(mouseY < 616));
+		// Check if the mouse is in the board space
 
-		if (mouseInBoard) {
+		if ((mouseX > 104)&&(mouseX < 616)&&(mouseY > 104)&&(mouseY < 616)) {
 
 			/*
 			 * Either picking a new piece or moving a piece
