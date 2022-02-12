@@ -128,12 +128,14 @@ int boardLoad() {
 				case 'K': textTmp = textK; break;
 				case 'N': textTmp = textN; break;
 				case 'P': textTmp = textP; break;
+				case 'E': textTmp = textP; break;
 				case 'Q': textTmp = textQ; break;
 				case 'R': textTmp = textR; break;
 				case 'b': textTmp = textb; break;
 				case 'k': textTmp = textk; break;
 				case 'n': textTmp = textn; break;
 				case 'p': textTmp = textp; break;
+				case 'e': textTmp = textp; break;
 				case 'q': textTmp = textq; break;
 				case 'r': textTmp = textr; break;
 				default:  textTmp = NULL;

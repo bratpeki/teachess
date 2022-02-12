@@ -39,6 +39,7 @@ extern char tchs[64]; // -> tchs.c
 int getPieceType(char c) {
 
 	if ( (c == 'P') ||
+		 (c == 'E') ||
 		 (c == 'B') ||
 		 (c == 'N') ||
 		 (c == 'R') ||
@@ -72,6 +73,23 @@ void gameGetMoves(int boardX, int boardY) {
 	switch (tchs[boardX + 8*boardY]) {
 
 		case 'p':
+
+			// one-step move
+
+			if (getPieceType(tchs[getPos64(boardX, boardY + 1)]) == PIECE_BLANK) {
+
+				availableMoves[getPos64(boardX, boardY + 1)] = 1;
+
+				// two-step move
+
+				if (
+					(getPieceType(tchs[getPos64(boardX, boardY + 2)]) == PIECE_BLANK) &&
+					(boardY == 1)
+					)
+				availableMoves[getPos64(boardX, boardY + 2)] = 1;
+
+			}
+
 			break;
 
 		case 'b':
@@ -115,6 +133,23 @@ void gameGetMoves(int boardX, int boardY) {
 			break;
 
 		case 'P':
+
+			// one-step move
+
+			if (getPieceType(tchs[getPos64(boardX, boardY - 1)]) == PIECE_BLANK) {
+
+				availableMoves[getPos64(boardX, boardY - 1)] = 1;
+
+				// two-step move
+
+				if (
+					(getPieceType(tchs[getPos64(boardX, boardY - 2)]) == PIECE_BLANK) &&
+					(boardY == 6)
+					)
+				availableMoves[getPos64(boardX, boardY - 2)] = 1;
+
+			}
+
 			break;
 
 		case 'B':
