@@ -67,6 +67,10 @@ void eventHandle() {
 						tchsRead("wRook Endgame Example");
 						break;
 
+					case SDLK_4:
+						tchsRead("wExample");
+						break;
+
 					case SDLK_a:
 						offset--;
 						break;

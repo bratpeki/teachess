@@ -82,11 +82,9 @@ void gameGetMoves(int boardX, int boardY) {
 
 				// two-step move
 
-				if (
-					(getPieceType(tchs[getPos64(boardX, boardY + 2)]) == PIECE_BLANK) &&
-					(boardY == 1)
-					)
-				availableMoves[getPos64(boardX, boardY + 2)] = 1;
+				if (boardY == 1)
+					if (getPieceType(tchs[getPos64(boardX, boardY + 2)]) == PIECE_BLANK)
+						availableMoves[getPos64(boardX, boardY + 2)] = 1;
 
 			}
 
@@ -104,24 +102,28 @@ void gameGetMoves(int boardX, int boardY) {
 			for (int i = getPos64(boardX, boardY - 1); i >= 0; i -= 8) {
 				if ( getPieceType(tchs[i]) == PIECE_BLACK ) break;
 				availableMoves[i] = 1;
+				if ( getPieceType(tchs[i]) == PIECE_WHITE ) break;
 			}
 
 			// down
 			for (int i = getPos64(boardX, boardY + 1); i <= 64; i += 8) {
 				if ( getPieceType(tchs[i]) == PIECE_BLACK ) break;
 				availableMoves[i] = 1;
+				if ( getPieceType(tchs[i]) == PIECE_WHITE ) break;
 			}
 
 			// left
 			for (int i = getPos64(boardX - 1, boardY); i >= getPos64(0, boardY); i -= 1) {
 				if ( getPieceType(tchs[i]) == PIECE_BLACK ) break;
 				availableMoves[i] = 1;
+				if ( getPieceType(tchs[i]) == PIECE_WHITE ) break;
 			}
 
 			// right
 			for (int i = getPos64(boardX + 1, boardY); i <= getPos64(7, boardY); i += 1) {
 				if ( getPieceType(tchs[i]) == PIECE_BLACK ) break;
 				availableMoves[i] = 1;
+				if ( getPieceType(tchs[i]) == PIECE_WHITE ) break;
 			}
 
 			break;
@@ -164,24 +166,28 @@ void gameGetMoves(int boardX, int boardY) {
 			for (int i = getPos64(boardX, boardY - 1); i >= 0; i -= 8) {
 				if ( getPieceType(tchs[i]) == PIECE_WHITE ) break;
 				availableMoves[i] = 1;
+				if ( getPieceType(tchs[i]) == PIECE_BLACK ) break;
 			}
 
 			// down
 			for (int i = getPos64(boardX, boardY + 1); i <= 64; i += 8) {
 				if ( getPieceType(tchs[i]) == PIECE_WHITE ) break;
 				availableMoves[i] = 1;
+				if ( getPieceType(tchs[i]) == PIECE_BLACK ) break;
 			}
 
 			// left
 			for (int i = getPos64(boardX - 1, boardY); i >= getPos64(0, boardY); i -= 1) {
 				if ( getPieceType(tchs[i]) == PIECE_WHITE ) break;
 				availableMoves[i] = 1;
+				if ( getPieceType(tchs[i]) == PIECE_BLACK ) break;
 			}
 
 			// right
 			for (int i = getPos64(boardX + 1, boardY); i <= getPos64(7, boardY); i += 1) {
 				if ( getPieceType(tchs[i]) == PIECE_WHITE ) break;
 				availableMoves[i] = 1;
+				if ( getPieceType(tchs[i]) == PIECE_BLACK ) break;
 			}
 
 			break;
