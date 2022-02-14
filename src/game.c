@@ -63,6 +63,9 @@ void clearAvailableMoves() {
 		availableMoves[i] = 0;
 }
 
+// TODO: King movement rework
+// TODO: Bishop, knight, queen
+
 void gameGetMoves(int boardX, int boardY) {
 
 	boardX = boardX * (!boardFlipped) + (7 - boardX) * (boardFlipped);
@@ -129,6 +132,41 @@ void gameGetMoves(int boardX, int boardY) {
 			break;
 
 		case 'k':
+
+			if (boardX > 0) {
+				if (boardY > 0)
+					if (getPieceType(tchs[getPos64(boardX - 1, boardY - 1)]) != PIECE_BLACK)
+						availableMoves[getPos64(boardX - 1, boardY - 1)] = 1;
+				if (boardY < 7)
+					if (getPieceType(tchs[getPos64(boardX - 1, boardY + 1)]) != PIECE_BLACK)
+						availableMoves[getPos64(boardX - 1, boardY + 1)] = 1;
+			}
+
+			if (boardX < 7) {
+				if (boardY > 0)
+					if (getPieceType(tchs[getPos64(boardX + 1, boardY - 1)]) != PIECE_BLACK)
+						availableMoves[getPos64(boardX + 1, boardY - 1)] = 1;
+				if (boardY < 7)
+					if (getPieceType(tchs[getPos64(boardX + 1, boardY + 1)]) != PIECE_BLACK)
+						availableMoves[getPos64(boardX + 1, boardY + 1)] = 1;
+			}
+
+			if (boardX > 0)
+				if (getPieceType(tchs[getPos64(boardX - 1, boardY)]) != PIECE_BLACK)
+					availableMoves[getPos64(boardX - 1, boardY)] = 1;
+
+			if (boardX < 7)
+				if (getPieceType(tchs[getPos64(boardX + 1, boardY)]) != PIECE_BLACK)
+					availableMoves[getPos64(boardX + 1, boardY)] = 1;
+
+			if (boardY > 0)
+				if (getPieceType(tchs[getPos64(boardX, boardY - 1)]) != PIECE_BLACK)
+					availableMoves[getPos64(boardX, boardY - 1)] = 1;
+
+			if (boardY < 7)
+				if (getPieceType(tchs[getPos64(boardX, boardY + 1)]) != PIECE_BLACK)
+					availableMoves[getPos64(boardX, boardY + 1)] = 1;
+
 			break;
 
 		case 'q':
@@ -193,6 +231,42 @@ void gameGetMoves(int boardX, int boardY) {
 			break;
 
 		case 'K':
+
+			if (boardX > 0) {
+				if (boardY > 0)
+					if (getPieceType(tchs[getPos64(boardX - 1, boardY - 1)]) != PIECE_WHITE)
+						availableMoves[getPos64(boardX - 1, boardY - 1)] = 1;
+				if (boardY < 7)
+					if (getPieceType(tchs[getPos64(boardX - 1, boardY + 1)]) != PIECE_WHITE)
+						availableMoves[getPos64(boardX - 1, boardY + 1)] = 1;
+			}
+
+			if (boardX < 7) {
+				if (boardY > 0)
+					if (getPieceType(tchs[getPos64(boardX + 1, boardY - 1)]) != PIECE_WHITE)
+						availableMoves[getPos64(boardX + 1, boardY - 1)] = 1;
+				if (boardY < 7)
+					if (getPieceType(tchs[getPos64(boardX + 1, boardY + 1)]) != PIECE_WHITE)
+						availableMoves[getPos64(boardX + 1, boardY + 1)] = 1;
+			}
+
+			if (boardX > 0)
+				if (getPieceType(tchs[getPos64(boardX - 1, boardY)]) != PIECE_WHITE)
+					availableMoves[getPos64(boardX - 1, boardY)] = 1;
+
+			if (boardX < 7)
+				if (getPieceType(tchs[getPos64(boardX + 1, boardY)]) != PIECE_WHITE)
+					availableMoves[getPos64(boardX + 1, boardY)] = 1;
+
+			if (boardY > 0)
+				if (getPieceType(tchs[getPos64(boardX, boardY - 1)]) != PIECE_WHITE)
+					availableMoves[getPos64(boardX, boardY - 1)] = 1;
+
+			if (boardY < 7)
+				if (getPieceType(tchs[getPos64(boardX, boardY + 1)]) != PIECE_WHITE)
+					availableMoves[getPos64(boardX, boardY + 1)] = 1;
+
+
 			break;
 
 		case 'Q':
