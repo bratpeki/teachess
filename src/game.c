@@ -9,8 +9,8 @@
  * dispAvailableMoves  -> Self-explanatory
  * clearAvailableMoves -> Self-explanatory
  *
- * checkSpotFree       -> Check that the sport on (spotX, spotY) is free for the piece to step on
- * getPieceType        -> Return the piece type (WHITE, BLACK, BLANK);
+ * getPieceType        -> Return true/false based on if the piece type matches the specified
+ * checkSpotType       -> Check that the sport on (spotX, spotY) is free for the piece to step on
  * gameGetMoves        -> Get all avalable moves for a piece on (boardX, boardY)
  */
 
@@ -80,18 +80,15 @@ int getPieceType(char c) {
 
 };
 
-int checkSpotFree(int pieceX, int pieceY, int pieceColor) {
+int checkSpotType(int pieceX, int pieceY, int pieceType) {
 
 	if ((pieceX < 0) || (pieceX > 7) || (pieceY < 0) || (pieceY > 7)) return 0;
 
-	return (getPieceType(tchs[getPos64(pieceX, pieceY)]) != pieceColor);
+	return (getPieceType(tchs[getPos64(pieceX, pieceY)]) == pieceType);
 
 }
 
-void clearAvailableMoves() {
-	for (unsigned int i = 0; i < 64; i++)
-		availableMoves[i] = 0;
-}
+void clearAvailableMoves() { for (unsigned int i = 0; i < 64; i++) availableMoves[i] = 0; }
 
 // TODO: King movement rework
 // TODO: Bishop, queen
@@ -133,7 +130,10 @@ void gameGetMoves(int boardX, int boardY) {
 			for (int i = 0; i < 8; i++) {
 				spotX = boardX + nMoves[i][0];
 				spotY = boardY + nMoves[i][1];
-				if (checkSpotFree(spotX, spotY, PIECE_BLACK))
+				if (
+						checkSpotType(spotX, spotY, PIECE_WHITE) ||
+						checkSpotType(spotX, spotY, PIECE_BLANK)
+						)
 					availableMoves[getPos64(spotX, spotY)] = 1;
 			}
 
@@ -176,7 +176,10 @@ void gameGetMoves(int boardX, int boardY) {
 			for (int i = 0; i < 8; i++) {
 				spotX = boardX + kMoves[i][0];
 				spotY = boardY + kMoves[i][1];
-				if (checkSpotFree(spotX, spotY, PIECE_BLACK))
+				if (
+						(checkSpotType(spotX, spotY, PIECE_BLANK)) ||
+						(checkSpotType(spotX, spotY, PIECE_WHITE))
+					)
 					availableMoves[getPos64(spotX, spotY)] = 1;
 			}
 
@@ -211,7 +214,10 @@ void gameGetMoves(int boardX, int boardY) {
 			for (int i = 0; i < 8; i++) {
 				spotX = boardX + nMoves[i][0];
 				spotY = boardY + nMoves[i][1];
-				if (checkSpotFree(spotX, spotY, PIECE_WHITE))
+				if (
+						(checkSpotType(spotX, spotY, PIECE_BLACK)) ||
+						(checkSpotType(spotX, spotY, PIECE_BLANK))
+				   )
 					availableMoves[getPos64(spotX, spotY)] = 1;
 			}
 
@@ -254,7 +260,10 @@ void gameGetMoves(int boardX, int boardY) {
 			for (int i = 0; i < 8; i++) {
 				spotX = boardX + kMoves[i][0];
 				spotY = boardY + kMoves[i][1];
-				if (checkSpotFree(spotX, spotY, PIECE_WHITE))
+				if (
+						(checkSpotType(spotX, spotY, PIECE_BLANK)) ||
+						(checkSpotType(spotX, spotY, PIECE_BLACK))
+				   )
 					availableMoves[getPos64(spotX, spotY)] = 1;
 			}
 
