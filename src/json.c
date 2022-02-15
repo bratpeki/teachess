@@ -138,15 +138,16 @@ int jsonTextLoad() {
 
 		}
 
-		// TODO: HERE
-
 		if (!strcmp(key, "colors")) {
 
 			jsonColors = json_object_object_get(jsonConfig, "colors");
 
 			json_object_object_foreach(jsonColors, key, val) {
 
-				printf("%s, %s\n", key, json_object_get_string(val));
+				// TODO: HERE
+				if (json_object_get_string_len(val) == 4) {}
+				else if (json_object_get_string_len(val) == 7) {}
+				else {}
 
 			}
 
