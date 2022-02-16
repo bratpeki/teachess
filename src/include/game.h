@@ -1,6 +1,6 @@
 
-#ifndef H_TEACHESS_PIECE
-#define H_TEACHESS_PIECE
+#ifndef H_TEACHESS_GAME
+#define H_TEACHESS_GAME
 
 #define PIECE_BLACK 0
 #define PIECE_WHITE 1
@@ -16,7 +16,6 @@
 #define VALUE_K 0
 
 void gameGetMoves(int boardX, int boardY);
-void clearAvailableMoves();
 
 #endif
 

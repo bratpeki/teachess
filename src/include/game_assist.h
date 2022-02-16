@@ -1,0 +1,8 @@
+
+#ifndef H_TEACHESS_GAME_ASSIST
+#define H_TEACHESS_GAME_ASSIST
+
+
+
+#endif
+

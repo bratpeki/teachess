@@ -6,12 +6,11 @@
  *
  * getPos64            -> Convert the X and Y into a single number from 0 to 63
  *
- * dispAvailableMoves  -> Self-explanatory
  * clearAvailableMoves -> Self-explanatory
  *
  * getPieceType        -> Return true/false based on if the piece type matches the specified
  * checkSpotType       -> Check that the sport on (spotX, spotY) is free for the piece to step on
- * gameGetMoves        -> Get all avalable moves for a piece on (boardX, boardY)
+ * gameGetMoves        -> Get all avalable moves for a piece on (boardX, boardY) and store them in availableMoves
  */
 
 #include <stdio.h>
@@ -39,25 +38,13 @@ int availableMoves[64] = {
 };
 
 int kMoves[8][2] = {
-	{-1, -1},
-	{-1,  0},
-	{-1,  1},
-	{ 0,  1},
-	{ 1,  1},
-	{ 1,  0},
-	{ 1, -1},
-	{ 0, -1},
+	{ 0,  1}, { 0, -1}, { 1,  0}, { 1,  1},
+	{ 1, -1}, {-1,  0}, {-1,  1}, {-1, -1}
 };
 
 int nMoves[8][2] = {
-	{-2, -1},
-	{-2,  1},
-	{ 2, -1},
-	{ 2,  1},
-	{-1, -2},
-	{-1,  2},
-	{ 1, -2},
-	{ 1,  2}
+	{ 1,  2}, { 1, -2}, { 2,  1}, { 2, -1},
+	{-1,  2}, {-1, -2}, {-2,  1}, {-2, -1}
 };
 
 int getPieceType(char c) {
@@ -92,9 +79,9 @@ void clearAvailableMoves() { for (unsigned int i = 0; i < 64; i++) availableMove
 
 // TODO: King movement rework
 // TODO: Bishop, queen
-// TODO: Add nicer names to variables
 
 int spotX, spotY;
+int bishopTmp;
 void gameGetMoves(int boardX, int boardY) {
 
 	boardX = boardX * (!boardFlipped) + (7 - boardX) * (boardFlipped);
@@ -123,6 +110,15 @@ void gameGetMoves(int boardX, int boardY) {
 			break;
 
 		case 'b':
+
+			// up-left
+
+			// up-right
+
+			// down-left
+
+			// down-right
+
 			break;
 
 		case 'n':
@@ -173,12 +169,12 @@ void gameGetMoves(int boardX, int boardY) {
 
 		case 'k':
 
-			for (int i = 0; i < 8; i++) {
+			for (unsigned int i = 0; i < 8; i++) {
 				spotX = boardX + kMoves[i][0];
 				spotY = boardY + kMoves[i][1];
 				if (
-						(checkSpotType(spotX, spotY, PIECE_BLANK)) ||
-						(checkSpotType(spotX, spotY, PIECE_WHITE))
+						(checkSpotType(spotX, spotY, PIECE_WHITE)) ||
+						(checkSpotType(spotX, spotY, PIECE_BLANK))
 					)
 					availableMoves[getPos64(spotX, spotY)] = 1;
 			}
@@ -207,6 +203,24 @@ void gameGetMoves(int boardX, int boardY) {
 			break;
 
 		case 'B':
+
+			bishopTmp = 0;
+			while (++bishopTmp) {
+
+				spotX = boardX + bishopTmp;
+				spotY = boardY + bishopTmp;
+
+				if (checkSpotType(spotX, spotY, PIECE_BLACK)) {
+					availableMoves[getPos64(spotX, spotY)] = 1;
+					break;
+				}
+				else if (checkSpotType(spotX, spotY, PIECE_BLANK)) {
+					availableMoves[getPos64(spotX, spotY)] = 1;
+				}
+				else break;
+
+			}
+
 			break;
 
 		case 'N':
@@ -257,12 +271,12 @@ void gameGetMoves(int boardX, int boardY) {
 
 		case 'K':
 
-			for (int i = 0; i < 8; i++) {
+			for (unsigned int i = 0; i < 8; i++) {
 				spotX = boardX + kMoves[i][0];
 				spotY = boardY + kMoves[i][1];
 				if (
-						(checkSpotType(spotX, spotY, PIECE_BLANK)) ||
-						(checkSpotType(spotX, spotY, PIECE_BLACK))
+						(checkSpotType(spotX, spotY, PIECE_BLACK)) ||
+						(checkSpotType(spotX, spotY, PIECE_BLANK))
 				   )
 					availableMoves[getPos64(spotX, spotY)] = 1;
 			}
