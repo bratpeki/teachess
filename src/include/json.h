@@ -18,7 +18,7 @@ int jsonLoadConf();
  */
 
 int textLoadLocal(
-		char* key, struct json_object *val, char* pathVar, char* keycmp,
+		char* key, struct json_object* val, char* pathVar, char* keycmp,
 		const char* pathToFile, const char* msgSuccess, const char* msgFailure
 		);
 

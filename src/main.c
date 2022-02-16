@@ -12,7 +12,7 @@
 #include "./include/tchs.h"
 #include "./include/win.h"
 
-char *pathProg;
+char* pathProg;
 int   stateRunning;
 
 extern int gameTurn; // -> game.c

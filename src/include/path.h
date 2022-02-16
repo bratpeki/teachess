@@ -6,13 +6,13 @@
  * Set the global variable pathProg
  */
 
-void  setGlobalPath(char *src);
+void setGlobalPath(char* src);
 
 /*
  * Add src to pathProg and return the output
  */
 
-char *addToGlobalPath(char *src);
+char* addToGlobalPath(char* src);
 
 #endif
 

@@ -7,7 +7,7 @@
  * Returns 0 (success), 1 (failure) or 2 (bad filename)
  */
 
-int tchsRead(char *name);
+int tchsRead(char* name);
 
 /*
  * Check if a piece is legal (boolean output)
