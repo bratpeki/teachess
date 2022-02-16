@@ -14,5 +14,12 @@ int getPieceType(char c);
 
 void clearAvailableMoves();
 
+/*
+ * Check one diagonal of a bishop's movement
+ * coef1 and coef2 ought to be either 1 or -1
+ */
+
+void bishopCheckDiagonal(int boardX, int boardY, int coef1, int coef2, int pieceCollType);
+
 #endif
 

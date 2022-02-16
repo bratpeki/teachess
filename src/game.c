@@ -42,7 +42,6 @@ int nMoves[8][2] = {
 // TODO: Bishop, queen
 
 int spotX, spotY;
-int bishopTmp;
 void gameGetMoves(int boardX, int boardY) {
 
 	boardX = boardX * (!boardFlipped) + (7 - boardX) * (boardFlipped);
@@ -72,13 +71,10 @@ void gameGetMoves(int boardX, int boardY) {
 
 		case 'b':
 
-			// up-left
-
-			// up-right
-
-			// down-left
-
-			// down-right
+			bishopCheckDiagonal(boardX, boardY,  1,  1, PIECE_WHITE);
+			bishopCheckDiagonal(boardX, boardY,  1, -1, PIECE_WHITE);
+			bishopCheckDiagonal(boardX, boardY, -1,  1, PIECE_WHITE);
+			bishopCheckDiagonal(boardX, boardY, -1, -1, PIECE_WHITE);
 
 			break;
 
@@ -165,22 +161,10 @@ void gameGetMoves(int boardX, int boardY) {
 
 		case 'B':
 
-			bishopTmp = 0;
-			while (++bishopTmp) {
-
-				spotX = boardX + bishopTmp;
-				spotY = boardY + bishopTmp;
-
-				if (checkSpotType(spotX, spotY, PIECE_BLACK)) {
-					availableMoves[getPos64(spotX, spotY)] = 1;
-					break;
-				}
-				else if (checkSpotType(spotX, spotY, PIECE_BLANK)) {
-					availableMoves[getPos64(spotX, spotY)] = 1;
-				}
-				else break;
-
-			}
+			bishopCheckDiagonal(boardX, boardY,  1,  1, PIECE_BLACK);
+			bishopCheckDiagonal(boardX, boardY,  1, -1, PIECE_BLACK);
+			bishopCheckDiagonal(boardX, boardY, -1,  1, PIECE_BLACK);
+			bishopCheckDiagonal(boardX, boardY, -1, -1, PIECE_BLACK);
 
 			break;
 

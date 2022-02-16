@@ -10,6 +10,10 @@
 
 extern char tchs[64];           // -> tchs.c
 extern int  availableMoves[64]; // -> game.c
+extern int  spotX;              // -> game.c
+extern int  spotY;              // -> game.c
+
+int bishopTmp;
 
 int getPieceType(char c) {
 
@@ -40,4 +44,30 @@ int checkSpotType(int pieceX, int pieceY, int pieceType) {
 }
 
 void clearAvailableMoves() { for (unsigned int i = 0; i < 64; i++) availableMoves[i] = 0; }
+
+void bishopCheckDiagonal(
+		int boardX, int boardY,
+		int coef1, int coef2,
+		int pieceCollType
+		) {
+
+	bishopTmp = 0;
+
+	while (++bishopTmp) {
+
+		spotX = boardX + coef1 * bishopTmp;
+		spotY = boardY + coef2 * bishopTmp;
+
+		if (checkSpotType(spotX, spotY, pieceCollType)) {
+			availableMoves[getPos64(spotX, spotY)] = 1;
+			break;
+		}
+		else if (checkSpotType(spotX, spotY, PIECE_BLANK)) {
+			availableMoves[getPos64(spotX, spotY)] = 1;
+		}
+		else break;
+
+	}
+
+}
 
