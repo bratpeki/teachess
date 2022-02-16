@@ -3,8 +3,6 @@
  * event.c - Handle keyboard events
  *
  * Header: event.h
- *
- * eventHandle -> Go through key inputs and respond appropriately
  */
 
 #include <SDL2/SDL.h>

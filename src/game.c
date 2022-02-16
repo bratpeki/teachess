@@ -3,22 +3,13 @@
  * game.c - Handle game logic
  *
  * Header: game.h
- *
- * getPos64            -> Convert the X and Y into a single number from 0 to 63
- *
- * clearAvailableMoves -> Self-explanatory
- *
- * getPieceType        -> Return true/false based on if the piece type matches the specified
- * checkSpotType       -> Check that the sport on (spotX, spotY) is free for the piece to step on
- * gameGetMoves        -> Get all avalable moves for a piece on (boardX, boardY) and store them in availableMoves
  */
 
 #include <stdio.h>
 
 #include "./include/game.h"
+#include "./include/game_assist.h"
 #include "./include/tchs.h"
-
-#define getPos64(x, y) (x + 8*(y))
 
 extern int  boardFlipped; // -> win.c
 extern char tchs[64];     // -> tchs.c
@@ -46,36 +37,6 @@ int nMoves[8][2] = {
 	{ 1,  2}, { 1, -2}, { 2,  1}, { 2, -1},
 	{-1,  2}, {-1, -2}, {-2,  1}, {-2, -1}
 };
-
-int getPieceType(char c) {
-
-	if ( (c == 'P') ||
-		 (c == 'E') ||
-		 (c == 'B') ||
-		 (c == 'N') ||
-		 (c == 'R') ||
-		 (c == 'K') ||
-		 (c == 'Q') )
-		return PIECE_WHITE;
-
-	else if ( (c == '.') ||
-			  (c == '-') )
-		return PIECE_BLANK;
-
-	else
-		return PIECE_BLACK;
-
-};
-
-int checkSpotType(int pieceX, int pieceY, int pieceType) {
-
-	if ((pieceX < 0) || (pieceX > 7) || (pieceY < 0) || (pieceY > 7)) return 0;
-
-	return (getPieceType(tchs[getPos64(pieceX, pieceY)]) == pieceType);
-
-}
-
-void clearAvailableMoves() { for (unsigned int i = 0; i < 64; i++) availableMoves[i] = 0; }
 
 // TODO: King movement rework
 // TODO: Bishop, queen

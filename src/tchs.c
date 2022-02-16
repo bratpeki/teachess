@@ -3,14 +3,6 @@
  * tchs.c - Load and handle TCHS files
  *
  * Header: ./include/tchs.h
- *
- * pieceLegalCheck -> Check if a piece is legal (boolean output)
- *                    Returns 0 (false) or 1 (true)
- * tchsGetPiece    -> Get the piece character on given xy-coordinate
- *                    Returns a char
- *                    The characters must properly search for the piece
- * tchsRead        -> Read a TCHS file and return the exit code (exit code output)
- *                    Returns 0 (success), 1 (failure) or 2 (bad filename)
  */
 
 #include <stdio.h>
@@ -19,6 +11,7 @@
 
 #include "./include/config.h"
 #include "./include/game.h"
+#include "./include/game_assist.h"
 #include "./include/path.h"
 #include "./include/tchs.h"
 

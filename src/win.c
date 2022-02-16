@@ -3,13 +3,6 @@
  * win.c - Handle window related functionality
  *
  * Header: win.h
- *
- * boardLoad          -> Render the TCHS array contents onto the screen
- * tchsTitleEdit      -> Format the TCHS title into TITLE_DISP_SIZE characters which are displayed
- *
- * winInit            -> Initialize the SDL window and necessary components
- * winRender          -> Render the visual elements onto the window
- * winQuit            -> Quit the window and clean any memory allocations and calls
  */
 
 #include <SDL2/SDL.h>

@@ -15,6 +15,10 @@
 #define VALUE_Q 9
 #define VALUE_K 0
 
+#define getPos64(x, y) (x + 8*(y))
+
+// Get all avalable moves for a piece on (boardX, boardY) and store them in availableMoves
+
 void gameGetMoves(int boardX, int boardY);
 
 #endif

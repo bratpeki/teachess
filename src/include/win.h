@@ -11,9 +11,24 @@
 #define WIN_W     1280
 #define WIN_FLAGS SDL_WINDOW_SHOWN
 
-int  winInit();
+// Render the TCHS array contents onto the screen
+
+int boardLoad();
+
+// Initialize the SDL window and necessary components
+
+int winInit();
+
+// Format the TCHS title into TITLE_DISP_SIZE characters which are displayed
+
+void tchsTitleEdit(int localOffset);
+
+// Render the visual elements onto the window
 
 void winRender();
+
+// Quit the window and clean any memory allocations and calls
+
 void winQuit();
 
 #endif

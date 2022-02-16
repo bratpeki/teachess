@@ -3,14 +3,6 @@
  * json.c - Functions relating to parsing JSON files and calling JSON objects
  *
  * Header: ./include/json.h
- *
- * jsonLoadConf  -> Load the JSON file into the global json_object 'jsonConfig'
- *                  Returns 0 (success) or 1 (failure)
- * textLoadLocal -> Handle checking JSON strings and applying their value to
- *                  their outputs (extern chars)
- *                  Returns 0 (success) or 1 (failure)
- * jsonTextLoad  -> Load the JSON data into their assorted SDL_Texture objects
- *                  Returns 0 (success) or 1 (failure)
  */
 
 #include <json-c/json.h>

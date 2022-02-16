@@ -3,9 +3,6 @@
  * path.c - Handle filepaths
  *
  * Header: ./include/path.h
- *
- * setGlobalPath   -> Set the global variable pathProg
- * addToGlobalPath -> Add the src to pathProg and return the output
  */
 
 #include <stdio.h>
