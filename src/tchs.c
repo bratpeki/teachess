@@ -34,8 +34,22 @@ char tchs[64] = {
 	'R', 'N', 'B', 'K', 'Q', 'B', 'N', 'R',
 };
 
-char pieceLegal[16] = {
-	'-', '.', 'b', 'B',
+/*
+ * Piece list:
+ * -/. - Empty space
+ * b/B - Bishop
+ * c/C - Castle-able king
+ * e/E - "En passant"-able pawn
+ * k/K - King
+ * n/N - Knight
+ * p/P - Pawn
+ * q/Q - Queen
+ * r/R - Rook
+ */
+
+char pieceLegal[18] = {
+	'-', '.',
+	'b', 'B', 'c', 'C',
 	'e', 'E', 'k', 'K',
 	'n', 'N', 'p', 'P',
 	'q', 'Q', 'r', 'R'
@@ -43,7 +57,7 @@ char pieceLegal[16] = {
 
 int pieceLegalCheck(char piece) {
 
-	for (unsigned int i = 0; i < 16; i++)
+	for (unsigned int i = 0; i < 18; i++)
 		if (piece == pieceLegal[i]) return 1;
 
 	return 0;

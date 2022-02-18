@@ -38,8 +38,7 @@ int nMoves[8][2] = {
 	{-1,  2}, {-1, -2}, {-2,  1}, {-2, -1}
 };
 
-// TODO: King movement rework
-// TODO: Bishop, queen
+// TODO: Movement for 'e/E' and 'c/C' characters
 
 int spotX, spotY;
 void gameGetMoves(int boardX, int boardY) {
@@ -71,10 +70,10 @@ void gameGetMoves(int boardX, int boardY) {
 
 		case 'b':
 
-			bishopCheckDiagonal(boardX, boardY,  1,  1, PIECE_WHITE);
-			bishopCheckDiagonal(boardX, boardY,  1, -1, PIECE_WHITE);
-			bishopCheckDiagonal(boardX, boardY, -1,  1, PIECE_WHITE);
-			bishopCheckDiagonal(boardX, boardY, -1, -1, PIECE_WHITE);
+			gameCheckLine(boardX, boardY,  1,  1, PIECE_WHITE);
+			gameCheckLine(boardX, boardY,  1, -1, PIECE_WHITE);
+			gameCheckLine(boardX, boardY, -1,  1, PIECE_WHITE);
+			gameCheckLine(boardX, boardY, -1, -1, PIECE_WHITE);
 
 			break;
 
@@ -94,32 +93,23 @@ void gameGetMoves(int boardX, int boardY) {
 
 		case 'r':
 
-			// up
-			for (int i = getPos64(boardX, boardY - 1); i >= 0; i -= 8) {
-				if ( getPieceType(tchs[i]) == PIECE_BLACK ) break;
-				availableMoves[i] = 1;
-				if ( getPieceType(tchs[i]) == PIECE_WHITE ) break;
-			}
+			gameCheckLine(boardX, boardY,  0,  1, PIECE_WHITE);
+			gameCheckLine(boardX, boardY,  0, -1, PIECE_WHITE);
+			gameCheckLine(boardX, boardY,  1,  0, PIECE_WHITE);
+			gameCheckLine(boardX, boardY, -1,  0, PIECE_WHITE);
 
-			// down
-			for (int i = getPos64(boardX, boardY + 1); i <= 64; i += 8) {
-				if ( getPieceType(tchs[i]) == PIECE_BLACK ) break;
-				availableMoves[i] = 1;
-				if ( getPieceType(tchs[i]) == PIECE_WHITE ) break;
-			}
+			break;
 
-			// left
-			for (int i = getPos64(boardX - 1, boardY); i >= getPos64(0, boardY); i -= 1) {
-				if ( getPieceType(tchs[i]) == PIECE_BLACK ) break;
-				availableMoves[i] = 1;
-				if ( getPieceType(tchs[i]) == PIECE_WHITE ) break;
-			}
+		case 'c':
 
-			// right
-			for (int i = getPos64(boardX + 1, boardY); i <= getPos64(7, boardY); i += 1) {
-				if ( getPieceType(tchs[i]) == PIECE_BLACK ) break;
-				availableMoves[i] = 1;
-				if ( getPieceType(tchs[i]) == PIECE_WHITE ) break;
+			for (unsigned int i = 0; i < 8; i++) {
+				spotX = boardX + kMoves[i][0];
+				spotY = boardY + kMoves[i][1];
+				if (
+						(checkSpotType(spotX, spotY, PIECE_WHITE)) ||
+						(checkSpotType(spotX, spotY, PIECE_BLANK))
+					)
+					availableMoves[getPos64(spotX, spotY)] = 1;
 			}
 
 			break;
@@ -139,6 +129,17 @@ void gameGetMoves(int boardX, int boardY) {
 			break;
 
 		case 'q':
+
+			gameCheckLine(boardX, boardY,  1,  1, PIECE_WHITE);
+			gameCheckLine(boardX, boardY,  1, -1, PIECE_WHITE);
+			gameCheckLine(boardX, boardY, -1,  1, PIECE_WHITE);
+			gameCheckLine(boardX, boardY, -1, -1, PIECE_WHITE);
+
+			gameCheckLine(boardX, boardY,  0,  1, PIECE_WHITE);
+			gameCheckLine(boardX, boardY,  0, -1, PIECE_WHITE);
+			gameCheckLine(boardX, boardY,  1,  0, PIECE_WHITE);
+			gameCheckLine(boardX, boardY, -1,  0, PIECE_WHITE);
+
 			break;
 
 		case 'P':
@@ -161,10 +162,10 @@ void gameGetMoves(int boardX, int boardY) {
 
 		case 'B':
 
-			bishopCheckDiagonal(boardX, boardY,  1,  1, PIECE_BLACK);
-			bishopCheckDiagonal(boardX, boardY,  1, -1, PIECE_BLACK);
-			bishopCheckDiagonal(boardX, boardY, -1,  1, PIECE_BLACK);
-			bishopCheckDiagonal(boardX, boardY, -1, -1, PIECE_BLACK);
+			gameCheckLine(boardX, boardY,  1,  1, PIECE_BLACK);
+			gameCheckLine(boardX, boardY,  1, -1, PIECE_BLACK);
+			gameCheckLine(boardX, boardY, -1,  1, PIECE_BLACK);
+			gameCheckLine(boardX, boardY, -1, -1, PIECE_BLACK);
 
 			break;
 
@@ -184,32 +185,23 @@ void gameGetMoves(int boardX, int boardY) {
 
 		case 'R':
 
-			// up
-			for (int i = getPos64(boardX, boardY - 1); i >= 0; i -= 8) {
-				if ( getPieceType(tchs[i]) == PIECE_WHITE ) break;
-				availableMoves[i] = 1;
-				if ( getPieceType(tchs[i]) == PIECE_BLACK ) break;
-			}
+			gameCheckLine(boardX, boardY,  0,  1, PIECE_BLACK);
+			gameCheckLine(boardX, boardY,  0, -1, PIECE_BLACK);
+			gameCheckLine(boardX, boardY,  1,  0, PIECE_BLACK);
+			gameCheckLine(boardX, boardY, -1,  0, PIECE_BLACK);
 
-			// down
-			for (int i = getPos64(boardX, boardY + 1); i <= 64; i += 8) {
-				if ( getPieceType(tchs[i]) == PIECE_WHITE ) break;
-				availableMoves[i] = 1;
-				if ( getPieceType(tchs[i]) == PIECE_BLACK ) break;
-			}
+			break;
 
-			// left
-			for (int i = getPos64(boardX - 1, boardY); i >= getPos64(0, boardY); i -= 1) {
-				if ( getPieceType(tchs[i]) == PIECE_WHITE ) break;
-				availableMoves[i] = 1;
-				if ( getPieceType(tchs[i]) == PIECE_BLACK ) break;
-			}
+		case 'C':
 
-			// right
-			for (int i = getPos64(boardX + 1, boardY); i <= getPos64(7, boardY); i += 1) {
-				if ( getPieceType(tchs[i]) == PIECE_WHITE ) break;
-				availableMoves[i] = 1;
-				if ( getPieceType(tchs[i]) == PIECE_BLACK ) break;
+			for (unsigned int i = 0; i < 8; i++) {
+				spotX = boardX + kMoves[i][0];
+				spotY = boardY + kMoves[i][1];
+				if (
+						(checkSpotType(spotX, spotY, PIECE_BLACK)) ||
+						(checkSpotType(spotX, spotY, PIECE_BLANK))
+					)
+					availableMoves[getPos64(spotX, spotY)] = 1;
 			}
 
 			break;
@@ -229,6 +221,17 @@ void gameGetMoves(int boardX, int boardY) {
 			break;
 
 		case 'Q':
+
+			gameCheckLine(boardX, boardY,  1,  1, PIECE_BLACK);
+			gameCheckLine(boardX, boardY,  1, -1, PIECE_BLACK);
+			gameCheckLine(boardX, boardY, -1,  1, PIECE_BLACK);
+			gameCheckLine(boardX, boardY, -1, -1, PIECE_BLACK);
+
+			gameCheckLine(boardX, boardY,  0,  1, PIECE_BLACK);
+			gameCheckLine(boardX, boardY,  0, -1, PIECE_BLACK);
+			gameCheckLine(boardX, boardY,  1,  0, PIECE_BLACK);
+			gameCheckLine(boardX, boardY, -1,  0, PIECE_BLACK);
+
 			break;
 
 		default:

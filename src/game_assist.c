@@ -20,6 +20,7 @@ int getPieceType(char c) {
 	if ( (c == 'P') ||
 		 (c == 'E') ||
 		 (c == 'B') ||
+		 (c == 'C') ||
 		 (c == 'N') ||
 		 (c == 'R') ||
 		 (c == 'K') ||
@@ -45,7 +46,7 @@ int checkSpotType(int pieceX, int pieceY, int pieceType) {
 
 void clearAvailableMoves() { for (unsigned int i = 0; i < 64; i++) availableMoves[i] = 0; }
 
-void bishopCheckDiagonal(
+void gameCheckLine(
 		int boardX, int boardY,
 		int coef1, int coef2,
 		int pieceCollType
