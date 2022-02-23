@@ -43,9 +43,6 @@ int nMoves[8][2] = {
 int spotX, spotY;
 void gameGetMoves(int boardX, int boardY) {
 
-	boardX = boardX * (!boardFlipped) + (7 - boardX) * (boardFlipped);
-	boardY = boardY * (!boardFlipped) + (7 - boardY) * (boardFlipped);
-
 	clearAvailableMoves();
 
 	switch (tchs[boardX + 8*boardY]) {
@@ -67,6 +64,11 @@ void gameGetMoves(int boardX, int boardY) {
 			}
 
 			break;
+
+		case 'e':
+
+			if (getPieceType(tchs[getPos64(boardX, boardY + 1)]) == PIECE_BLANK)
+				availableMoves[getPos64(boardX, boardY + 1)] = 1;
 
 		case 'b':
 
@@ -157,6 +159,15 @@ void gameGetMoves(int boardX, int boardY) {
 						availableMoves[getPos64(boardX, boardY - 2)] = 1;
 
 			}
+
+			break;
+
+		case 'E':
+
+			// one-step move
+
+			if (getPieceType(tchs[getPos64(boardX, boardY - 1)]) == PIECE_BLANK)
+				availableMoves[getPos64(boardX, boardY - 1)] = 1;
 
 			break;
 

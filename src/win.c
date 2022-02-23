@@ -23,6 +23,7 @@
 
 #include "./include/config.h"
 #include "./include/game.h"
+#include "./include/game_assist.h"
 #include "./include/json.h"
 #include "./include/tchs.h"
 #include "./include/win.h"
@@ -93,6 +94,9 @@ int boardFlipped = 0;
 
 int offset = 0;
 int minOffset = 0;
+
+int boardX, boardY;
+int boardXPrev, boardYPrev;
 
 void availableMovesLoad() {
 
@@ -242,7 +246,27 @@ void winRender() {
 			 * Either picking a new piece or moving a piece
 			 */
 
-			gameGetMoves((int)((mouseX-104)/64), (int)((mouseY-104)/64));
+			boardX = (int)((mouseX - 104) / 64);
+			boardY = (int)((mouseY - 104) / 64);
+
+			boardX = boardX * (!boardFlipped) + (7 - boardX) * (boardFlipped);
+			boardY = boardY * (!boardFlipped) + (7 - boardY) * (boardFlipped);
+
+			if (availableMoves[getPos64(boardX, boardY)] == 1) {
+
+				clearAvailableMoves();
+
+				tchs[getPos64(boardX, boardY)] = tchs[getPos64(boardXPrev, boardYPrev)];
+				tchs[getPos64(boardXPrev, boardYPrev)] = '-';
+
+			}
+
+			else {
+				gameGetMoves(boardX, boardY);
+			}
+
+			boardXPrev = boardX;
+			boardYPrev = boardY;
 
 		}
 
