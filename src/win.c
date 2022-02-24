@@ -84,10 +84,14 @@ char tchsTitleFormat[TITLE_DISP_SIZE + 1];
 
 extern char tchsTitle[PATH_TXT_LEN];     // -> tchs.c
 extern char tchs[64];                    // -> tchs.c
-extern int tchsTitleLen;                 // -> tchs.c
+
 extern int availableMoves[64];           // -> game.c
+extern int gameTurn;                     // -> game.c
+
 extern int mouseHold;                    // -> event.c
 extern int mouseX, mouseY;               // -> event.c
+
+extern int tchsTitleLen;                 // -> tchs.c
 extern json_object* jsonConfig;          // -> json.c
 
 int boardFlipped = 0;
@@ -97,6 +101,8 @@ int minOffset = 0;
 
 int boardX, boardY;
 int boardXPrev, boardYPrev;
+
+int currPieceType;
 
 void availableMovesLoad() {
 
@@ -246,31 +252,42 @@ void winRender() {
 			 * Either picking a new piece or moving a piece
 			 */
 
-			boardX = (int)((mouseX - 104) / 64);
-			boardY = (int)((mouseY - 104) / 64);
+			boardX = (int)((mouseX - 104) / 64); boardX = boardX * (!boardFlipped) + (7 - boardX) * (boardFlipped);
+			boardY = (int)((mouseY - 104) / 64); boardY = boardY * (!boardFlipped) + (7 - boardY) * (boardFlipped);
 
-			boardX = boardX * (!boardFlipped) + (7 - boardX) * (boardFlipped);
-			boardY = boardY * (!boardFlipped) + (7 - boardY) * (boardFlipped);
+			currPieceType = getPieceType(tchs[getPos64(boardX, boardY)]);
 
-			if (availableMoves[getPos64(boardX, boardY)] == 1) {
+			if (currPieceType == gameTurn) {
 
-				clearAvailableMoves();
-
-				tchs[getPos64(boardX, boardY)] = tchs[getPos64(boardXPrev, boardYPrev)];
-				tchs[getPos64(boardXPrev, boardYPrev)] = '-';
-
-			}
-
-			else {
 				gameGetMoves(boardX, boardY);
+
+				boardXPrev = boardX;
+				boardYPrev = boardY;
+
 			}
 
-			boardXPrev = boardX;
-			boardYPrev = boardY;
+			if (
+					(currPieceType == !gameTurn) ||
+					(currPieceType == PIECE_BLANK)
+					) {
+
+				if (availableMoves[getPos64(boardX, boardY)] == 1) {
+
+					clearAvailableMoves();
+
+					tchs[getPos64(boardX, boardY)] = tchs[getPos64(boardXPrev, boardYPrev)];
+					tchs[getPos64(boardXPrev, boardYPrev)] = '-';
+
+					gameTurn = !gameTurn;
+
+				}
+
+			}
 
 		}
 
 	}
+
 	boardLoad();
 
 	SDL_RenderPresent(rndMain);
