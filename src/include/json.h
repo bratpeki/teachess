@@ -28,7 +28,11 @@ int textLoadLocal(
  * Take the text from clrCode and apply the RGB values to the clr struct
  */
 
-int colorLoadLocal(SDL_Color clr, char* clrCode);
+int colorLoadLocal(
+		SDL_Color* clr,
+		const char* clrCode, int clrCodeLen,
+		const char* clrJsonName
+		);
 
 /*
  * Load the JSON data into their assorted SDL_Texture objects

@@ -118,6 +118,77 @@ int textLoadLocal(
 
 }
 
+int colorLoadLocal(
+		SDL_Color* clr,
+		const char* clrCode, int clrCodeLen,
+		const char* clrJsonName
+		) {
+
+	if (clrCodeLen == 4) {
+		colorChars[0] = clrCode[1];
+		colorChars[1] = clrCode[1];
+		colorChars[2] = clrCode[2];
+		colorChars[3] = clrCode[2];
+		colorChars[4] = clrCode[3];
+		colorChars[5] = clrCode[3];
+	}
+
+	else if (clrCodeLen == 7) {
+		colorChars[0] = clrCode[1];
+		colorChars[1] = clrCode[2];
+		colorChars[2] = clrCode[3];
+		colorChars[3] = clrCode[4];
+		colorChars[4] = clrCode[5];
+		colorChars[5] = clrCode[6];
+	}
+	else {
+		printf("Log (json.c): The color for '%s' couldn't load. Check that the format for the color is good in conf.json.\n", clrJsonName);
+		return 1;
+	}
+
+	clr->r = 0; clr->g = 0; clr->b = 0; clr->a = 255;
+
+	for (unsigned int i = 0; i < 6; i++) {
+
+		switch (colorChars[i]) {
+
+			case '0': intTmp = 0;  break;
+			case '1': intTmp = 1;  break;
+			case '2': intTmp = 2;  break;
+			case '3': intTmp = 3;  break;
+			case '4': intTmp = 4;  break;
+			case '5': intTmp = 5;  break;
+			case '6': intTmp = 6;  break;
+			case '7': intTmp = 7;  break;
+			case '8': intTmp = 8;  break;
+			case '9': intTmp = 9;  break;
+
+			case 'A': intTmp = 10; break; case 'a': intTmp = 10; break;
+			case 'B': intTmp = 11; break; case 'b': intTmp = 11; break;
+			case 'C': intTmp = 12; break; case 'c': intTmp = 12; break;
+			case 'D': intTmp = 13; break; case 'd': intTmp = 13; break;
+			case 'E': intTmp = 14; break; case 'e': intTmp = 14; break;
+			case 'F': intTmp = 15; break; case 'f': intTmp = 15; break;
+
+			default:
+				printf("Log (json.c): The color for '%s' couldn't load. Check for invalid characters in conf.json.\n", clrJsonName);
+				return 1; break;
+
+		}
+
+		intTmp = intTmp * (i % 2) + intTmp*16 * !(i%2);
+
+		clr->r += ((i == 0) + (i == 1))*intTmp;
+		clr->g += ((i == 2) + (i == 3))*intTmp;
+		clr->b += ((i == 4) + (i == 5))*intTmp;
+
+	}
+
+	printf("Log (json.c): The color for '%s' loaded successfully.\n", clrJsonName);
+	return 0;
+
+}
+
 // TODO: Check that namestrings aren't too large
 // TODO: Check what happens with duplicate key objects in conf.json
 
@@ -142,68 +213,7 @@ int jsonAssetLoad() {
 
 			json_object_object_foreach(jsonColors, key, val) {
 
-				// key = text, val = #454
-
-				// TODO: HERE
-				if (json_object_get_string_len(val) == 4) {
-					colorChars[0] = json_object_get_string(val)[1];
-					colorChars[1] = json_object_get_string(val)[1];
-					colorChars[2] = json_object_get_string(val)[2];
-					colorChars[3] = json_object_get_string(val)[2];
-					colorChars[4] = json_object_get_string(val)[3];
-					colorChars[5] = json_object_get_string(val)[3];
-				}
-
-				else if (json_object_get_string_len(val) == 7) {
-					colorChars[0] = json_object_get_string(val)[1];
-					colorChars[1] = json_object_get_string(val)[2];
-					colorChars[2] = json_object_get_string(val)[3];
-					colorChars[3] = json_object_get_string(val)[4];
-					colorChars[4] = json_object_get_string(val)[5];
-					colorChars[5] = json_object_get_string(val)[6];
-				}
-				else {
-					printf("Log (json.c): The color for 'text' couldn't load. Check that the format for the color is good in conf.json.\n");
-					return 1;
-				}
-
-				colorFont = (SDL_Color){0, 0, 0, 255};
-
-				for (unsigned int i = 0; i < 6; i++) {
-
-					switch (colorChars[i]) {
-
-						case '0': intTmp = 0;  break;
-						case '1': intTmp = 1;  break;
-						case '2': intTmp = 2;  break;
-						case '3': intTmp = 3;  break;
-						case '4': intTmp = 4;  break;
-						case '5': intTmp = 5;  break;
-						case '6': intTmp = 6;  break;
-						case '7': intTmp = 7;  break;
-						case '8': intTmp = 8;  break;
-						case '9': intTmp = 9;  break;
-
-						case 'A': intTmp = 10; break; case 'a': intTmp = 10; break;
-						case 'B': intTmp = 11; break; case 'b': intTmp = 11; break;
-						case 'C': intTmp = 12; break; case 'c': intTmp = 12; break;
-						case 'D': intTmp = 13; break; case 'd': intTmp = 13; break;
-						case 'E': intTmp = 14; break; case 'e': intTmp = 14; break;
-						case 'F': intTmp = 15; break; case 'f': intTmp = 15; break;
-
-						default:
-							printf("Log (json.c): The color for 'text' couldn't load. Check for invalid characters in conf.json.\n");
-							return 1; break;
-
-					}
-
-					intTmp = intTmp * (i % 2) + intTmp*16 * !(i%2);
-
-					colorFont.r += ((i == 0) + (i == 1))*intTmp;
-					colorFont.g += ((i == 2) + (i == 3))*intTmp;
-					colorFont.b += ((i == 4) + (i == 5))*intTmp;
-
-				}
+				colorLoadLocal(&colorFont, json_object_get_string(val), json_object_get_string_len(val), key);
 
 			}
 
