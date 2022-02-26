@@ -152,17 +152,11 @@ int colorLoadLocal(
 
 		switch (colorChars[i]) {
 
-			case '0': intTmp = 0;  break;
-			case '1': intTmp = 1;  break;
-			case '2': intTmp = 2;  break;
-			case '3': intTmp = 3;  break;
-			case '4': intTmp = 4;  break;
-			case '5': intTmp = 5;  break;
-			case '6': intTmp = 6;  break;
-			case '7': intTmp = 7;  break;
-			case '8': intTmp = 8;  break;
-			case '9': intTmp = 9;  break;
-
+			case '0': intTmp = 0;  break; case '1': intTmp = 1;  break;
+			case '2': intTmp = 2;  break; case '3': intTmp = 3;  break;
+			case '4': intTmp = 4;  break; case '5': intTmp = 5;  break;
+			case '6': intTmp = 6;  break; case '7': intTmp = 7;  break;
+			case '8': intTmp = 8;  break; case '9': intTmp = 9;  break;
 			case 'A': intTmp = 10; break; case 'a': intTmp = 10; break;
 			case 'B': intTmp = 11; break; case 'b': intTmp = 11; break;
 			case 'C': intTmp = 12; break; case 'c': intTmp = 12; break;

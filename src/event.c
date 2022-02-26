@@ -21,6 +21,7 @@ int mouseX, mouseY = 0;
 extern int stateRunning; // -> main.c
 extern int boardFlipped; // -> win.c
 extern int offset;       // -> win.c
+extern int minOffset;    // -> win.c
 
 void eventHandle() {
 
@@ -30,28 +31,23 @@ void eventHandle() {
 
 		switch (event.type) {
 
-			case SDL_QUIT:
-				stateRunning = 0;
-				break;
-
-			case SDL_MOUSEBUTTONDOWN:
-				mouseHold = 1;
-				break;
-
-			case SDL_MOUSEBUTTONUP:
-				mouseHold = 0;
-				break;
+			case SDL_QUIT:            stateRunning = 0; break;
+			case SDL_MOUSEBUTTONDOWN: mouseHold    = 1; break;
+			case SDL_MOUSEBUTTONUP:   mouseHold    = 0; break;
 
 			case SDL_KEYDOWN:
 				switch (event.key.keysym.sym) {
 
-					case SDLK_ESCAPE:
-						stateRunning = 0;
-						break;
+					// Exiting
+					case SDLK_ESCAPE: stateRunning = 0; break;
 
-					case SDLK_f:
-						boardFlipped = !boardFlipped;
-						break;
+					// Flip the board
+					case SDLK_f: boardFlipped = !boardFlipped; break;
+
+					// Offsetting
+					case SDLK_a: offset--;           break;
+					case SDLK_d: offset++;           break;
+					case SDLK_s: offset = minOffset; break;
 
 					case SDLK_1:
 						tchsRead("wDefault");
@@ -67,14 +63,6 @@ void eventHandle() {
 
 					case SDLK_4:
 						tchsRead("wExample");
-						break;
-
-					case SDLK_a:
-						offset--;
-						break;
-
-					case SDLK_d:
-						offset++;
 						break;
 
 				}
