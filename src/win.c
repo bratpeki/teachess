@@ -30,7 +30,6 @@
 
 // https://stackoverflow.com/a/40493179/10857616
 
-// SDL_Color     colorFont = { 153, 153, 153, 255 };
 SDL_Color     colorFont;
 
 SDL_Rect      rectBoard = { 104, 104, 512, 512 };

@@ -38,6 +38,7 @@ int nMoves[8][2] = {
 	{-1,  2}, {-1, -2}, {-2,  1}, {-2, -1}
 };
 
+// TODO: Single cases instead of doubles
 // TODO: Movement for 'e/E' and 'c/C' characters
 
 int spotX, spotY;
