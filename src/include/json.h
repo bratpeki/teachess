@@ -2,6 +2,8 @@
 #ifndef H_TEACHESS_JSON
 #define H_TEACHESS_JSON
 
+#include <SDL2/SDL_pixels.h>
+
 #include "json-c/json.h"
 
 /*
@@ -23,11 +25,17 @@ int textLoadLocal(
 		);
 
 /*
+ * Take the text from clrCode and apply the RGB values to the clr struct
+ */
+
+int colorLoadLocal(SDL_Color clr, char* clrCode);
+
+/*
  * Load the JSON data into their assorted SDL_Texture objects
  * Returns 0 (success) or 1 (failure)
  */
 
-int jsonTextLoad();
+int jsonAssetLoad();
 
 #endif
 

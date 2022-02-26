@@ -5,6 +5,8 @@
  * Header: ./include/json.h
  */
 
+#include <SDL2/SDL_pixels.h>
+
 #include <json-c/json.h>
 #include <json-c/json_object.h>
 #include <json-c/json_util.h>
@@ -17,27 +19,31 @@
 #include "./include/json.h"
 #include "./include/path.h"
 
-char* tmp;
+int   intTmp;
+
+char* charPTmp;
+char  colorChars[6];
 
 json_object* jsonColors;
 json_object* jsonConfig;
 
-extern char pathBG    [PATH_TXT_LEN]; // -> win.c
-extern char pathBoard [PATH_TXT_LEN]; // -> win.c
-extern char pathAMove [PATH_TXT_LEN]; // -> win.c
-extern char pathB     [PATH_TXT_LEN]; // -> win.c
-extern char pathK     [PATH_TXT_LEN]; // -> win.c
-extern char pathN     [PATH_TXT_LEN]; // -> win.c
-extern char pathP     [PATH_TXT_LEN]; // -> win.c
-extern char pathQ     [PATH_TXT_LEN]; // -> win.c
-extern char pathR     [PATH_TXT_LEN]; // -> win.c
-extern char pathb     [PATH_TXT_LEN]; // -> win.c
-extern char pathk     [PATH_TXT_LEN]; // -> win.c
-extern char pathn     [PATH_TXT_LEN]; // -> win.c
-extern char pathp     [PATH_TXT_LEN]; // -> win.c
-extern char pathq     [PATH_TXT_LEN]; // -> win.c
-extern char pathr     [PATH_TXT_LEN]; // -> win.c
-extern char pathFont  [PATH_TXT_LEN]; // -> win.c
+extern char      pathBG     [PATH_TXT_LEN]; // -> win.c
+extern char      pathBoard  [PATH_TXT_LEN]; // -> win.c
+extern char      pathAMove  [PATH_TXT_LEN]; // -> win.c
+extern char      pathB      [PATH_TXT_LEN]; // -> win.c
+extern char      pathK      [PATH_TXT_LEN]; // -> win.c
+extern char      pathN      [PATH_TXT_LEN]; // -> win.c
+extern char      pathP      [PATH_TXT_LEN]; // -> win.c
+extern char      pathQ      [PATH_TXT_LEN]; // -> win.c
+extern char      pathR      [PATH_TXT_LEN]; // -> win.c
+extern char      pathb      [PATH_TXT_LEN]; // -> win.c
+extern char      pathk      [PATH_TXT_LEN]; // -> win.c
+extern char      pathn      [PATH_TXT_LEN]; // -> win.c
+extern char      pathp      [PATH_TXT_LEN]; // -> win.c
+extern char      pathq      [PATH_TXT_LEN]; // -> win.c
+extern char      pathr      [PATH_TXT_LEN]; // -> win.c
+extern char      pathFont   [PATH_TXT_LEN]; // -> win.c
+extern SDL_Color colorFont;                 // -> win.c
 
 char* paths[16][3] = {
 
@@ -62,22 +68,22 @@ char* paths[16][3] = {
 
 int jsonLoadConf() {
 
-	tmp = addToGlobalPath(PATH_JSON_CONF);
+	charPTmp = addToGlobalPath(PATH_JSON_CONF);
 
-	if (!access(tmp, F_OK)) {
+	if (!access(charPTmp, F_OK)) {
 
-		jsonConfig = json_object_from_file(tmp);
-		printf("Log (json.c): JSON object at %s loaded successfully.\n", tmp);
+		jsonConfig = json_object_from_file(charPTmp);
+		printf("Log (json.c): JSON object at %s loaded successfully.\n", charPTmp);
 
 	} else {
 
-		printf("Log (json.c): JSON object at %s couldn't be loaded.\n", tmp);
-		free(tmp);
+		printf("Log (json.c): JSON object at %s couldn't be loaded.\n", charPTmp);
+		free(charPTmp);
 		return 1;
 
 	}
 
-	free(tmp);
+	free(charPTmp);
 	return 0;
 
 }
@@ -91,13 +97,13 @@ int textLoadLocal(
 
 		sprintf(pathVar, pathToFile, json_object_get_string(val));
 
-		tmp = addToGlobalPath(pathVar);
-		strcpy(pathVar, tmp);
+		charPTmp = addToGlobalPath(pathVar);
+		strcpy(pathVar, charPTmp);
 
 		if ( access(pathVar, F_OK) == 0 ) {
 
 			printf(msgSuccess, pathVar);
-			free(tmp);
+			free(charPTmp);
 
 		} else {
 
@@ -115,7 +121,7 @@ int textLoadLocal(
 // TODO: Check that namestrings aren't too large
 // TODO: Check what happens with duplicate key objects in conf.json
 
-int jsonTextLoad() {
+int jsonAssetLoad() {
 
 	json_object_object_foreach(jsonConfig, key, val) {
 
@@ -136,10 +142,68 @@ int jsonTextLoad() {
 
 			json_object_object_foreach(jsonColors, key, val) {
 
+				// key = text, val = #454
+
 				// TODO: HERE
-				if (json_object_get_string_len(val) == 4) {}
-				else if (json_object_get_string_len(val) == 7) {}
-				else {}
+				if (json_object_get_string_len(val) == 4) {
+					colorChars[0] = json_object_get_string(val)[1];
+					colorChars[1] = json_object_get_string(val)[1];
+					colorChars[2] = json_object_get_string(val)[2];
+					colorChars[3] = json_object_get_string(val)[2];
+					colorChars[4] = json_object_get_string(val)[3];
+					colorChars[5] = json_object_get_string(val)[3];
+				}
+
+				else if (json_object_get_string_len(val) == 7) {
+					colorChars[0] = json_object_get_string(val)[1];
+					colorChars[1] = json_object_get_string(val)[2];
+					colorChars[2] = json_object_get_string(val)[3];
+					colorChars[3] = json_object_get_string(val)[4];
+					colorChars[4] = json_object_get_string(val)[5];
+					colorChars[5] = json_object_get_string(val)[6];
+				}
+				else {
+					printf("Log (json.c): The color for 'text' couldn't load. Check that the format for the color is good in conf.json.\n");
+					return 1;
+				}
+
+				colorFont = (SDL_Color){0, 0, 0, 255};
+
+				for (unsigned int i = 0; i < 6; i++) {
+
+					switch (colorChars[i]) {
+
+						case '0': intTmp = 0;  break;
+						case '1': intTmp = 1;  break;
+						case '2': intTmp = 2;  break;
+						case '3': intTmp = 3;  break;
+						case '4': intTmp = 4;  break;
+						case '5': intTmp = 5;  break;
+						case '6': intTmp = 6;  break;
+						case '7': intTmp = 7;  break;
+						case '8': intTmp = 8;  break;
+						case '9': intTmp = 9;  break;
+
+						case 'A': intTmp = 10; break; case 'a': intTmp = 10; break;
+						case 'B': intTmp = 11; break; case 'b': intTmp = 11; break;
+						case 'C': intTmp = 12; break; case 'c': intTmp = 12; break;
+						case 'D': intTmp = 13; break; case 'd': intTmp = 13; break;
+						case 'E': intTmp = 14; break; case 'e': intTmp = 14; break;
+						case 'F': intTmp = 15; break; case 'f': intTmp = 15; break;
+
+						default:
+							printf("Log (json.c): The color for 'text' couldn't load. Check for invalid characters in conf.json.\n");
+							return 1; break;
+
+					}
+
+					intTmp = intTmp * (i % 2) + intTmp*16 * !(i%2);
+
+					colorFont.r += ((i == 0) + (i == 1))*intTmp;
+					colorFont.g += ((i == 2) + (i == 3))*intTmp;
+					colorFont.b += ((i == 4) + (i == 5))*intTmp;
+
+				}
 
 			}
 

@@ -30,7 +30,8 @@
 
 // https://stackoverflow.com/a/40493179/10857616
 
-SDL_Color     colorFont = { 153, 153, 153, 255 };
+// SDL_Color     colorFont = { 153, 153, 153, 255 };
+SDL_Color     colorFont;
 
 SDL_Rect      rectBoard = { 104, 104, 512, 512 };
 SDL_Rect      rectTitle = { 748, 68,  464, 48  };
@@ -191,7 +192,7 @@ int winInit() {
 		TTF_Init();
 
 		if (jsonLoadConf()) return 1;
-		if (jsonTextLoad()) return 1;
+		if (jsonAssetLoad()) return 1;
 
 		winMain = SDL_CreateWindow(WIN_TITLE, WIN_X, WIN_Y, WIN_W, WIN_H, 0);
 
