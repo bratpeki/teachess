@@ -8,7 +8,6 @@
 
 /*
  * Load the JSON file into the global json_object 'jsonConfig'
- * Returns 0 (success) or 1 (failure)
  */
 
 int jsonLoadConf();
@@ -16,7 +15,6 @@ int jsonLoadConf();
 /*
  * Handle checking JSON strings and applying their value to
  * their outputs (extern chars)
- * Returns 0 (success) or 1 (failure)
  */
 
 int textLoadLocal(
@@ -36,7 +34,6 @@ int colorLoadLocal(
 
 /*
  * Load the JSON data into their assorted SDL_Texture objects
- * Returns 0 (success) or 1 (failure)
  */
 
 int jsonAssetLoad();

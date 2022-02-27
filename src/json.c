@@ -79,12 +79,12 @@ int jsonLoadConf() {
 
 		printf("Log (json.c): JSON object at %s couldn't be loaded.\n", charPTmp);
 		free(charPTmp);
-		return 1;
+		return EXIT_FAILURE;
 
 	}
 
 	free(charPTmp);
-	return 0;
+	return EXIT_SUCCESS;
 
 }
 
@@ -100,7 +100,7 @@ int textLoadLocal(
 		charPTmp = addToGlobalPath(pathVar);
 		strcpy(pathVar, charPTmp);
 
-		if ( access(pathVar, F_OK) == 0 ) {
+		if (access(pathVar, F_OK) == 0) {
 
 			printf(msgSuccess, pathVar);
 			free(charPTmp);
@@ -108,13 +108,13 @@ int textLoadLocal(
 		} else {
 
 			printf(msgFailure, pathVar, key);
-			return 1;
+			return EXIT_FAILURE;
 
 		}
 
 	}
 
-	return 0;
+	return EXIT_SUCCESS;
 
 }
 
@@ -125,12 +125,9 @@ int colorLoadLocal(
 		) {
 
 	if (clrCodeLen == 4) {
-		colorChars[0] = clrCode[1];
-		colorChars[1] = clrCode[1];
-		colorChars[2] = clrCode[2];
-		colorChars[3] = clrCode[2];
-		colorChars[4] = clrCode[3];
-		colorChars[5] = clrCode[3];
+		colorChars[0] = clrCode[1]; colorChars[1] = clrCode[1];
+		colorChars[2] = clrCode[2]; colorChars[3] = clrCode[2];
+		colorChars[4] = clrCode[3]; colorChars[5] = clrCode[3];
 	}
 
 	else if (clrCodeLen == 7) {
@@ -197,7 +194,7 @@ int jsonAssetLoad() {
 				paths[i][0], paths[i][1], paths[i][2],
 				"Log (json.c): %s loaded successfully.\n",
 				"Log (json.c): %s couldn't load. Check '%s' in conf.json.\n"
-				)) return 1;
+				)) return EXIT_FAILURE;
 
 		}
 
@@ -215,7 +212,7 @@ int jsonAssetLoad() {
 
 	}
 
-	return 0;
+	return EXIT_SUCCESS;
 
 }
 

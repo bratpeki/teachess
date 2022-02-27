@@ -5,6 +5,8 @@
  * Header: ./include/tchs.h
  */
 
+#include <SDL2/SDL_stdinc.h>
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -58,9 +60,9 @@ char pieceLegal[18] = {
 int pieceLegalCheck(char piece) {
 
 	for (unsigned int i = 0; i < 18; i++)
-		if (piece == pieceLegal[i]) return 1;
+		if (piece == pieceLegal[i]) return SDL_TRUE;
 
-	return 0;
+	return SDL_FALSE;
 
 }
 
@@ -83,7 +85,7 @@ int tchsRead(char* name) {
 
 	if (!fp) {
 		printf ("Log (tchs.c): %s couldn't load.\n", ptchs);
-		return 1;
+		return EXIT_FAILURE;
 	}
 
 	minOffset = 1;
@@ -96,7 +98,7 @@ int tchsRead(char* name) {
 	switch (name[0]) {
 		case 'b': gameTurn = PIECE_BLACK; break;
 		case 'w': gameTurn = PIECE_WHITE; break;
-		default:  return 2;
+		default:  return EXIT_BAD_FILENAME;
 	}
 
 	fseek(fp, 0, SEEK_END);
@@ -113,7 +115,7 @@ int tchsRead(char* name) {
 		if (pieceLegalCheck(ctchs[i]) == 0) {
 			if ( (ctchs[i] != '\n') && (ctchs[i] != '\0') ) {
 				printf("Log (tchs.c): Unknown char in %s (%c)\n", gptchs, ctchs[i]);
-				return 1;
+				return EXIT_FAILURE;
 			}
 		}
 
@@ -121,7 +123,7 @@ int tchsRead(char* name) {
 
 			if (tchsCount > 64) {
 				printf("Log (tchs.c): %s 64 characters of interest surpassed\n", gptchs);
-				return 1;
+				return EXIT_FAILURE;
 			}
 			else tchs[tchsCount++] = ctchs[i];
 
@@ -135,7 +137,7 @@ int tchsRead(char* name) {
 	free(ctchs);
 	free(gptchs);
 
-	return 0;
+	return EXIT_SUCCESS;
 
 }
 
