@@ -2,7 +2,7 @@
 #ifndef H_TEACHESS_GAME_ASSIST
 #define H_TEACHESS_GAME_ASSIST
 
-// Check that the sport on (spotX, spotY) is free for the piece to step on
+// Check that the spot on (spotX, spotY) is of pieceType
 
 int checkSpotType(int pieceX, int pieceY, int pieceType);
 
