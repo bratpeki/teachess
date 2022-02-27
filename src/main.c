@@ -3,6 +3,8 @@
  * main.c - The main C execution source file
  */
 
+#include <SDL2/SDL_stdinc.h>
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -23,9 +25,9 @@ int main(int argc, char* argv[]) {
 
 	printf("Log (main.c): pathProg loaded as %s\n", pathProg);
 
-	if ( !winInit() ) stateRunning = 1;
-	else              return 1;
+	if ( winInit() ) return EXIT_FAILURE;
 
+	stateRunning = SDL_TRUE;
 	gameTurn = PIECE_WHITE;
 
 	while (stateRunning) {
@@ -41,7 +43,7 @@ int main(int argc, char* argv[]) {
 
 	printf("Log (main.c): Goodbye!\n");
 
-	return 0;
+	return EXIT_SUCCESS;
 
 }
 

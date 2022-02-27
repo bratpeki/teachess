@@ -1,0 +1,4 @@
+
+int intTmp;
+char* charPTmp;
+

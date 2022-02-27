@@ -12,6 +12,7 @@
 #include <json-c/json_util.h>
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 
@@ -19,9 +20,9 @@
 #include "./include/json.h"
 #include "./include/path.h"
 
-int   intTmp;
+extern int   intTmp;   // -> tmp.c
+extern char* charPTmp; // -> tmp.c
 
-char* charPTmp;
 char  colorChars[6];
 
 json_object* jsonColors;
@@ -140,7 +141,7 @@ int colorLoadLocal(
 	}
 	else {
 		printf("Log (json.c): The color for '%s' couldn't load. Check that the format for the color is good in conf.json.\n", clrJsonName);
-		return 1;
+		return EXIT_FAILURE;
 	}
 
 	clr->r = 0; clr->g = 0; clr->b = 0; clr->a = 255;
@@ -163,7 +164,7 @@ int colorLoadLocal(
 
 			default:
 				printf("Log (json.c): The color for '%s' couldn't load. Check for invalid characters in conf.json.\n", clrJsonName);
-				return 1; break;
+				return EXIT_FAILURE; break;
 
 		}
 
@@ -176,7 +177,7 @@ int colorLoadLocal(
 	}
 
 	printf("Log (json.c): The color for '%s' loaded successfully.\n", clrJsonName);
-	return 0;
+	return EXIT_SUCCESS;
 
 }
 

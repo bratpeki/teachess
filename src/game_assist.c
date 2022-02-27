@@ -5,6 +5,8 @@
  * Header: game_assist.h
  */
 
+#include <SDL2/SDL_stdinc.h>
+
 #include "./include/game.h"
 #include "./include/game_assist.h"
 
@@ -38,7 +40,7 @@ int getPieceType(char c) {
 
 int checkSpotType(int pieceX, int pieceY, int pieceType) {
 
-	if ((pieceX < 0) || (pieceX > 7) || (pieceY < 0) || (pieceY > 7)) return 0;
+	if ((pieceX < 0) || (pieceX > 7) || (pieceY < 0) || (pieceY > 7)) return SDL_FALSE;
 
 	return (getPieceType(tchs[getPos64(pieceX, pieceY)]) == pieceType);
 

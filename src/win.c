@@ -161,7 +161,7 @@ int boardLoad() {
 
 	}
 
-	return 0;
+	return EXIT_SUCCESS;
 
 }
 
@@ -190,8 +190,8 @@ int winInit() {
 		IMG_Init(IMG_INIT_PNG);
 		TTF_Init();
 
-		if (jsonLoadConf()) return 1;
-		if (jsonAssetLoad()) return 1;
+		if (jsonLoadConf())  return EXIT_FAILURE;
+		if (jsonAssetLoad()) return EXIT_FAILURE;
 
 		winMain = SDL_CreateWindow(WIN_TITLE, WIN_X, WIN_Y, WIN_W, WIN_H, 0);
 
@@ -223,9 +223,9 @@ int winInit() {
 
 		}
 
-	} else return 1;
+	} else return EXIT_FAILURE;
 
-	return 0;
+	return EXIT_SUCCESS;
 
 }
 

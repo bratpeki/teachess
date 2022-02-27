@@ -9,6 +9,7 @@
 #include <SDL2/SDL_events.h>
 #include <SDL2/SDL_keycode.h>
 #include <SDL2/SDL_mouse.h>
+#include <SDL2/SDL_stdinc.h>
 
 #include "./include/event.h"
 #include "./include/tchs.h"
@@ -31,15 +32,15 @@ void eventHandle() {
 
 		switch (event.type) {
 
-			case SDL_QUIT:            stateRunning = 0; break;
-			case SDL_MOUSEBUTTONDOWN: mouseHold    = 1; break;
-			case SDL_MOUSEBUTTONUP:   mouseHold    = 0; break;
+			case SDL_QUIT:            stateRunning = SDL_FALSE; break;
+			case SDL_MOUSEBUTTONDOWN: mouseHold    = SDL_TRUE;  break;
+			case SDL_MOUSEBUTTONUP:   mouseHold    = SDL_FALSE; break;
 
 			case SDL_KEYDOWN:
 				switch (event.key.keysym.sym) {
 
 					// Exiting
-					case SDLK_ESCAPE: stateRunning = 0; break;
+					case SDLK_ESCAPE: stateRunning = SDL_FALSE; break;
 
 					// Flip the board
 					case SDLK_f: boardFlipped = !boardFlipped; break;
