@@ -23,6 +23,8 @@ extern int offset;    // -> win.c
 
 char tchsTitle[PATH_TXT_LEN] = "TeaChess";
 
+int k, K;
+
 int tchsTitleLen = 8;
 
 char tchs[64] = {
@@ -77,6 +79,8 @@ int tchsRead(char* name) {
 	char  ptchs[PATH_TXT_LEN];
 	int   tchsLen;
 
+	k = 0; K = 0;
+
 	snprintf(ptchs, PATH_TXT_LEN, "tchs/%s.tchs", name);
 
 	gptchs = addToGlobalPath(ptchs);
@@ -112,7 +116,7 @@ int tchsRead(char* name) {
 
 	for (unsigned int i = 0; i < tchsLen - sizeof(char); i++) {
 
-		if (pieceLegalCheck(ctchs[i]) == 0) {
+		if (pieceLegalCheck(ctchs[i]) == SDL_FALSE) {
 			if ( (ctchs[i] != '\n') && (ctchs[i] != '\0') ) {
 				printf("Log (tchs.c): Unknown char in %s (%c)\n", gptchs, ctchs[i]);
 				return EXIT_FAILURE;
@@ -125,7 +129,11 @@ int tchsRead(char* name) {
 				printf("Log (tchs.c): %s 64 characters of interest surpassed\n", gptchs);
 				return EXIT_FAILURE;
 			}
-			else tchs[tchsCount++] = ctchs[i];
+			else {
+				k += (ctchs[i] == 'k') || (ctchs[i] == 'c');
+				K += (ctchs[i] == 'K') || (ctchs[i] == 'C');
+				tchs[tchsCount++] = ctchs[i];
+			}
 
 		}
 
