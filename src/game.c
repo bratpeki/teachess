@@ -11,8 +11,9 @@
 #include "./include/game_assist.h"
 #include "./include/tchs.h"
 
-extern int  boardFlipped; // -> win.c
 extern char tchs[64];     // -> tchs.c
+extern int  boardFlipped; // -> win.c
+extern int  intTmp;       // -> tmp.c
 
 int gameTurn;
 int piecePos64;
@@ -46,6 +47,9 @@ void gameGetMoves(int boardX, int boardY) {
 
 	clearAvailableMoves();
 
+	intTmp = getPieceType(tchs[getPos64(boardX, boardY)]);
+	printf("%d\n", intTmp);
+
 	switch (tchs[boardX + 8*boardY]) {
 
 		case 'p':
@@ -63,6 +67,13 @@ void gameGetMoves(int boardX, int boardY) {
 						availableMoves[getPos64(boardX, boardY + 2)] = 1;
 
 			}
+
+			// eating
+
+			if (getPieceType(tchs[getPos64(boardX + 1, boardY + 1)]) == PIECE_WHITE)
+				availableMoves[getPos64(boardX + 1, boardY + 1)] = 1;
+			if (getPieceType(tchs[getPos64(boardX - 1, boardY + 1)]) == PIECE_WHITE)
+				availableMoves[getPos64(boardX - 1, boardY + 1)] = 1;
 
 			break;
 
@@ -160,6 +171,13 @@ void gameGetMoves(int boardX, int boardY) {
 						availableMoves[getPos64(boardX, boardY - 2)] = 1;
 
 			}
+
+			// eating
+
+			if (getPieceType(tchs[getPos64(boardX + 1, boardY - 1)]) == PIECE_BLACK)
+				availableMoves[getPos64(boardX + 1, boardY - 1)] = 1;
+			if (getPieceType(tchs[getPos64(boardX - 1, boardY - 1)]) == PIECE_BLACK)
+				availableMoves[getPos64(boardX - 1, boardY - 1)] = 1;
 
 			break;
 
