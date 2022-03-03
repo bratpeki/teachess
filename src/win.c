@@ -150,12 +150,8 @@ int boardLoad() {
 			rectTmp.x = 104 + (j*64)*(!boardFlipped) + ((7-j)*64)*(boardFlipped);
 			rectTmp.y = 104 + (i*64)*(!boardFlipped) + ((7-i)*64)*(boardFlipped);
 
-			if (availableMoves[i*8 + j])
-				SDL_RenderCopy(rndMain, textMove, NULL, &rectTmp);
-
-			if (textTmp != NULL)
-				SDL_RenderCopy(rndMain, textTmp, NULL, &rectTmp);
-
+			if (availableMoves[i*8 + j]) SDL_RenderCopy(rndMain, textMove, NULL, &rectTmp);
+			if (textTmp != NULL)         SDL_RenderCopy(rndMain, textTmp, NULL, &rectTmp);
 
 		}
 

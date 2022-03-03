@@ -18,16 +18,7 @@ extern int  intTmp;       // -> tmp.c
 int gameTurn;
 int piecePos64;
 
-int availableMoves[64] = {
-	0, 0, 0, 0, 0, 0, 0, 0,
-	0, 0, 0, 0, 0, 0, 0, 0,
-	0, 0, 0, 0, 0, 0, 0, 0,
-	0, 0, 0, 0, 0, 0, 0, 0,
-	0, 0, 0, 0, 0, 0, 0, 0,
-	0, 0, 0, 0, 0, 0, 0, 0,
-	0, 0, 0, 0, 0, 0, 0, 0,
-	0, 0, 0, 0, 0, 0, 0, 0,
-};
+int availableMoves[64];
 
 int kMoves[8][2] = {
 	{ 0,  1}, { 0, -1}, { 1,  0}, { 1,  1},
@@ -43,44 +34,39 @@ int nMoves[8][2] = {
 // TODO: Movement for 'e/E' and 'c/C' characters
 
 int spotX, spotY;
+
+int pieceType;
+int piecePos;
 void gameGetMoves(int boardX, int boardY) {
 
 	clearAvailableMoves();
 
-	intTmp = getPieceType(tchs[getPos64(boardX, boardY)]);
-	printf("%d\n", intTmp);
+	piecePos  = getPos64(boardX, boardY);
+	pieceType = getPieceType(tchs[piecePos]);
 
 	switch (tchs[boardX + 8*boardY]) {
 
 		case 'p':
 
-			// one-step move
+			if (getPieceType(tchs[piecePos + 8]) == PIECE_BLANK) {
 
-			if (getPieceType(tchs[getPos64(boardX, boardY + 1)]) == PIECE_BLANK) {
-
-				availableMoves[getPos64(boardX, boardY + 1)] = 1;
-
-				// two-step move
+				availableMoves[piecePos + 8] = 1;
 
 				if (boardY == 1)
-					if (getPieceType(tchs[getPos64(boardX, boardY + 2)]) == PIECE_BLANK)
-						availableMoves[getPos64(boardX, boardY + 2)] = 1;
+					availableMoves[piecePos + 16] = (getPieceType(tchs[piecePos + 16]) == PIECE_BLANK);
 
 			}
 
-			// eating
-
-			if (getPieceType(tchs[getPos64(boardX + 1, boardY + 1)]) == PIECE_WHITE)
-				availableMoves[getPos64(boardX + 1, boardY + 1)] = 1;
-			if (getPieceType(tchs[getPos64(boardX - 1, boardY + 1)]) == PIECE_WHITE)
-				availableMoves[getPos64(boardX - 1, boardY + 1)] = 1;
+			availableMoves[piecePos + 9] = (getPieceType(tchs[piecePos + 9]) == PIECE_WHITE);
+			availableMoves[piecePos + 7] = (getPieceType(tchs[piecePos + 7]) == PIECE_WHITE);
 
 			break;
 
 		case 'e':
 
-			if (getPieceType(tchs[getPos64(boardX, boardY + 1)]) == PIECE_BLANK)
-				availableMoves[getPos64(boardX, boardY + 1)] = 1;
+			availableMoves[piecePos + 8] = (getPieceType(tchs[piecePos + 8]) == PIECE_BLANK);
+
+			break;
 
 		case 'b':
 
@@ -162,31 +148,23 @@ void gameGetMoves(int boardX, int boardY) {
 
 			if (getPieceType(tchs[getPos64(boardX, boardY - 1)]) == PIECE_BLANK) {
 
-				availableMoves[getPos64(boardX, boardY - 1)] = 1;
+				availableMoves[piecePos - 8] = 1;
 
 				// two-step move
 
 				if (boardY == 6)
-					if (getPieceType(tchs[getPos64(boardX, boardY - 2)]) == PIECE_BLANK)
-						availableMoves[getPos64(boardX, boardY - 2)] = 1;
+					availableMoves[piecePos - 16] = (getPieceType(tchs[piecePos - 16]) == PIECE_BLANK);
 
 			}
 
-			// eating
-
-			if (getPieceType(tchs[getPos64(boardX + 1, boardY - 1)]) == PIECE_BLACK)
-				availableMoves[getPos64(boardX + 1, boardY - 1)] = 1;
-			if (getPieceType(tchs[getPos64(boardX - 1, boardY - 1)]) == PIECE_BLACK)
-				availableMoves[getPos64(boardX - 1, boardY - 1)] = 1;
+			availableMoves[piecePos - 7] = (getPieceType(tchs[piecePos - 7]) == PIECE_BLACK);
+			availableMoves[piecePos - 9] = (getPieceType(tchs[piecePos - 9]) == PIECE_BLACK);
 
 			break;
 
 		case 'E':
 
-			// one-step move
-
-			if (getPieceType(tchs[getPos64(boardX, boardY - 1)]) == PIECE_BLANK)
-				availableMoves[getPos64(boardX, boardY - 1)] = 1;
+			availableMoves[piecePos - 8] = (getPieceType(tchs[piecePos - 8]) == PIECE_BLANK);
 
 			break;
 
@@ -265,6 +243,7 @@ void gameGetMoves(int boardX, int boardY) {
 			break;
 
 		default:
+
 			break;
 
 	}

@@ -75,17 +75,17 @@ int jsonLoadConf() {
 
 		jsonConfig = json_object_from_file(charPTmp);
 		printf("Log (json.c): JSON object at %s loaded successfully.\n", charPTmp);
+		intTmp = EXIT_SUCCESS;
 
 	} else {
 
 		printf("Log (json.c): JSON object at %s couldn't be loaded.\n", charPTmp);
-		free(charPTmp);
-		return EXIT_FAILURE;
+		intTmp = EXIT_FAILURE;
 
 	}
 
 	free(charPTmp);
-	return EXIT_SUCCESS;
+	return intTmp;
 
 }
 
