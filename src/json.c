@@ -20,6 +20,8 @@
 #include "./include/json.h"
 #include "./include/path.h"
 
+#define JSON_EL_NUM 17
+
 extern int   intTmp;   // -> tmp.c
 extern char* charPTmp; // -> tmp.c
 
@@ -31,6 +33,7 @@ json_object* jsonConfig;
 extern char      pathBG     [PATH_TXT_LEN]; // -> win.c
 extern char      pathBoard  [PATH_TXT_LEN]; // -> win.c
 extern char      pathAMove  [PATH_TXT_LEN]; // -> win.c
+extern char      pathACheck [PATH_TXT_LEN]; // -> win.c
 extern char      pathB      [PATH_TXT_LEN]; // -> win.c
 extern char      pathK      [PATH_TXT_LEN]; // -> win.c
 extern char      pathN      [PATH_TXT_LEN]; // -> win.c
@@ -46,24 +49,25 @@ extern char      pathr      [PATH_TXT_LEN]; // -> win.c
 extern char      pathFont   [PATH_TXT_LEN]; // -> win.c
 extern SDL_Color colorFont;                 // -> win.c
 
-char* paths[16][3] = {
+char* paths[JSON_EL_NUM][3] = {
 
-	{ pathBG,    "bgImage",    "img/background/%s.png" },
-	{ pathBoard, "boardImage", "img/board/%s.png"      },
-	{ pathAMove, "move",       "img/move/%s.png"       },
-	{ pathB,     "pieceImage", "img/piece/%s/B.png"    },
-	{ pathK,     "pieceImage", "img/piece/%s/K.png"    },
-	{ pathN,     "pieceImage", "img/piece/%s/N.png"    },
-	{ pathP,     "pieceImage", "img/piece/%s/P.png"    },
-	{ pathQ,     "pieceImage", "img/piece/%s/Q.png"    },
-	{ pathR,     "pieceImage", "img/piece/%s/R.png"    },
-	{ pathb,     "pieceImage", "img/piece/%s/b.png"    },
-	{ pathk,     "pieceImage", "img/piece/%s/k.png"    },
-	{ pathn,     "pieceImage", "img/piece/%s/n.png"    },
-	{ pathp,     "pieceImage", "img/piece/%s/p.png"    },
-	{ pathq,     "pieceImage", "img/piece/%s/q.png"    },
-	{ pathr,     "pieceImage", "img/piece/%s/r.png"    },
-	{ pathFont,  "font",       "font/%s"               }
+	{ pathBG,     "bgImage",    "img/background/%s.png" },
+	{ pathBoard,  "boardImage", "img/board/%s.png"      },
+	{ pathACheck, "check",      "img/check/%s.png"      },
+	{ pathAMove,  "move",       "img/move/%s.png"       },
+	{ pathB,      "pieceImage", "img/piece/%s/B.png"    },
+	{ pathK,      "pieceImage", "img/piece/%s/K.png"    },
+	{ pathN,      "pieceImage", "img/piece/%s/N.png"    },
+	{ pathP,      "pieceImage", "img/piece/%s/P.png"    },
+	{ pathQ,      "pieceImage", "img/piece/%s/Q.png"    },
+	{ pathR,      "pieceImage", "img/piece/%s/R.png"    },
+	{ pathb,      "pieceImage", "img/piece/%s/b.png"    },
+	{ pathk,      "pieceImage", "img/piece/%s/k.png"    },
+	{ pathn,      "pieceImage", "img/piece/%s/n.png"    },
+	{ pathp,      "pieceImage", "img/piece/%s/p.png"    },
+	{ pathq,      "pieceImage", "img/piece/%s/q.png"    },
+	{ pathr,      "pieceImage", "img/piece/%s/r.png"    },
+	{ pathFont,   "font",       "font/%s"               }
 
 };
 
@@ -188,7 +192,7 @@ int jsonAssetLoad() {
 
 	json_object_object_foreach(jsonConfig, key, val) {
 
-		for (unsigned int i = 0; i < 16; i++) {
+		for (unsigned int i = 0; i < JSON_EL_NUM; i++) {
 
 			if (textLoadLocal(
 				key, val,

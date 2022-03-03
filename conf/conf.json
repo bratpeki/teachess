@@ -1,6 +1,7 @@
 {
 	"bgImage":    "default",
 	"boardImage": "default",
+	"check":      "default",
 	"colors": {
 		"text": "#999999"
 	},

@@ -125,8 +125,6 @@ int tchsRead(char* name) {
 
 	}
 
-	printf("k: %d\tK: %d\n", k, K);
-
 	if ( (k != 1) || (K != 1) ) {
 		printf("Log (tchs.c): Number of kings unsatisfactory. Check %s\n", gptchs);
 		free(gptchs); free(ctchs);

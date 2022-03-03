@@ -46,6 +46,7 @@ SDL_Texture*  textTitle;
 SDL_Texture*  textTmp;
 SDL_Texture*  textBG;
 SDL_Texture*  textBoard;
+SDL_Texture*  textCheck;
 SDL_Texture*  textMove;
 SDL_Texture*  textB;
 SDL_Texture*  textK;
@@ -62,22 +63,23 @@ SDL_Texture*  textr;
 
 SDL_Window*   winMain;
 
-char          pathBG    [PATH_TXT_LEN];
-char          pathBoard [PATH_TXT_LEN];
-char          pathAMove [PATH_TXT_LEN];
-char          pathB     [PATH_TXT_LEN];
-char          pathK     [PATH_TXT_LEN];
-char          pathN     [PATH_TXT_LEN];
-char          pathP     [PATH_TXT_LEN];
-char          pathQ     [PATH_TXT_LEN];
-char          pathR     [PATH_TXT_LEN];
-char          pathb     [PATH_TXT_LEN];
-char          pathk     [PATH_TXT_LEN];
-char          pathn     [PATH_TXT_LEN];
-char          pathp     [PATH_TXT_LEN];
-char          pathq     [PATH_TXT_LEN];
-char          pathr     [PATH_TXT_LEN];
-char          pathFont  [PATH_TXT_LEN];
+char          pathBG     [PATH_TXT_LEN];
+char          pathBoard  [PATH_TXT_LEN];
+char          pathAMove  [PATH_TXT_LEN];
+char          pathACheck [PATH_TXT_LEN];
+char          pathB      [PATH_TXT_LEN];
+char          pathK      [PATH_TXT_LEN];
+char          pathN      [PATH_TXT_LEN];
+char          pathP      [PATH_TXT_LEN];
+char          pathQ      [PATH_TXT_LEN];
+char          pathR      [PATH_TXT_LEN];
+char          pathb      [PATH_TXT_LEN];
+char          pathk      [PATH_TXT_LEN];
+char          pathn      [PATH_TXT_LEN];
+char          pathp      [PATH_TXT_LEN];
+char          pathq      [PATH_TXT_LEN];
+char          pathr      [PATH_TXT_LEN];
+char          pathFont   [PATH_TXT_LEN];
 
 // The "+1" is there to include the null escape character
 char tchsTitleFormat[TITLE_DISP_SIZE + 1];
@@ -199,6 +201,7 @@ int winInit() {
 			textBoard = IMG_LoadTexture(rndMain, pathBoard);
 
 			textMove  = IMG_LoadTexture(rndMain, pathAMove);
+			textCheck = IMG_LoadTexture(rndMain, pathACheck);
 
 			textB     = IMG_LoadTexture(rndMain, pathB);
 			textK     = IMG_LoadTexture(rndMain, pathK);
