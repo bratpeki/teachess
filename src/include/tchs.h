@@ -2,8 +2,9 @@
 #ifndef H_TEACHESS_TCHS
 #define H_TEACHESS_TCHS
 
-#define EXIT_BAD_FILENAME   2
-#define EXIT_MULTIPLE_KINGS 3
+#define EXIT_BAD_FILENAME 2
+#define EXIT_BADNUM_KINGS 3
+#define EXIT_BADNUM_CHARS 4
 
 /*
  * Read a TCHS file and return the exit code (exit code output)

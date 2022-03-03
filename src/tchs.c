@@ -20,12 +20,10 @@
 extern int gameTurn;  // -> game.c
 extern int minOffset; // -> win.c
 extern int offset;    // -> win.c
+extern int intTmp;    // -> tmp.c
 
 char tchsTitle[PATH_TXT_LEN] = "TeaChess";
-
-int k, K;
-
-int tchsTitleLen = 8;
+int  tchsTitleLen            = 8;
 
 char tchs[64] = {
 	'r', 'n', 'b', 'q', 'c', 'b', 'n', 'r',
@@ -68,19 +66,17 @@ int pieceLegalCheck(char piece) {
 
 }
 
-// TODO: Better checking before loading the file
-//       Check for lenght being exactly 63 characters, correct pieces and no two-king situations
-//       Then load everything
+FILE* fp;                  // TCHS File contents
+char  ptchs[PATH_TXT_LEN]; // Path to the TCHS
+char* ctchs;               // TCHS characters
+char* gptchs;              // Global path to the TCHS
+int   k, K;                // King counters
+int   tchsLen;             // Lenght of the TCHS file, character-wise
+int   tchsCount;           // TCHS character count
 
 int tchsRead(char* name) {
 
-	FILE* fp;
-	char* ctchs;
-	char* gptchs;
-	char  ptchs[PATH_TXT_LEN];
-	int   tchsLen;
-
-	k = 0; K = 0;
+	k = 0; K = 0; tchsCount = 0;
 
 	snprintf(ptchs, PATH_TXT_LEN, "tchs/%s.tchs", name);
 
@@ -90,22 +86,8 @@ int tchsRead(char* name) {
 
 	if (!fp) {
 		printf ("Log (tchs.c): %s couldn't load.\n", ptchs);
+		free(gptchs);
 		return EXIT_FAILURE;
-	}
-
-	minOffset = 1;
-	offset = 1;
-	for (unsigned int i = 0; i < PATH_TXT_LEN; i++) tchsTitle[i] = ' ';
-	strcpy(tchsTitle, name);
-
-	tchsTitleLen = strlen(name);
-
-	switch (name[0]) {
-		case 'b': gameTurn = PIECE_BLACK; break;
-		case 'w': gameTurn = PIECE_WHITE; break;
-		default:
-			free(gptchs);
-			return EXIT_BAD_FILENAME;
 	}
 
 	fseek(fp, 0, SEEK_END);
@@ -115,15 +97,16 @@ int tchsRead(char* name) {
 	ctchs = malloc(tchsLen);
 	fread(ctchs, 1, tchsLen - sizeof(char), fp);
 
-	int tchsCount = 0;
+	for (unsigned int i = 0; i < tchsLen; i++) {
 
-	for (unsigned int i = 0; i < tchsLen - sizeof(char); i++) {
+		if ( !pieceLegalCheck(ctchs[i]) ) {
 
-		if (pieceLegalCheck(ctchs[i]) == SDL_FALSE) {
 			if ( (ctchs[i] != '\n') && (ctchs[i] != '\0') ) {
 				printf("Log (tchs.c): Unknown char in %s (%c)\n", gptchs, ctchs[i]);
+				free(gptchs); free(ctchs);
 				return EXIT_FAILURE;
 			}
+
 		}
 
 		else {
@@ -142,7 +125,36 @@ int tchsRead(char* name) {
 
 	}
 
+	printf("k: %d\tK: %d\n", k, K);
+
+	if ( (k != 1) || (K != 1) ) {
+		printf("Log (tchs.c): Number of kings unsatisfactory. Check %s\n", gptchs);
+		free(gptchs); free(ctchs);
+		return EXIT_BADNUM_KINGS;
+	}
+
+	if (tchsCount != 64) {
+		printf("Log (tchs.c): Number of characters isn't 64. Check %s\n", gptchs);
+		free(gptchs); free(ctchs);
+		return EXIT_BADNUM_CHARS;
+	}
+
 	clearAvailableMoves();
+
+	minOffset = 1;
+	offset = 1;
+	for (unsigned int i = 0; i < PATH_TXT_LEN; i++) tchsTitle[i] = ' ';
+	strcpy(tchsTitle, name);
+
+	tchsTitleLen = strlen(name);
+
+	switch (name[0]) {
+		case 'b': gameTurn = PIECE_BLACK; break;
+		case 'w': gameTurn = PIECE_WHITE; break;
+		default:
+			free(gptchs);
+			return EXIT_BAD_FILENAME;
+	}
 
 	fclose(fp);
 	free(ctchs);
