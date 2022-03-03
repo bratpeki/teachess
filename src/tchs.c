@@ -68,8 +68,9 @@ int pieceLegalCheck(char piece) {
 
 }
 
-// TODO: Block multiple same type kings from being on the board
-// TODO: Make a better system for ignoring the first character other than... literally skipping it.
+// TODO: Better checking before loading the file
+//       Check for lenght being exactly 63 characters, correct pieces and no two-king situations
+//       Then load everything
 
 int tchsRead(char* name) {
 
@@ -102,7 +103,9 @@ int tchsRead(char* name) {
 	switch (name[0]) {
 		case 'b': gameTurn = PIECE_BLACK; break;
 		case 'w': gameTurn = PIECE_WHITE; break;
-		default:  return EXIT_BAD_FILENAME;
+		default:
+			free(gptchs);
+			return EXIT_BAD_FILENAME;
 	}
 
 	fseek(fp, 0, SEEK_END);
