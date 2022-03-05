@@ -17,6 +17,7 @@ extern int  intTmp;       // -> tmp.c
 
 int gameTurn;
 int availableMoves[64];
+int checkStopMoves[64];
 
 int kMoves[8][2] = {
 	{ 0,  1}, { 0, -1}, { 1,  0}, { 1,  1},
@@ -28,12 +29,12 @@ int nMoves[8][2] = {
 	{-1,  2}, {-1, -2}, {-2,  1}, {-2, -1}
 };
 
-// TODO: Single cases instead of doubles
-
 int spotX, spotY;
 
 int pieceType;
 int piecePos;
+
+// TODO: Game logic
 
 void gameGetMoves(int boardX, int boardY) {
 
@@ -66,6 +67,7 @@ void gameGetMoves(int boardX, int boardY) {
 
 			break;
 
+		case 'B':
 		case 'b':
 
 			gameCheckLine(boardX, boardY,  1,  1, !pieceType);
@@ -75,6 +77,7 @@ void gameGetMoves(int boardX, int boardY) {
 
 			break;
 
+		case 'N':
 		case 'n':
 
 			for (int i = 0; i < 8; i++) {
@@ -89,6 +92,7 @@ void gameGetMoves(int boardX, int boardY) {
 
 			break;
 
+		case 'R':
 		case 'r':
 
 			gameCheckLine(boardX, boardY,  0,  1, !pieceType);
@@ -126,6 +130,7 @@ void gameGetMoves(int boardX, int boardY) {
 
 			break;
 
+		case 'Q':
 		case 'q':
 
 			gameCheckLine(boardX, boardY,  1,  1, !pieceType);
@@ -166,38 +171,6 @@ void gameGetMoves(int boardX, int boardY) {
 
 			break;
 
-		case 'B':
-
-			gameCheckLine(boardX, boardY,  1,  1, !pieceType);
-			gameCheckLine(boardX, boardY,  1, -1, !pieceType);
-			gameCheckLine(boardX, boardY, -1,  1, !pieceType);
-			gameCheckLine(boardX, boardY, -1, -1, !pieceType);
-
-			break;
-
-		case 'N':
-
-			for (int i = 0; i < 8; i++) {
-				spotX = boardX + nMoves[i][0];
-				spotY = boardY + nMoves[i][1];
-				if (
-						(checkSpotType(spotX, spotY, !pieceType)) ||
-						(checkSpotType(spotX, spotY, PIECE_BLANK))
-				   )
-					availableMoves[getPos64(spotX, spotY)] = 1;
-			}
-
-			break;
-
-		case 'R':
-
-			gameCheckLine(boardX, boardY,  0,  1, !pieceType);
-			gameCheckLine(boardX, boardY,  0, -1, !pieceType);
-			gameCheckLine(boardX, boardY,  1,  0, !pieceType);
-			gameCheckLine(boardX, boardY, -1,  0, !pieceType);
-
-			break;
-
 		case 'C':
 
 			for (unsigned int i = 0; i < 8; i++) {
@@ -226,23 +199,7 @@ void gameGetMoves(int boardX, int boardY) {
 
 			break;
 
-		case 'Q':
-
-			gameCheckLine(boardX, boardY,  1,  1, !pieceType);
-			gameCheckLine(boardX, boardY,  1, -1, !pieceType);
-			gameCheckLine(boardX, boardY, -1,  1, !pieceType);
-			gameCheckLine(boardX, boardY, -1, -1, !pieceType);
-
-			gameCheckLine(boardX, boardY,  0,  1, !pieceType);
-			gameCheckLine(boardX, boardY,  0, -1, !pieceType);
-			gameCheckLine(boardX, boardY,  1,  0, !pieceType);
-			gameCheckLine(boardX, boardY, -1,  0, !pieceType);
-
-			break;
-
-		default:
-
-			break;
+		default: break;
 
 	}
 

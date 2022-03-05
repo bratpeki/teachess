@@ -186,7 +186,6 @@ int colorLoadLocal(
 }
 
 // TODO: Check that namestrings aren't too large
-// TODO: Check what happens with duplicate key objects in conf.json
 
 int jsonAssetLoad() {
 

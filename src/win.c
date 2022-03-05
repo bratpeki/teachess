@@ -163,12 +163,11 @@ int boardLoad() {
 
 }
 
-// TODO: Work on the system that stop you from overdoing the offsetting
-
 void tchsTitleEdit(int localOffset) {
 
-	if (localOffset < minOffset) offset = minOffset;
-	if (localOffset > PATH_TXT_LEN - TITLE_DISP_SIZE) { offset--; return; }
+	if (localOffset < minOffset)                      { offset = minOffset; }
+	if (localOffset > PATH_TXT_LEN - TITLE_DISP_SIZE) { offset--; return;   }
+	if (localOffset >= tchsTitleLen)                  { offset--; return;   }
 
 	for (int i = 0; i < TITLE_DISP_SIZE; i++) tchsTitleFormat[i] = ' ';
 
