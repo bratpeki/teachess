@@ -20,15 +20,19 @@ Optionally, it should end with `.tchs`.
 
 Its contents must contain 64 characters or less which can be:
 
-1. `-/.`/blank
-2. `b/B`/bishop
-3. `c/C`/king which can be castled
-4. `e/E`/pawn which can be eaten via "En passant"
-5. `k/K`/king
-6. `n/N`/knight
-7. `p/P`/pawn
-8. `q/Q`/queen
-9. `r/R`/rook
+1.  `-/.`/blank
+2.  `b/B`/bishop
+3.  `c/C`/king which castle on either side
+4.  `e/E`/pawn which can be eaten via "En passant"
+5.  `k/K`/king
+6.  `n/N`/knight
+7.  `p/P`/pawn
+8.  `q/Q`/queen
+9.  `r/R`/rook
+10. `x/X`/king which castle on the left side
+11. `y/Y`/king which castle on the right side
+
+a d f g h i j l m o s t u v w x y z
 
 A normal TCHS file looks like this:
 
@@ -41,7 +45,7 @@ pppppppp
 --------
 --------
 PPPPPPPP
-RNBCQBNR
+RNBQCBNR
 ```
 
 ## How is it made?

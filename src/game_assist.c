@@ -19,13 +19,15 @@ int bishopTmp;
 
 int getPieceType(char c) {
 
-	if ( (c == 'P') ||
-		 (c == 'E') ||
-		 (c == 'B') ||
+	if ( (c == 'B') ||
+		 (c == 'P') ||
 		 (c == 'C') ||
+		 (c == 'E') ||
+		 (c == 'K') ||
 		 (c == 'N') ||
 		 (c == 'R') ||
-		 (c == 'K') ||
+		 (c == 'X') ||
+		 (c == 'Y') ||
 		 (c == 'Q') )
 		return PIECE_WHITE;
 

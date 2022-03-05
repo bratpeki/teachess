@@ -49,17 +49,15 @@ char tchs[64] = {
  * r/R - Rook
  */
 
-char pieceLegal[18] = {
+char pieceLegal[22] = {
 	'-', '.',
-	'b', 'B', 'c', 'C',
-	'e', 'E', 'k', 'K',
-	'n', 'N', 'p', 'P',
-	'q', 'Q', 'r', 'R'
+	'B', 'C', 'E', 'K', 'N', 'P', 'Q', 'R', 'X', 'Y',
+	'b', 'c', 'e', 'k', 'n', 'p', 'q', 'r', 'x', 'y'
 };
 
 int pieceLegalCheck(char piece) {
 
-	for (unsigned int i = 0; i < 18; i++)
+	for (unsigned int i = 0; i < 22; i++)
 		if (piece == pieceLegal[i]) return SDL_TRUE;
 
 	return SDL_FALSE;
@@ -116,8 +114,8 @@ int tchsRead(char* name) {
 				return EXIT_FAILURE;
 			}
 			else {
-				k += (ctchs[i] == 'k') || (ctchs[i] == 'c');
-				K += (ctchs[i] == 'K') || (ctchs[i] == 'C');
+				k += (ctchs[i] == 'k') || (ctchs[i] == 'c') || (ctchs[i] == 'x') || (ctchs[i] == 'y');
+				K += (ctchs[i] == 'K') || (ctchs[i] == 'C') || (ctchs[i] == 'X') || (ctchs[i] == 'Y');
 				tchs[tchsCount++] = ctchs[i];
 			}
 
