@@ -6,7 +6,7 @@
 #define PIECE_WHITE 1
 #define PIECE_BLANK 2
 
-// Individual piece value, king's value is infinity (represented as 0)
+/* Individual piece value, king's value is infinity (represented as 0) */
 
 #define VALUE_P 1
 #define VALUE_B 3
@@ -17,7 +17,7 @@
 
 #define getPos64(x, y) (x + 8*(y))
 
-// Get all avalable moves for a piece on (boardX, boardY) and store them in availableMoves
+/* Get all avalable moves for a piece on (boardX, boardY) and store them in availableMoves */
 
 void gameGetMoves(int boardX, int boardY);
 

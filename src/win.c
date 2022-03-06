@@ -276,6 +276,8 @@ void winRender() {
 					tchs[getPos64(boardX, boardY)] = tchs[getPos64(boardXPrev, boardYPrev)];
 					tchs[getPos64(boardXPrev, boardYPrev)] = '-';
 
+					// TODO: Check if a piece is giving a check here
+
 					gameTurn = !gameTurn;
 
 				}

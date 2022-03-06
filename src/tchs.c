@@ -36,6 +36,8 @@ char tchs[64] = {
 	'R', 'N', 'B', 'Q', 'C', 'B', 'N', 'R',
 };
 
+char tchsPreload[64];
+
 /*
  * Piece list:
  * -/. - Empty space
@@ -116,7 +118,7 @@ int tchsRead(char* name) {
 			else {
 				k += (ctchs[i] == 'k') || (ctchs[i] == 'c') || (ctchs[i] == 'x') || (ctchs[i] == 'y');
 				K += (ctchs[i] == 'K') || (ctchs[i] == 'C') || (ctchs[i] == 'X') || (ctchs[i] == 'Y');
-				tchs[tchsCount++] = ctchs[i];
+				tchsPreload[tchsCount++] = ctchs[i];
 			}
 
 		}
@@ -151,6 +153,8 @@ int tchsRead(char* name) {
 			free(gptchs);
 			return EXIT_BAD_FILENAME;
 	}
+
+	for (unsigned int i = 0; i < 64; i++) tchs[i] = tchsPreload[i];
 
 	fclose(fp);
 	free(ctchs);

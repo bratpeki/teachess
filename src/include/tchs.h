@@ -6,15 +6,11 @@
 #define EXIT_BADNUM_KINGS 3
 #define EXIT_BADNUM_CHARS 4
 
-/*
- * Read a TCHS file and return the exit code (exit code output)
- */
+/* Read a TCHS file and return the exit code */
 
 int tchsRead(char* name);
 
-/*
- * Check if a piece is legal (boolean output)
- */
+/* Check if a piece is legal */
 
 int pieceLegalCheck(char piece);
 

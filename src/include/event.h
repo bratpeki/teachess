@@ -2,7 +2,7 @@
 #ifndef H_TEACHESS_EVENT
 #define H_TEACHESS_EVENT
 
-// Go through key inputs and respond appropriately
+/* Go through events and respond appropriately */
 
 void eventHandle();
 
