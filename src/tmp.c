@@ -7,4 +7,5 @@
 
 int   intTmp;
 char* charPTmp;
+char  charTmp;
 

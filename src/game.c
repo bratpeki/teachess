@@ -70,10 +70,10 @@ void gameGetMoves(int boardX, int boardY) {
 		case 'B':
 		case 'b':
 
-			gameCheckLine(boardX, boardY,  1,  1, !pieceType);
-			gameCheckLine(boardX, boardY,  1, -1, !pieceType);
-			gameCheckLine(boardX, boardY, -1,  1, !pieceType);
-			gameCheckLine(boardX, boardY, -1, -1, !pieceType);
+			gameCheckLine(boardX, boardY,  1,  1, !pieceType, availableMoves);
+			gameCheckLine(boardX, boardY,  1, -1, !pieceType, availableMoves);
+			gameCheckLine(boardX, boardY, -1,  1, !pieceType, availableMoves);
+			gameCheckLine(boardX, boardY, -1, -1, !pieceType, availableMoves);
 
 			break;
 
@@ -95,10 +95,10 @@ void gameGetMoves(int boardX, int boardY) {
 		case 'R':
 		case 'r':
 
-			gameCheckLine(boardX, boardY,  0,  1, !pieceType);
-			gameCheckLine(boardX, boardY,  0, -1, !pieceType);
-			gameCheckLine(boardX, boardY,  1,  0, !pieceType);
-			gameCheckLine(boardX, boardY, -1,  0, !pieceType);
+			gameCheckLine(boardX, boardY,  0,  1, !pieceType, availableMoves);
+			gameCheckLine(boardX, boardY,  0, -1, !pieceType, availableMoves);
+			gameCheckLine(boardX, boardY,  1,  0, !pieceType, availableMoves);
+			gameCheckLine(boardX, boardY, -1,  0, !pieceType, availableMoves);
 
 			break;
 
@@ -133,15 +133,15 @@ void gameGetMoves(int boardX, int boardY) {
 		case 'Q':
 		case 'q':
 
-			gameCheckLine(boardX, boardY,  1,  1, !pieceType);
-			gameCheckLine(boardX, boardY,  1, -1, !pieceType);
-			gameCheckLine(boardX, boardY, -1,  1, !pieceType);
-			gameCheckLine(boardX, boardY, -1, -1, !pieceType);
+			gameCheckLine(boardX, boardY,  1,  1, !pieceType, availableMoves);
+			gameCheckLine(boardX, boardY,  1, -1, !pieceType, availableMoves);
+			gameCheckLine(boardX, boardY, -1,  1, !pieceType, availableMoves);
+			gameCheckLine(boardX, boardY, -1, -1, !pieceType, availableMoves);
 
-			gameCheckLine(boardX, boardY,  0,  1, !pieceType);
-			gameCheckLine(boardX, boardY,  0, -1, !pieceType);
-			gameCheckLine(boardX, boardY,  1,  0, !pieceType);
-			gameCheckLine(boardX, boardY, -1,  0, !pieceType);
+			gameCheckLine(boardX, boardY,  0,  1, !pieceType, availableMoves);
+			gameCheckLine(boardX, boardY,  0, -1, !pieceType, availableMoves);
+			gameCheckLine(boardX, boardY,  1,  0, !pieceType, availableMoves);
+			gameCheckLine(boardX, boardY, -1,  0, !pieceType, availableMoves);
 
 			break;
 

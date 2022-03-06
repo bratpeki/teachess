@@ -14,6 +14,7 @@ extern char tchs[64];           // -> tchs.c
 extern int  availableMoves[64]; // -> game.c
 extern int  spotX;              // -> game.c
 extern int  spotY;              // -> game.c
+extern char charTmp;            // -> tmp.c
 
 int bishopTmp;
 
@@ -50,10 +51,11 @@ int checkSpotType(int pieceX, int pieceY, int pieceType) {
 
 void clearAvailableMoves() { for (unsigned int i = 0; i < 64; i++) availableMoves[i] = 0; }
 
-void gameCheckLine(
+SDL_bool gameCheckLine(
 		int boardX, int boardY,
 		int coef1, int coef2,
-		int pieceCollType
+		int pieceCollType,
+		int* arrayToFill
 		) {
 
 	bishopTmp = 0;
@@ -64,15 +66,20 @@ void gameCheckLine(
 		spotY = boardY + coef2 * bishopTmp;
 
 		if (checkSpotType(spotX, spotY, pieceCollType)) {
-			availableMoves[getPos64(spotX, spotY)] = 1;
+			arrayToFill[getPos64(spotX, spotY)] = 1;
+
+			// TODO: Check if the collision with the king is achieved
+
 			break;
 		}
 		else if (checkSpotType(spotX, spotY, PIECE_BLANK)) {
-			availableMoves[getPos64(spotX, spotY)] = 1;
+			arrayToFill[getPos64(spotX, spotY)] = 1;
 		}
 		else break;
 
 	}
+
+	return SDL_FALSE;
 
 }
 

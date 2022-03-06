@@ -2,6 +2,8 @@
 #ifndef H_TEACHESS_GAME_ASSIST
 #define H_TEACHESS_GAME_ASSIST
 
+#include <SDL2/SDL_stdinc.h>
+
 /* Return the piece type */
 
 int getPieceType(char c);
@@ -17,9 +19,10 @@ void clearAvailableMoves();
 /*
  * Check one diagonal of a bishop's, rook's or queen's movement
  * coef1 and coef2 should be either 1 or -1
+ * The retrun value is weather the bishop's path ran into an opposite king
  */
 
-void gameCheckLine(int boardX, int boardY, int coef1, int coef2, int pieceCollType);
+SDL_bool gameCheckLine(int boardX, int boardY, int coef1, int coef2, int pieceCollType, int* arrayToFill);
 
 #endif
 
