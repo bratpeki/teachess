@@ -70,6 +70,8 @@ SDL_bool gameCheckLine(
 
 			// TODO: Check if the collision with the king is achieved
 
+			charTmp = tchs[getPos64(spotX, spotY)];
+
 			break;
 		}
 		else if (checkSpotType(spotX, spotY, PIECE_BLANK)) {

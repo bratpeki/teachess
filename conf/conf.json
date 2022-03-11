@@ -3,7 +3,8 @@
 	"boardImage": "default",
 	"check":      "default",
 	"colors": {
-		"text": "#999999"
+		"text":      "#999",
+		"textBoard": "#666"
 	},
 	"font":       "Kongtext/kongtext.ttf",
 	"move":       "default",

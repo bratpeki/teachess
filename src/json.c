@@ -48,6 +48,7 @@ extern char      pathq      [PATH_TXT_LEN]; // -> win.c
 extern char      pathr      [PATH_TXT_LEN]; // -> win.c
 extern char      pathFont   [PATH_TXT_LEN]; // -> win.c
 extern SDL_Color colorFont;                 // -> win.c
+extern SDL_Color colorFontBoard;            // -> win.c
 
 char* paths[JSON_EL_NUM][3] = {
 
@@ -98,14 +99,14 @@ int textLoadLocal(
 		const char* pathToFile, const char* msgSuccess, const char* msgFailure
 		) {
 
-	if ( !strcmp(key, keycmp) ) {
+	if ( strcmp(key, keycmp) == EXIT_SUCCESS ) {
 
 		sprintf(pathVar, pathToFile, json_object_get_string(val));
 
 		charPTmp = addToGlobalPath(pathVar);
 		strcpy(pathVar, charPTmp);
 
-		if (access(pathVar, F_OK) == 0) {
+		if (access(pathVar, F_OK) == EXIT_SUCCESS) {
 
 			printf(msgSuccess, pathVar);
 			free(charPTmp);
@@ -208,7 +209,23 @@ int jsonAssetLoad() {
 
 			json_object_object_foreach(jsonColors, key, val) {
 
-				colorLoadLocal(&colorFont, json_object_get_string(val), json_object_get_string_len(val), key);
+				if ( strcmp(key, "text") == EXIT_SUCCESS ) {
+					if (colorLoadLocal(
+						&colorFont,
+						json_object_get_string(val),
+						json_object_get_string_len(val), key
+						) == EXIT_FAILURE
+					) return EXIT_FAILURE;
+				}
+
+				if ( strcmp(key, "textBoard") == EXIT_SUCCESS ) {
+					if (colorLoadLocal(
+						&colorFontBoard,
+						json_object_get_string(val),
+						json_object_get_string_len(val), key
+						) == EXIT_FAILURE
+					) return EXIT_FAILURE;
+				}
 
 			}
 
