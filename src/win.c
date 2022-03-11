@@ -10,6 +10,7 @@
 #include <SDL2/SDL_pixels.h>
 #include <SDL2/SDL_rect.h>
 #include <SDL2/SDL_render.h>
+#include <SDL2/SDL_surface.h>
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL_video.h>
 
@@ -28,47 +29,40 @@
 #include "./include/tchs.h"
 #include "./include/win.h"
 
+SDL_Rect rectPosX1 = { 104, 624, 32, 32 }; SDL_Rect rectPosY1 = { 64,  584, 32, 32 };
+SDL_Rect rectPosX2 = { 168, 624, 32, 32 }; SDL_Rect rectPosY2 = { 64,  520, 32, 32 };
+SDL_Rect rectPosX3 = { 232, 624, 32, 32 }; SDL_Rect rectPosY3 = { 64,  456, 32, 32 };
+SDL_Rect rectPosX4 = { 296, 624, 32, 32 }; SDL_Rect rectPosY4 = { 64,  392, 32, 32 };
+SDL_Rect rectPosX5 = { 360, 624, 32, 32 }; SDL_Rect rectPosY5 = { 64,  328, 32, 32 };
+SDL_Rect rectPosX6 = { 424, 624, 32, 32 }; SDL_Rect rectPosY6 = { 64,  264, 32, 32 };
+SDL_Rect rectPosX7 = { 488, 624, 32, 32 }; SDL_Rect rectPosY7 = { 64,  200, 32, 32 };
+SDL_Rect rectPosX8 = { 552, 624, 32, 32 }; SDL_Rect rectPosY8 = { 64,  136, 32, 32 };
+
 SDL_Color     colorFont;
 SDL_Color     colorFontBoard;
 
 SDL_Rect      rectBoard = { 104, 104, 512, 512 };
-
-SDL_Rect      rectPosY1 = { 64,  584, 32,  32  };
-SDL_Rect      rectPosY2 = { 64,  520, 32,  32  };
-SDL_Rect      rectPosY3 = { 64,  456, 32,  32  };
-SDL_Rect      rectPosY4 = { 64,  392, 32,  32  };
-SDL_Rect      rectPosY5 = { 64,  328, 32,  32  };
-SDL_Rect      rectPosY6 = { 64,  264, 32,  32  };
-SDL_Rect      rectPosY7 = { 64,  200, 32,  32  };
-SDL_Rect      rectPosY8 = { 64,  136, 32,  32  };
-
 SDL_Rect      rectTitle = { 748, 68,  464, 48  };
 SDL_Rect      rectTmp   = { 0,   0,   64,  64  };
 
 SDL_Renderer* rndMain;
 
-SDL_Surface*  surfPosY1;
 SDL_Surface*  surfTitle;
+SDL_Surface*  surfTmp;
 
-SDL_Texture*  textB;
 SDL_Texture*  textBG;
 SDL_Texture*  textBoard;
 SDL_Texture*  textCheck;
-SDL_Texture*  textK;
 SDL_Texture*  textMove;
-SDL_Texture*  textN;
-SDL_Texture*  textP;
-SDL_Texture*  textPosY1;
-SDL_Texture*  textQ;
-SDL_Texture*  textR;
 SDL_Texture*  textTitle;
 SDL_Texture*  textTmp;
-SDL_Texture*  textb;
-SDL_Texture*  textk;
-SDL_Texture*  textn;
-SDL_Texture*  textp;
-SDL_Texture*  textq;
-SDL_Texture*  textr;
+
+SDL_Texture*  textB; SDL_Texture*  textb;
+SDL_Texture*  textK; SDL_Texture*  textk;
+SDL_Texture*  textN; SDL_Texture*  textn;
+SDL_Texture*  textP; SDL_Texture*  textp;
+SDL_Texture*  textQ; SDL_Texture*  textq;
+SDL_Texture*  textR; SDL_Texture*  textr;
 
 SDL_Window*   winMain;
 
@@ -117,9 +111,9 @@ int boardXPrev, boardYPrev;
 
 int currPieceType;
 
-char boardChars[16] = {
-	'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
-	'1', '2', '3', '4', '5', '6', '7', '8'
+char* boardChars[16] = {
+	"1", "2", "3", "4", "5", "6", "7", "8",
+	"a", "b", "c", "d", "e", "f", "g", "h"
 };
 
 void availableMovesLoad() {
@@ -176,6 +170,20 @@ int boardLoad() {
 	}
 
 	return EXIT_SUCCESS;
+
+}
+
+void boardPosLoad(
+	SDL_Surface* surface,
+	SDL_Texture* texture,
+	SDL_Rect rectangle,
+	int boardFlipChar,
+	int boardNFlipChar
+	) {
+
+	surface = TTF_RenderText_Solid(fontMain, boardChars[boardNFlipChar*(!boardFlipped) + boardFlipChar*(boardFlipped)], colorFontBoard);
+	texture = SDL_CreateTextureFromSurface(rndMain, surface);
+	SDL_RenderCopy(rndMain, texture, NULL, &rectangle);
 
 }
 
@@ -256,6 +264,23 @@ void winRender() {
 	surfTitle = TTF_RenderText_Solid(fontMain, tchsTitleFormat, colorFont);
 	textTitle = SDL_CreateTextureFromSurface(rndMain, surfTitle);
 
+	boardPosLoad(surfTmp, textTmp, rectPosX1, 15, 8 );
+	boardPosLoad(surfTmp, textTmp, rectPosX2, 14, 9 );
+	boardPosLoad(surfTmp, textTmp, rectPosX3, 13, 10);
+	boardPosLoad(surfTmp, textTmp, rectPosX4, 12, 11);
+	boardPosLoad(surfTmp, textTmp, rectPosX5, 11, 12);
+	boardPosLoad(surfTmp, textTmp, rectPosX6, 10, 13);
+	boardPosLoad(surfTmp, textTmp, rectPosX7, 9,  14);
+	boardPosLoad(surfTmp, textTmp, rectPosX8, 8,  15);
+	boardPosLoad(surfTmp, textTmp, rectPosY1, 7,  0 );
+	boardPosLoad(surfTmp, textTmp, rectPosY2, 6,  1 );
+	boardPosLoad(surfTmp, textTmp, rectPosY3, 5,  2 );
+	boardPosLoad(surfTmp, textTmp, rectPosY4, 4,  3 );
+	boardPosLoad(surfTmp, textTmp, rectPosY5, 3,  4 );
+	boardPosLoad(surfTmp, textTmp, rectPosY6, 2,  5 );
+	boardPosLoad(surfTmp, textTmp, rectPosY7, 1,  6 );
+	boardPosLoad(surfTmp, textTmp, rectPosY8, 0,  7 );
+
 	if (mouseHold) {
 
 		// Check if the mouse is in the board space
@@ -280,6 +305,8 @@ void winRender() {
 
 			}
 
+			// TODO: See the moving issue which results in a SegFault here
+
 			if (
 				(currPieceType == !gameTurn) ||
 				(currPieceType == PIECE_BLANK)
@@ -289,8 +316,12 @@ void winRender() {
 
 					clearAvailableMoves();
 
+					printf("Moving...\n");
+
 					tchs[getPos64(boardX, boardY)] = tchs[getPos64(boardXPrev, boardYPrev)];
 					tchs[getPos64(boardXPrev, boardYPrev)] = '-';
+
+					printf("Moved!\n");
 
 					// TODO: Check if a piece is giving a check here
 
@@ -306,10 +337,6 @@ void winRender() {
 
 	boardLoad();
 
-	surfPosY1 = TTF_RenderText_Solid(fontMain, "1", colorFontBoard);
-	textPosY1 = SDL_CreateTextureFromSurface(rndMain, surfPosY1);
-	SDL_RenderCopy(rndMain, textPosY1, NULL, &rectPosY1);
-
 	SDL_RenderPresent(rndMain);
 
 }
@@ -317,25 +344,26 @@ void winRender() {
 void winQuit() {
 
 	SDL_DestroyRenderer(rndMain);
-	SDL_DestroyTexture (textB);
-	SDL_DestroyTexture (textBG);
-	SDL_DestroyTexture (textBoard);
-	SDL_DestroyTexture (textK);
-	SDL_DestroyTexture (textN);
-	SDL_DestroyTexture (textP);
-	SDL_DestroyTexture (textPosY1);
-	SDL_DestroyTexture (textQ);
-	SDL_DestroyTexture (textR);
-	SDL_DestroyTexture (textTitle);
-	SDL_DestroyTexture (textb);
-	SDL_DestroyTexture (textk);
-	SDL_DestroyTexture (textn);
-	SDL_DestroyTexture (textp);
-	SDL_DestroyTexture (textq);
-	SDL_DestroyTexture (textr);
-	SDL_DestroyWindow  (winMain);
-	SDL_FreeSurface    (surfPosY1);
-	SDL_FreeSurface    (surfTitle);
+
+	SDL_DestroyTexture(textB);
+	SDL_DestroyTexture(textBG);
+	SDL_DestroyTexture(textBoard);
+	SDL_DestroyTexture(textTitle);
+	SDL_DestroyTexture(textTmp);
+	SDL_DestroyTexture(textK);
+	SDL_DestroyTexture(textN);
+	SDL_DestroyTexture(textP);
+	SDL_DestroyTexture(textQ);
+	SDL_DestroyTexture(textR);
+	SDL_DestroyTexture(textb);
+	SDL_DestroyTexture(textk);
+	SDL_DestroyTexture(textn);
+	SDL_DestroyTexture(textp);
+	SDL_DestroyTexture(textq);
+	SDL_DestroyTexture(textr);
+	SDL_DestroyWindow(winMain);
+	SDL_FreeSurface(surfTitle);
+	SDL_FreeSurface(surfTitle);
 
 	TTF_CloseFont(fontMain);
 	TTF_Quit();

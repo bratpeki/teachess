@@ -47,6 +47,7 @@ extern char      pathp      [PATH_TXT_LEN]; // -> win.c
 extern char      pathq      [PATH_TXT_LEN]; // -> win.c
 extern char      pathr      [PATH_TXT_LEN]; // -> win.c
 extern char      pathFont   [PATH_TXT_LEN]; // -> win.c
+
 extern SDL_Color colorFont;                 // -> win.c
 extern SDL_Color colorFontBoard;            // -> win.c
 
@@ -208,6 +209,8 @@ int jsonAssetLoad() {
 			jsonColors = json_object_object_get(jsonConfig, "colors");
 
 			json_object_object_foreach(jsonColors, key, val) {
+
+				// TODO: Remove repetitive code
 
 				if ( strcmp(key, "text") == EXIT_SUCCESS ) {
 					if (colorLoadLocal(

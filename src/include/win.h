@@ -2,6 +2,8 @@
 #ifndef H_TEACHESS_WINDOW
 #define H_TEACHESS_WINDOW
 
+#include <SDL2/SDL.h>
+
 /* Window information, centered and 1280x720 */
 
 #define WIN_TITLE "TeaChess"
@@ -26,6 +28,16 @@ void tchsTitleEdit(int localOffset);
 /* Render the visual elements onto the window */
 
 void winRender();
+
+/* Place a board position character on the screen */
+
+void boardPosLoad(
+	SDL_Surface* surface,
+	SDL_Texture* texture,
+	SDL_Rect rectangle,
+	int boardFlipChar,
+	int boardNFlipChar
+);
 
 /* Quit the window and clean any memory allocations and calls */
 
