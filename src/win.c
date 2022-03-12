@@ -116,6 +116,23 @@ char* boardChars[16] = {
 	"a", "b", "c", "d", "e", "f", "g", "h"
 };
 
+void boardPosLoad(
+	SDL_Surface* surface,
+	SDL_Texture* texture,
+	SDL_Rect rectangle,
+	int boardFlipChar,
+	int boardNFlipChar
+	) {
+
+	surface = TTF_RenderText_Solid(fontMain, boardChars[boardNFlipChar*(!boardFlipped) + boardFlipChar*(boardFlipped)], colorFontBoard);
+	texture = SDL_CreateTextureFromSurface(rndMain, surface);
+	SDL_RenderCopy(rndMain, texture, NULL, &rectangle);
+
+	SDL_FreeSurface(surface);
+	SDL_DestroyTexture(texture);
+
+}
+
 void availableMovesLoad() {
 
 	rectTmp.h = 64;
@@ -170,20 +187,6 @@ int boardLoad() {
 	}
 
 	return EXIT_SUCCESS;
-
-}
-
-void boardPosLoad(
-	SDL_Surface* surface,
-	SDL_Texture* texture,
-	SDL_Rect rectangle,
-	int boardFlipChar,
-	int boardNFlipChar
-	) {
-
-	surface = TTF_RenderText_Solid(fontMain, boardChars[boardNFlipChar*(!boardFlipped) + boardFlipChar*(boardFlipped)], colorFontBoard);
-	texture = SDL_CreateTextureFromSurface(rndMain, surface);
-	SDL_RenderCopy(rndMain, texture, NULL, &rectangle);
 
 }
 
@@ -316,12 +319,8 @@ void winRender() {
 
 					clearAvailableMoves();
 
-					printf("Moving...\n");
-
 					tchs[getPos64(boardX, boardY)] = tchs[getPos64(boardXPrev, boardYPrev)];
 					tchs[getPos64(boardXPrev, boardYPrev)] = '-';
-
-					printf("Moved!\n");
 
 					// TODO: Check if a piece is giving a check here
 
@@ -345,11 +344,12 @@ void winQuit() {
 
 	SDL_DestroyRenderer(rndMain);
 
-	SDL_DestroyTexture(textB);
 	SDL_DestroyTexture(textBG);
 	SDL_DestroyTexture(textBoard);
+	SDL_DestroyTexture(textCheck);
+	SDL_DestroyTexture(textMove);
 	SDL_DestroyTexture(textTitle);
-	SDL_DestroyTexture(textTmp);
+	SDL_DestroyTexture(textB);
 	SDL_DestroyTexture(textK);
 	SDL_DestroyTexture(textN);
 	SDL_DestroyTexture(textP);
@@ -363,7 +363,9 @@ void winQuit() {
 	SDL_DestroyTexture(textr);
 	SDL_DestroyWindow(winMain);
 	SDL_FreeSurface(surfTitle);
-	SDL_FreeSurface(surfTitle);
+
+	SDL_DestroyTexture(textTmp);
+	SDL_FreeSurface(surfTmp);
 
 	TTF_CloseFont(fontMain);
 	TTF_Quit();
