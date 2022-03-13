@@ -29,16 +29,6 @@ void tchsTitleEdit(int localOffset);
 
 void winRender();
 
-/* Place a board position character on the screen */
-
-void boardPosLoad(
-	SDL_Surface* surface,
-	SDL_Texture* texture,
-	SDL_Rect rectangle,
-	int boardFlipChar,
-	int boardNFlipChar
-);
-
 /* Quit the window and clean any memory allocations and calls */
 
 void winQuit();

@@ -14,8 +14,9 @@
 #include "./include/tchs.h"
 #include "./include/win.h"
 
-char* pathProg;
 int   stateRunning;
+
+char* pathProg;
 
 extern int gameTurn; // -> game.c
 

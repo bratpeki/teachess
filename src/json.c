@@ -30,23 +30,23 @@ char  colorChars[6];
 json_object* jsonColors;
 json_object* jsonConfig;
 
-extern char      pathBG     [PATH_TXT_LEN]; // -> win.c
-extern char      pathBoard  [PATH_TXT_LEN]; // -> win.c
-extern char      pathAMove  [PATH_TXT_LEN]; // -> win.c
-extern char      pathACheck [PATH_TXT_LEN]; // -> win.c
-extern char      pathB      [PATH_TXT_LEN]; // -> win.c
-extern char      pathK      [PATH_TXT_LEN]; // -> win.c
-extern char      pathN      [PATH_TXT_LEN]; // -> win.c
-extern char      pathP      [PATH_TXT_LEN]; // -> win.c
-extern char      pathQ      [PATH_TXT_LEN]; // -> win.c
-extern char      pathR      [PATH_TXT_LEN]; // -> win.c
-extern char      pathb      [PATH_TXT_LEN]; // -> win.c
-extern char      pathk      [PATH_TXT_LEN]; // -> win.c
-extern char      pathn      [PATH_TXT_LEN]; // -> win.c
-extern char      pathp      [PATH_TXT_LEN]; // -> win.c
-extern char      pathq      [PATH_TXT_LEN]; // -> win.c
-extern char      pathr      [PATH_TXT_LEN]; // -> win.c
-extern char      pathFont   [PATH_TXT_LEN]; // -> win.c
+extern char      pathBG    [PATH_TXT_LEN]; // -> win.c
+extern char      pathBoard [PATH_TXT_LEN]; // -> win.c
+extern char      pathAMove [PATH_TXT_LEN]; // -> win.c
+extern char      pathCheck [PATH_TXT_LEN]; // -> win.c
+extern char      pathB     [PATH_TXT_LEN]; // -> win.c
+extern char      pathK     [PATH_TXT_LEN]; // -> win.c
+extern char      pathN     [PATH_TXT_LEN]; // -> win.c
+extern char      pathP     [PATH_TXT_LEN]; // -> win.c
+extern char      pathQ     [PATH_TXT_LEN]; // -> win.c
+extern char      pathR     [PATH_TXT_LEN]; // -> win.c
+extern char      pathb     [PATH_TXT_LEN]; // -> win.c
+extern char      pathk     [PATH_TXT_LEN]; // -> win.c
+extern char      pathn     [PATH_TXT_LEN]; // -> win.c
+extern char      pathp     [PATH_TXT_LEN]; // -> win.c
+extern char      pathq     [PATH_TXT_LEN]; // -> win.c
+extern char      pathr     [PATH_TXT_LEN]; // -> win.c
+extern char      pathFont  [PATH_TXT_LEN]; // -> win.c
 
 extern SDL_Color colorFont;                 // -> win.c
 extern SDL_Color colorFontBoard;            // -> win.c
@@ -55,7 +55,7 @@ char* paths[JSON_EL_NUM][3] = {
 
 	{ pathBG,     "bgImage",    "img/background/%s.png" },
 	{ pathBoard,  "boardImage", "img/board/%s.png"      },
-	{ pathACheck, "check",      "img/check/%s.png"      },
+	{ pathCheck , "check",      "img/check/%s.png"      },
 	{ pathAMove,  "move",       "img/move/%s.png"       },
 	{ pathB,      "pieceImage", "img/piece/%s/B.png"    },
 	{ pathK,      "pieceImage", "img/piece/%s/K.png"    },

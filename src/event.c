@@ -26,7 +26,8 @@ extern int minOffset;    // -> win.c
 
 void eventHandle() {
 
-	while (SDL_PollEvent(&event)) {
+	// while (SDL_PollEvent(&event)) {
+	if (SDL_WaitEvent(&event) != 0) {
 
 		SDL_GetMouseState(&mouseX, &mouseY);
 
@@ -37,36 +38,37 @@ void eventHandle() {
 			case SDL_MOUSEBUTTONUP:   mouseHold    = SDL_FALSE; break;
 
 			case SDL_KEYDOWN:
-				switch (event.key.keysym.sym) {
 
-					// Exiting
-					case SDLK_ESCAPE: stateRunning = SDL_FALSE; break;
+			switch (event.key.keysym.sym) {
 
-					// Flip the board
-					case SDLK_f: boardFlipped = !boardFlipped; break;
+				// Exiting
+				case SDLK_ESCAPE: stateRunning = SDL_FALSE; break;
 
-					// Offsetting
-					case SDLK_a: offset--;           break;
-					case SDLK_d: offset++;           break;
-					case SDLK_s: offset = minOffset; break;
+				// Flip the board
+				case SDLK_f: boardFlipped = !boardFlipped; break;
 
-					case SDLK_1:
-						tchsRead("wDefault");
-						break;
+				// Offsetting
+				case SDLK_a: offset--;           break;
+				case SDLK_d: offset++;           break;
+				case SDLK_s: offset = minOffset; break;
 
-					case SDLK_2:
-						tchsRead("bRuy Lopez Mainline (5 Moves)");
-						break;
+				case SDLK_1:
+					tchsRead("wDefault");
+					break;
 
-					case SDLK_3:
-						tchsRead("wRook Endgame Example");
-						break;
+				case SDLK_2:
+					tchsRead("bRuy Lopez Mainline (5 Moves)");
+					break;
 
-					case SDLK_4:
-						tchsRead("wExample");
-						break;
+				case SDLK_3:
+					tchsRead("wRook Endgame Example");
+					break;
 
-				}
+				case SDLK_4:
+					tchsRead("wExample");
+					break;
+
+			}
 
 		}
 

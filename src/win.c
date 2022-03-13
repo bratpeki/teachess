@@ -53,7 +53,7 @@ SDL_Surface*  surfTmp;
 SDL_Texture*  textBG;
 SDL_Texture*  textBoard;
 SDL_Texture*  textCheck;
-SDL_Texture*  textMove;
+SDL_Texture*  textAMove;
 SDL_Texture*  textTitle;
 SDL_Texture*  textTmp;
 
@@ -68,23 +68,23 @@ SDL_Window*   winMain;
 
 TTF_Font*     fontMain;
 
-char          pathACheck [PATH_TXT_LEN];
-char          pathAMove  [PATH_TXT_LEN];
-char          pathB      [PATH_TXT_LEN];
-char          pathBG     [PATH_TXT_LEN];
-char          pathBoard  [PATH_TXT_LEN];
-char          pathFont   [PATH_TXT_LEN];
-char          pathK      [PATH_TXT_LEN];
-char          pathN      [PATH_TXT_LEN];
-char          pathP      [PATH_TXT_LEN];
-char          pathQ      [PATH_TXT_LEN];
-char          pathR      [PATH_TXT_LEN];
-char          pathb      [PATH_TXT_LEN];
-char          pathk      [PATH_TXT_LEN];
-char          pathn      [PATH_TXT_LEN];
-char          pathp      [PATH_TXT_LEN];
-char          pathq      [PATH_TXT_LEN];
-char          pathr      [PATH_TXT_LEN];
+char          pathBG    [PATH_TXT_LEN];
+char          pathBoard [PATH_TXT_LEN];
+char          pathFont  [PATH_TXT_LEN];
+char          pathCheck [PATH_TXT_LEN];
+char          pathAMove [PATH_TXT_LEN];
+char          pathB     [PATH_TXT_LEN];
+char          pathK     [PATH_TXT_LEN];
+char          pathN     [PATH_TXT_LEN];
+char          pathP     [PATH_TXT_LEN];
+char          pathQ     [PATH_TXT_LEN];
+char          pathR     [PATH_TXT_LEN];
+char          pathb     [PATH_TXT_LEN];
+char          pathk     [PATH_TXT_LEN];
+char          pathn     [PATH_TXT_LEN];
+char          pathp     [PATH_TXT_LEN];
+char          pathq     [PATH_TXT_LEN];
+char          pathr     [PATH_TXT_LEN];
 
 // The "+1" is there to include the null escape character
 char tchsTitleFormat[TITLE_DISP_SIZE + 1];
@@ -143,7 +143,7 @@ void availableMovesLoad() {
 			rectTmp.x = 104 + 64*(i % 8);
 			rectTmp.y = 104 + 64*(int)(i/8);
 
-			SDL_RenderCopy(rndMain, textMove, NULL, &rectTmp);
+			SDL_RenderCopy(rndMain, textAMove, NULL, &rectTmp);
 		}
 	}
 
@@ -179,7 +179,7 @@ int boardLoad() {
 			rectTmp.x = 104 + (j*64)*(!boardFlipped) + ((7-j)*64)*(boardFlipped);
 			rectTmp.y = 104 + (i*64)*(!boardFlipped) + ((7-i)*64)*(boardFlipped);
 
-			if (availableMoves[i*8 + j]) SDL_RenderCopy(rndMain, textMove, NULL, &rectTmp);
+			if (availableMoves[i*8 + j]) SDL_RenderCopy(rndMain, textAMove, NULL, &rectTmp);
 			if (textTmp != NULL)         SDL_RenderCopy(rndMain, textTmp, NULL, &rectTmp);
 
 		}
@@ -226,8 +226,8 @@ int winInit() {
 			textBG    = IMG_LoadTexture(rndMain, pathBG);
 			textBoard = IMG_LoadTexture(rndMain, pathBoard);
 
-			textMove  = IMG_LoadTexture(rndMain, pathAMove);
-			textCheck = IMG_LoadTexture(rndMain, pathACheck);
+			textAMove = IMG_LoadTexture(rndMain, pathAMove);
+			textCheck = IMG_LoadTexture(rndMain, pathCheck);
 
 			textB     = IMG_LoadTexture(rndMain, pathB);
 			textK     = IMG_LoadTexture(rndMain, pathK);
@@ -308,8 +308,6 @@ void winRender() {
 
 			}
 
-			// TODO: See the moving issue which results in a SegFault here
-
 			if (
 				(currPieceType == !gameTurn) ||
 				(currPieceType == PIECE_BLANK)
@@ -342,12 +340,11 @@ void winRender() {
 
 void winQuit() {
 
-	SDL_DestroyRenderer(rndMain);
 
 	SDL_DestroyTexture(textBG);
 	SDL_DestroyTexture(textBoard);
 	SDL_DestroyTexture(textCheck);
-	SDL_DestroyTexture(textMove);
+	SDL_DestroyTexture(textAMove);
 	SDL_DestroyTexture(textTitle);
 	SDL_DestroyTexture(textB);
 	SDL_DestroyTexture(textK);
@@ -361,11 +358,14 @@ void winQuit() {
 	SDL_DestroyTexture(textp);
 	SDL_DestroyTexture(textq);
 	SDL_DestroyTexture(textr);
-	SDL_DestroyWindow(winMain);
 	SDL_FreeSurface(surfTitle);
 
 	SDL_DestroyTexture(textTmp);
 	SDL_FreeSurface(surfTmp);
+
+	SDL_DestroyWindow(winMain);
+
+	SDL_DestroyRenderer(rndMain);
 
 	TTF_CloseFont(fontMain);
 	TTF_Quit();
