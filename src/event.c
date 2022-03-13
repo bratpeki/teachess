@@ -26,7 +26,7 @@ extern int minOffset;    // -> win.c
 
 void eventHandle() {
 
-	if (SDL_WaitEvent(&event) != 0) {
+	if (SDL_WaitEvent(&event) != SDL_FALSE) {
 
 		SDL_GetMouseState(&mouseX, &mouseY);
 

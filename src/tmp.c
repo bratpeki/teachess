@@ -5,8 +5,8 @@
  * This merely exists in order to reserve memory space
  */
 
-int   intTmp;
 char  charTmp;
+int   intTmp;
 
 char* charPTmp;
 

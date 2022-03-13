@@ -29,21 +29,29 @@
 #include "./include/tchs.h"
 #include "./include/win.h"
 
-SDL_Rect rectPosX1 = { 104, 624, 32, 32 }; SDL_Rect rectPosY1 = { 64,  584, 32, 32 };
-SDL_Rect rectPosX2 = { 168, 624, 32, 32 }; SDL_Rect rectPosY2 = { 64,  520, 32, 32 };
-SDL_Rect rectPosX3 = { 232, 624, 32, 32 }; SDL_Rect rectPosY3 = { 64,  456, 32, 32 };
-SDL_Rect rectPosX4 = { 296, 624, 32, 32 }; SDL_Rect rectPosY4 = { 64,  392, 32, 32 };
-SDL_Rect rectPosX5 = { 360, 624, 32, 32 }; SDL_Rect rectPosY5 = { 64,  328, 32, 32 };
-SDL_Rect rectPosX6 = { 424, 624, 32, 32 }; SDL_Rect rectPosY6 = { 64,  264, 32, 32 };
-SDL_Rect rectPosX7 = { 488, 624, 32, 32 }; SDL_Rect rectPosY7 = { 64,  200, 32, 32 };
-SDL_Rect rectPosX8 = { 552, 624, 32, 32 }; SDL_Rect rectPosY8 = { 64,  136, 32, 32 };
-
 SDL_Color     colorFont;
 SDL_Color     colorFontBoard;
 
 SDL_Rect      rectBoard = { 104, 104, 512, 512 };
 SDL_Rect      rectTitle = { 748, 68,  464, 48  };
 SDL_Rect      rectTmp   = { 0,   0,   64,  64  };
+
+SDL_Rect      rectPosX1 = { 104, 624, 32,  32  };
+SDL_Rect      rectPosX2 = { 168, 624, 32,  32  };
+SDL_Rect      rectPosX3 = { 232, 624, 32,  32  };
+SDL_Rect      rectPosX4 = { 296, 624, 32,  32  };
+SDL_Rect      rectPosX5 = { 360, 624, 32,  32  };
+SDL_Rect      rectPosX6 = { 424, 624, 32,  32  };
+SDL_Rect      rectPosX7 = { 488, 624, 32,  32  };
+SDL_Rect      rectPosX8 = { 552, 624, 32,  32  };
+SDL_Rect      rectPosY1 = { 64,  584, 32,  32  };
+SDL_Rect      rectPosY2 = { 64,  520, 32,  32  };
+SDL_Rect      rectPosY3 = { 64,  456, 32,  32  };
+SDL_Rect      rectPosY4 = { 64,  392, 32,  32  };
+SDL_Rect      rectPosY5 = { 64,  328, 32,  32  };
+SDL_Rect      rectPosY6 = { 64,  264, 32,  32  };
+SDL_Rect      rectPosY7 = { 64,  200, 32,  32  };
+SDL_Rect      rectPosY8 = { 64,  136, 32,  32  };
 
 SDL_Renderer* rndMain;
 
@@ -339,7 +347,6 @@ void winRender() {
 }
 
 void winQuit() {
-
 
 	SDL_DestroyTexture(textBG);
 	SDL_DestroyTexture(textBoard);
