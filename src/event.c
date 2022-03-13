@@ -26,7 +26,6 @@ extern int minOffset;    // -> win.c
 
 void eventHandle() {
 
-	// while (SDL_PollEvent(&event)) {
 	if (SDL_WaitEvent(&event) != 0) {
 
 		SDL_GetMouseState(&mouseX, &mouseY);
@@ -43,6 +42,9 @@ void eventHandle() {
 
 				// Exiting
 				case SDLK_ESCAPE: stateRunning = SDL_FALSE; break;
+
+				// TODO: Handle the board characters only when flipping the board
+				//       This spares the CPU of having to calculate what character is needed every render
 
 				// Flip the board
 				case SDLK_f: boardFlipped = !boardFlipped; break;
