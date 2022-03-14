@@ -21,10 +21,10 @@ int mouseX, mouseY = 0;
 
 // TODO: stateRunning and boardFlipped should be SDL_bool
 
-extern int stateRunning; // -> main.c
-extern int boardFlipped; // -> win.c
-extern int offset;       // -> win.c
-extern int minOffset;    // -> win.c
+extern SDL_bool stateRunning; // -> main.c
+extern SDL_bool boardFlipped; // -> win.c
+extern int      offset;       // -> win.c
+extern int      minOffset;    // -> win.c
 
 void eventHandle() {
 

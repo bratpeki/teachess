@@ -14,7 +14,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int   stateRunning;
+SDL_bool stateRunning;
 
 char* pathProg;
 

@@ -17,6 +17,7 @@
 #include <SDL2/SDL_pixels.h>
 #include <SDL2/SDL_rect.h>
 #include <SDL2/SDL_render.h>
+#include <SDL2/SDL_stdinc.h>
 #include <SDL2/SDL_surface.h>
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL_video.h>
@@ -109,7 +110,7 @@ extern int mouseX, mouseY;               // -> event.c
 
 extern json_object* jsonConfig;          // -> json.c
 
-int boardFlipped = 0;
+SDL_bool boardFlipped = SDL_FALSE;
 
 int offset = 0;
 int minOffset = 0;
@@ -123,6 +124,8 @@ char* boardChars[16] = {
 	"1", "2", "3", "4", "5", "6", "7", "8",
 	"a", "b", "c", "d", "e", "f", "g", "h"
 };
+
+// TODO: Remove calcualtion of characters each frame
 
 void boardPosLoad(
 	SDL_Surface* surface,
