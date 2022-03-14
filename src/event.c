@@ -5,19 +5,21 @@
  * Header: event.h
  */
 
+#include "./include/event.h"
+#include "./include/tchs.h"
+
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_events.h>
 #include <SDL2/SDL_keycode.h>
 #include <SDL2/SDL_mouse.h>
 #include <SDL2/SDL_stdinc.h>
 
-#include "./include/event.h"
-#include "./include/tchs.h"
-
 SDL_Event event;
 
 int mouseHold = 0;
 int mouseX, mouseY = 0;
+
+// TODO: stateRunning and boardFlipped should be SDL_bool
 
 extern int stateRunning; // -> main.c
 extern int boardFlipped; // -> win.c
@@ -25,6 +27,8 @@ extern int offset;       // -> win.c
 extern int minOffset;    // -> win.c
 
 void eventHandle() {
+
+	// TODO: Do I need "!= SDL_FALSE"
 
 	if (SDL_WaitEvent(&event) != SDL_FALSE) {
 

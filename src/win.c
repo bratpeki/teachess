@@ -5,6 +5,13 @@
  * Header: win.h
  */
 
+#include "./include/config.h"
+#include "./include/game.h"
+#include "./include/game_assist.h"
+#include "./include/json.h"
+#include "./include/tchs.h"
+#include "./include/win.h"
+
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_pixels.h>
@@ -21,13 +28,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-
-#include "./include/config.h"
-#include "./include/game.h"
-#include "./include/game_assist.h"
-#include "./include/json.h"
-#include "./include/tchs.h"
-#include "./include/win.h"
 
 SDL_Color     colorFont;
 SDL_Color     colorFontBoard;
@@ -65,12 +65,12 @@ SDL_Texture*  textAMove;
 SDL_Texture*  textTitle;
 SDL_Texture*  textTmp;
 
-SDL_Texture*  textB; SDL_Texture*  textb;
-SDL_Texture*  textK; SDL_Texture*  textk;
-SDL_Texture*  textN; SDL_Texture*  textn;
-SDL_Texture*  textP; SDL_Texture*  textp;
-SDL_Texture*  textQ; SDL_Texture*  textq;
-SDL_Texture*  textR; SDL_Texture*  textr;
+SDL_Texture* textB; SDL_Texture* textb;
+SDL_Texture* textK; SDL_Texture* textk;
+SDL_Texture* textN; SDL_Texture* textn;
+SDL_Texture* textP; SDL_Texture* textp;
+SDL_Texture* textQ; SDL_Texture* textq;
+SDL_Texture* textR; SDL_Texture* textr;
 
 SDL_Window*   winMain;
 
@@ -254,7 +254,7 @@ int winInit() {
 
 			fontMain = TTF_OpenFont(pathFont, 24);
 
-		}
+		} else return EXIT_FAILURE;
 
 	} else return EXIT_FAILURE;
 

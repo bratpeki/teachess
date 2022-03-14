@@ -5,6 +5,10 @@
  * Header: ./include/json.h
  */
 
+#include "./include/config.h"
+#include "./include/json.h"
+#include "./include/path.h"
+
 #include <SDL2/SDL_pixels.h>
 
 #include <json-c/json.h>
@@ -15,10 +19,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-
-#include "./include/config.h"
-#include "./include/json.h"
-#include "./include/path.h"
 
 #define JSON_EL_NUM 17
 

@@ -5,17 +5,17 @@
  * Header: ./include/tchs.h
  */
 
-#include <SDL2/SDL_stdinc.h>
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
 #include "./include/config.h"
 #include "./include/game.h"
 #include "./include/game_assist.h"
 #include "./include/path.h"
 #include "./include/tchs.h"
+
+#include <SDL2/SDL_stdinc.h>
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 extern int gameTurn;  // -> game.c
 extern int minOffset; // -> win.c

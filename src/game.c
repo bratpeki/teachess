@@ -5,11 +5,11 @@
  * Header: game.h
  */
 
-#include <stdio.h>
-
 #include "./include/game.h"
 #include "./include/game_assist.h"
 #include "./include/tchs.h"
+
+#include <stdio.h>
 
 extern char tchs[64];     // -> tchs.c
 extern int  boardFlipped; // -> win.c

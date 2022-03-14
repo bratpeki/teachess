@@ -5,11 +5,11 @@
  * Header: ./include/path.h
  */
 
+#include "./include/path.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-#include "./include/path.h"
 
 unsigned int countSlash = 0;
 unsigned int tmpCountSlash = 0;

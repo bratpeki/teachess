@@ -5,10 +5,10 @@
  * Header: game_assist.h
  */
 
-#include <SDL2/SDL_stdinc.h>
-
 #include "./include/game.h"
 #include "./include/game_assist.h"
+
+#include <SDL2/SDL_stdinc.h>
 
 extern char tchs[64];           // -> tchs.c
 extern int  availableMoves[64]; // -> game.c
