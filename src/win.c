@@ -1,6 +1,6 @@
 
 /*
- * win.c - Handle window related functionality
+ * win.c - Handle graphical processes
  *
  * Header: win.h
  */

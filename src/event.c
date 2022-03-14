@@ -1,6 +1,6 @@
 
 /*
- * event.c - Handle keyboard events
+ * event.c - Handle events
  *
  * Header: event.h
  */
