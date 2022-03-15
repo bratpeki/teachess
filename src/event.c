@@ -19,8 +19,6 @@ SDL_Event event;
 int mouseHold = 0;
 int mouseX, mouseY = 0;
 
-// TODO: stateRunning and boardFlipped should be SDL_bool
-
 extern SDL_bool stateRunning; // -> main.c
 extern SDL_bool boardFlipped; // -> win.c
 extern int      offset;       // -> win.c
@@ -28,9 +26,7 @@ extern int      minOffset;    // -> win.c
 
 void eventHandle() {
 
-	// TODO: Do I need "!= SDL_FALSE"
-
-	if (SDL_WaitEvent(&event) != SDL_FALSE) {
+	if (SDL_WaitEvent(&event)) {
 
 		SDL_GetMouseState(&mouseX, &mouseY);
 
