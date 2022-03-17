@@ -14,15 +14,8 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
-#include <SDL2/SDL_pixels.h>
-#include <SDL2/SDL_rect.h>
-#include <SDL2/SDL_render.h>
-#include <SDL2/SDL_stdinc.h>
-#include <SDL2/SDL_surface.h>
 #include <SDL2/SDL_ttf.h>
-#include <SDL2/SDL_video.h>
 
-#include <json-c/json.h>
 #include <json-c/json_object.h>
 
 #include <stdio.h>
@@ -30,8 +23,8 @@
 #include <string.h>
 #include <unistd.h>
 
-SDL_Color     colorFont;
-SDL_Color     colorFontBoard;
+SDL_Color     colorText;
+SDL_Color     colorTextBoard;
 
 SDL_Rect      rectBoard = { 104, 104, 512, 512 };
 SDL_Rect      rectTitle = { 748, 68,  464, 48  };
@@ -77,23 +70,23 @@ SDL_Window*   winMain;
 
 TTF_Font*     fontMain;
 
-char          pathBG    [PATH_TXT_LEN];
-char          pathBoard [PATH_TXT_LEN];
-char          pathFont  [PATH_TXT_LEN];
-char          pathCheck [PATH_TXT_LEN];
-char          pathAMove [PATH_TXT_LEN];
-char          pathB     [PATH_TXT_LEN];
-char          pathK     [PATH_TXT_LEN];
-char          pathN     [PATH_TXT_LEN];
-char          pathP     [PATH_TXT_LEN];
-char          pathQ     [PATH_TXT_LEN];
-char          pathR     [PATH_TXT_LEN];
-char          pathb     [PATH_TXT_LEN];
-char          pathk     [PATH_TXT_LEN];
-char          pathn     [PATH_TXT_LEN];
-char          pathp     [PATH_TXT_LEN];
-char          pathq     [PATH_TXT_LEN];
-char          pathr     [PATH_TXT_LEN];
+char pathBG    [PATH_TXT_LEN];
+char pathBoard [PATH_TXT_LEN];
+char pathFont  [PATH_TXT_LEN];
+char pathCheck [PATH_TXT_LEN];
+char pathAMove [PATH_TXT_LEN];
+char pathB     [PATH_TXT_LEN];
+char pathK     [PATH_TXT_LEN];
+char pathN     [PATH_TXT_LEN];
+char pathP     [PATH_TXT_LEN];
+char pathQ     [PATH_TXT_LEN];
+char pathR     [PATH_TXT_LEN];
+char pathb     [PATH_TXT_LEN];
+char pathk     [PATH_TXT_LEN];
+char pathn     [PATH_TXT_LEN];
+char pathp     [PATH_TXT_LEN];
+char pathq     [PATH_TXT_LEN];
+char pathr     [PATH_TXT_LEN];
 
 // The "+1" is there to include the null escape character
 char tchsTitleFormat[TITLE_DISP_SIZE + 1];
@@ -135,7 +128,7 @@ void boardPosLoad(
 	int boardNFlipChar
 	) {
 
-	surface = TTF_RenderText_Solid(fontMain, boardChars[boardNFlipChar*(!boardFlipped) + boardFlipChar*(boardFlipped)], colorFontBoard);
+	surface = TTF_RenderText_Solid(fontMain, boardChars[boardNFlipChar*(!boardFlipped) + boardFlipChar*(boardFlipped)], colorTextBoard);
 	texture = SDL_CreateTextureFromSurface(rndMain, surface);
 	SDL_RenderCopy(rndMain, texture, NULL, &rectangle);
 
@@ -275,7 +268,7 @@ void winRender() {
 
 	tchsTitleEdit(offset);
 
-	surfTitle = TTF_RenderText_Solid(fontMain, tchsTitleFormat, colorFont);
+	surfTitle = TTF_RenderText_Solid(fontMain, tchsTitleFormat, colorText);
 	textTitle = SDL_CreateTextureFromSurface(rndMain, surfTitle);
 
 	boardPosLoad(surfTmp, textTmp, rectPosX1, 15, 8 );

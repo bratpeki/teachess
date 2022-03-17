@@ -10,11 +10,11 @@
 
 #include <SDL2/SDL_stdinc.h>
 
+extern char charTmp;            // -> tmp.c
 extern char tchs[64];           // -> tchs.c
 extern int  availableMoves[64]; // -> game.c
 extern int  spotX;              // -> game.c
 extern int  spotY;              // -> game.c
-extern char charTmp;            // -> tmp.c
 
 int bishopTmp;
 

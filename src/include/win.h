@@ -2,8 +2,6 @@
 #ifndef H_TEACHESS_WINDOW
 #define H_TEACHESS_WINDOW
 
-#include <SDL2/SDL.h>
-
 /* Window information, centered and 1280x720 */
 
 #define WIN_TITLE "TeaChess"

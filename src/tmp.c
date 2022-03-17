@@ -6,7 +6,6 @@
  */
 
 char  charTmp;
-int   intTmp;
-
 char* charPTmp;
+int   intTmp;
 

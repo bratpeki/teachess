@@ -16,13 +16,13 @@
 
 SDL_Event event;
 
+extern SDL_bool boardFlipped; // -> win.c
+extern SDL_bool stateRunning; // -> main.c
+extern int      minOffset;    // -> win.c
+extern int      offset;       // -> win.c
+
 int mouseHold = 0;
 int mouseX, mouseY = 0;
-
-extern SDL_bool stateRunning; // -> main.c
-extern SDL_bool boardFlipped; // -> win.c
-extern int      offset;       // -> win.c
-extern int      minOffset;    // -> win.c
 
 void eventHandle() {
 

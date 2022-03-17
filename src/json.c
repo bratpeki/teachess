@@ -11,9 +11,7 @@
 
 #include <SDL2/SDL_pixels.h>
 
-#include <json-c/json.h>
 #include <json-c/json_object.h>
-#include <json-c/json_util.h>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -22,10 +20,20 @@
 
 #define JSON_EL_NUM 17
 
+#define colorLoadMacro(key, idealkey, color, val)  \
+	if ( strcmp(key, idealkey) == EXIT_SUCCESS ) { \
+		if (colorLoadLocal(                        \
+			&color,                                \
+			json_object_get_string(val),           \
+			json_object_get_string_len(val), key   \
+			) == EXIT_FAILURE                      \
+		) return EXIT_FAILURE;                     \
+	}
+
 extern int   intTmp;   // -> tmp.c
 extern char* charPTmp; // -> tmp.c
 
-char  colorChars[6];
+char colorChars[6];
 
 json_object* jsonColors;
 json_object* jsonConfig;
@@ -48,8 +56,8 @@ extern char      pathq     [PATH_TXT_LEN]; // -> win.c
 extern char      pathr     [PATH_TXT_LEN]; // -> win.c
 extern char      pathFont  [PATH_TXT_LEN]; // -> win.c
 
-extern SDL_Color colorFont;                 // -> win.c
-extern SDL_Color colorFontBoard;            // -> win.c
+extern SDL_Color colorText;                 // -> win.c
+extern SDL_Color colorTextBoard;            // -> win.c
 
 char* paths[JSON_EL_NUM][3] = {
 
@@ -188,6 +196,7 @@ int colorLoadLocal(
 }
 
 // TODO: Check that namestrings aren't too large
+// TODO: Check that everything is imported
 
 int jsonAssetLoad() {
 
@@ -210,25 +219,8 @@ int jsonAssetLoad() {
 
 			json_object_object_foreach(jsonColors, key, val) {
 
-				// TODO: Remove repetitive code
-
-				if ( strcmp(key, "text") == EXIT_SUCCESS ) {
-					if (colorLoadLocal(
-						&colorFont,
-						json_object_get_string(val),
-						json_object_get_string_len(val), key
-						) == EXIT_FAILURE
-					) return EXIT_FAILURE;
-				}
-
-				if ( strcmp(key, "textBoard") == EXIT_SUCCESS ) {
-					if (colorLoadLocal(
-						&colorFontBoard,
-						json_object_get_string(val),
-						json_object_get_string_len(val), key
-						) == EXIT_FAILURE
-					) return EXIT_FAILURE;
-				}
+				colorLoadMacro(key, "text",      colorText,      val);
+				colorLoadMacro(key, "textBoard", colorTextBoard, val);
 
 			}
 

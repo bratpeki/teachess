@@ -15,7 +15,6 @@ extern char tchs[64];     // -> tchs.c
 extern int  boardFlipped; // -> win.c
 extern int  intTmp;       // -> tmp.c
 
-int gameTurn;
 int availableMoves[64];
 int checkStopMoves[64];
 
@@ -23,16 +22,15 @@ int kMoves[8][2] = {
 	{ 0,  1}, { 0, -1}, { 1,  0}, { 1,  1},
 	{ 1, -1}, {-1,  0}, {-1,  1}, {-1, -1}
 };
-
 int nMoves[8][2] = {
 	{ 1,  2}, { 1, -2}, { 2,  1}, { 2, -1},
 	{-1,  2}, {-1, -2}, {-2,  1}, {-2, -1}
 };
 
-int spotX, spotY;
-
-int pieceType;
+int gameTurn;
 int piecePos;
+int pieceType;
+int spotX, spotY;
 
 // TODO: Game logic
 
