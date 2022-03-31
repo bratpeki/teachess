@@ -27,9 +27,6 @@ SDL_Color     colorText;
 SDL_Color     colorTextBoard;
 
 SDL_Rect      rectBoard = { 104, 104, 512, 512 };
-SDL_Rect      rectTitle = { 748, 68,  464, 48  };
-SDL_Rect      rectTmp   = { 0,   0,   64,  64  };
-
 SDL_Rect      rectPosX1 = { 104, 624, 32,  32  };
 SDL_Rect      rectPosX2 = { 168, 624, 32,  32  };
 SDL_Rect      rectPosX3 = { 232, 624, 32,  32  };
@@ -46,16 +43,18 @@ SDL_Rect      rectPosY5 = { 64,  328, 32,  32  };
 SDL_Rect      rectPosY6 = { 64,  264, 32,  32  };
 SDL_Rect      rectPosY7 = { 64,  200, 32,  32  };
 SDL_Rect      rectPosY8 = { 64,  136, 32,  32  };
+SDL_Rect      rectTitle = { 748, 68,  464, 48  };
+SDL_Rect      rectTmp   = { 0,   0,   64,  64  };
 
 SDL_Renderer* rndMain;
 
 SDL_Surface*  surfTitle;
 SDL_Surface*  surfTmp;
 
+SDL_Texture*  textAMove;
 SDL_Texture*  textBG;
 SDL_Texture*  textBoard;
 SDL_Texture*  textCheck;
-SDL_Texture*  textAMove;
 SDL_Texture*  textTitle;
 SDL_Texture*  textTmp;
 
@@ -68,14 +67,16 @@ SDL_Texture* textR; SDL_Texture* textr;
 
 SDL_Window*   winMain;
 
+SDL_bool boardFlipped = SDL_FALSE;
+
 TTF_Font*     fontMain;
 
-char pathBG    [PATH_TXT_LEN];
-char pathBoard [PATH_TXT_LEN];
-char pathFont  [PATH_TXT_LEN];
-char pathCheck [PATH_TXT_LEN];
 char pathAMove [PATH_TXT_LEN];
 char pathB     [PATH_TXT_LEN];
+char pathBG    [PATH_TXT_LEN];
+char pathBoard [PATH_TXT_LEN];
+char pathCheck [PATH_TXT_LEN];
+char pathFont  [PATH_TXT_LEN];
 char pathK     [PATH_TXT_LEN];
 char pathN     [PATH_TXT_LEN];
 char pathP     [PATH_TXT_LEN];
@@ -88,30 +89,22 @@ char pathp     [PATH_TXT_LEN];
 char pathq     [PATH_TXT_LEN];
 char pathr     [PATH_TXT_LEN];
 
-// The "+1" is there to include the null escape character
-char tchsTitleFormat[TITLE_DISP_SIZE + 1];
+char tchsTitleFormat[TITLE_DISP_SIZE + 1]; // title + '\0'
 
 extern char tchsTitle[PATH_TXT_LEN];     // -> tchs.c
 extern char tchs[64];                    // -> tchs.c
 extern int  tchsTitleLen;                // -> tchs.c
-
 extern int availableMoves[64];           // -> game.c
 extern int gameTurn;                     // -> game.c
-
 extern int mouseHold;                    // -> event.c
 extern int mouseX, mouseY;               // -> event.c
-
 extern json_object* jsonConfig;          // -> json.c
-
-SDL_bool boardFlipped = SDL_FALSE;
-
-int offset = 0;
-int minOffset = 0;
 
 int boardX, boardY;
 int boardXPrev, boardYPrev;
-
 int currPieceType;
+int minOffset = 0;
+int offset = 0;
 
 char* boardChars[16] = {
 	"1", "2", "3", "4", "5", "6", "7", "8",
@@ -320,6 +313,12 @@ void winRender() {
 				if (availableMoves[getPos64(boardX, boardY)] == 1) {
 
 					clearAvailableMoves();
+
+					// Moved piece:
+					// printf("%c\n", tchs[getPos64(boardXPrev, boardYPrev)]);
+
+					// Newloc:
+					// printf("%c\n", tchs[getPos64(boardX, boardY)]);
 
 					tchs[getPos64(boardX, boardY)] = tchs[getPos64(boardXPrev, boardYPrev)];
 					tchs[getPos64(boardXPrev, boardYPrev)] = '-';

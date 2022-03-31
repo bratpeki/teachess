@@ -43,6 +43,7 @@ int getPieceType(char c) {
 
 int checkSpotType(int pieceX, int pieceY, int pieceType) {
 
+	// TODO: return "out of bounds" exit code rather than false
 	if ((pieceX < 0) || (pieceX > 7) || (pieceY < 0) || (pieceY > 7)) return SDL_FALSE;
 
 	return (getPieceType(tchs[getPos64(pieceX, pieceY)]) == pieceType);

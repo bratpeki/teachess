@@ -129,6 +129,9 @@ int textLoadLocal(
 
 	}
 
+	// remove
+	printf("strlen: %lu\n", strlen(pathVar));
+
 	return EXIT_SUCCESS;
 
 }
