@@ -29,10 +29,8 @@ Its contents must contain 64 characters or less which can be:
 7.  `p/P`/pawn
 8.  `q/Q`/queen
 9.  `r/R`/rook
-10. `x/X`/king which castle on the left side
-11. `y/Y`/king which castle on the right side
-
-a d f g h i j l m o s t u v w x y z
+10. `x/X`/king which castle on the right side
+11. `y/Y`/king which castle on the left side
 
 A normal TCHS file looks like this:
 

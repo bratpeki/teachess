@@ -22,6 +22,7 @@ int kMoves[8][2] = {
 	{ 0,  1}, { 0, -1}, { 1,  0}, { 1,  1},
 	{ 1, -1}, {-1,  0}, {-1,  1}, {-1, -1}
 };
+
 int nMoves[8][2] = {
 	{ 1,  2}, { 1, -2}, { 2,  1}, { 2, -1},
 	{-1,  2}, {-1, -2}, {-2,  1}, {-2, -1}
@@ -100,34 +101,6 @@ void gameGetMoves(int boardX, int boardY) {
 
 			break;
 
-		case 'c':
-
-			for (unsigned int i = 0; i < 8; i++) {
-				spotX = boardX + kMoves[i][0];
-				spotY = boardY + kMoves[i][1];
-				if (
-						(checkSpotType(spotX, spotY, !pieceType)) ||
-						(checkSpotType(spotX, spotY, PIECE_BLANK))
-					)
-					availableMoves[getPos64(spotX, spotY)] = 1;
-			}
-
-			break;
-
-		case 'k':
-
-			for (unsigned int i = 0; i < 8; i++) {
-				spotX = boardX + kMoves[i][0];
-				spotY = boardY + kMoves[i][1];
-				if (
-						(checkSpotType(spotX, spotY, !pieceType)) ||
-						(checkSpotType(spotX, spotY, PIECE_BLANK))
-					)
-					availableMoves[getPos64(spotX, spotY)] = 1;
-			}
-
-			break;
-
 		case 'Q':
 		case 'q':
 
@@ -169,6 +142,7 @@ void gameGetMoves(int boardX, int boardY) {
 
 			break;
 
+		case 'c':
 		case 'C':
 
 			for (unsigned int i = 0; i < 8; i++) {
@@ -183,6 +157,7 @@ void gameGetMoves(int boardX, int boardY) {
 
 			break;
 
+		case 'k':
 		case 'K':
 
 			for (unsigned int i = 0; i < 8; i++) {

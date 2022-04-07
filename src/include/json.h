@@ -16,8 +16,11 @@ int jsonLoadConf();
  */
 
 int textLoadLocal(
-		char* key, struct json_object* val, char* pathVar, char* keycmp,
-		const char* pathToFile, const char* msgSuccess, const char* msgFailure
+		char* key,
+		struct json_object* val,
+		char* pathVar,
+		char* keycmp,
+		const char* pathToFile
 		);
 
 /* Take the text from clrCode and apply the RGB values to the clr struct */

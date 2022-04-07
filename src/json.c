@@ -18,6 +18,10 @@
 #include <string.h>
 #include <unistd.h>
 
+#define TEXT_LOAD_SUCCESS "Log (json.c): %s loaded successfully.\n"
+#define TEXT_LOAD_FAILURE "Log (json.c): %s couldn't load. Check '%s' in conf.json.\n"
+#define TEXT_LOAD_LENGTH  "Log (json.c): %s couldn't load. Path length exceeds the limit in config.h\n"
+
 #define JSON_EL_NUM 17
 
 #define colorLoadMacro(key, idealkey, color, val)  \
@@ -104,8 +108,11 @@ int jsonLoadConf() {
 }
 
 int textLoadLocal(
-		char* key, struct json_object *val, char* pathVar, char* keycmp,
-		const char* pathToFile, const char* msgSuccess, const char* msgFailure
+		char* key,
+		struct json_object *val,
+		char* pathVar,
+		char* keycmp,
+		const char* pathToFile
 		) {
 
 	if ( strcmp(key, keycmp) == EXIT_SUCCESS ) {
@@ -114,23 +121,27 @@ int textLoadLocal(
 
 		charPTmp = addToGlobalPath(pathVar);
 		strcpy(pathVar, charPTmp);
+		free(charPTmp);
 
 		if (access(pathVar, F_OK) == EXIT_SUCCESS) {
 
-			printf(msgSuccess, pathVar);
-			free(charPTmp);
+			printf(TEXT_LOAD_SUCCESS, pathVar);
 
 		} else {
 
-			printf(msgFailure, pathVar, key);
+			printf(TEXT_LOAD_FAILURE, pathVar, key);
 			return EXIT_FAILURE;
 
 		}
 
 	}
 
-	// remove
-	printf("strlen: %lu\n", strlen(pathVar));
+	if (strlen(pathVar) > PATH_TXT_LEN) {
+
+		printf(TEXT_LOAD_LENGTH, pathVar);
+		return EXIT_FAILURE;
+
+	}
 
 	return EXIT_SUCCESS;
 
@@ -209,9 +220,7 @@ int jsonAssetLoad() {
 
 			if (textLoadLocal(
 				key, val,
-				paths[i][0], paths[i][1], paths[i][2],
-				"Log (json.c): %s loaded successfully.\n",
-				"Log (json.c): %s couldn't load. Check '%s' in conf.json.\n"
+				paths[i][0], paths[i][1], paths[i][2]
 				)) return EXIT_FAILURE;
 
 		}

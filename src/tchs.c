@@ -40,15 +40,18 @@ char tchsPreload[64];
 
 /*
  * Piece list:
- * -/. - Empty space
- * b/B - Bishop
- * c/C - Castle-able king
- * e/E - "En passant"-able pawn
- * k/K - King
- * n/N - Knight
- * p/P - Pawn
- * q/Q - Queen
- * r/R - Rook
+ *
+ * -/. - blank
+ * b/B - bishop
+ * c/C - king which castle on either side
+ * e/E - pawn which can be eaten via "En passant"
+ * k/K - king
+ * n/N - knight
+ * p/P - pawn
+ * q/Q - queen
+ * r/R - rook
+ * x/X - king which castle on the right side
+ * y/Y - king which castle on the left side
  */
 
 char pieceLegal[22] = {
@@ -116,8 +119,8 @@ int tchsRead(char* name) {
 				return EXIT_FAILURE;
 			}
 			else {
-				k += (ctchs[i] == 'k') || (ctchs[i] == 'c') || (ctchs[i] == 'x') || (ctchs[i] == 'y');
-				K += (ctchs[i] == 'K') || (ctchs[i] == 'C') || (ctchs[i] == 'X') || (ctchs[i] == 'Y');
+				k += (ctchs[i] == 'k') || (ctchs[i] == 'c') || (ctchs[i] == 'y') || (ctchs[i] == 'x');
+				K += (ctchs[i] == 'K') || (ctchs[i] == 'C') || (ctchs[i] == 'Y') || (ctchs[i] == 'X');
 				tchsPreload[tchsCount++] = ctchs[i];
 			}
 
