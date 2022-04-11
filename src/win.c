@@ -23,6 +23,13 @@
 #include <string.h>
 #include <unistd.h>
 
+extern char         tchsTitle[PATH_TXT_LEN]; // -> tchs.c
+extern char         tchs[64];                // -> tchs.c
+extern int          availableMoves[64];      // -> game.c
+extern int          mouseX, mouseY;          // -> event.c
+extern int          tchsTitleLen;            // -> tchs.c
+extern json_object* jsonConfig;              // -> json.c
+
 SDL_Color     colorText;
 SDL_Color     colorTextBoard;
 
@@ -91,18 +98,6 @@ char pathr     [PATH_TXT_LEN];
 
 char tchsTitleFormat[TITLE_DISP_SIZE + 1]; // title + '\0'
 
-extern char tchsTitle[PATH_TXT_LEN];     // -> tchs.c
-extern char tchs[64];                    // -> tchs.c
-extern int  tchsTitleLen;                // -> tchs.c
-extern int availableMoves[64];           // -> game.c
-extern int gameTurn;                     // -> game.c
-extern int mouseHold;                    // -> event.c
-extern int mouseX, mouseY;               // -> event.c
-extern json_object* jsonConfig;          // -> json.c
-
-int boardX, boardY;
-int boardXPrev, boardYPrev;
-int currPieceType;
 int minOffset = 0;
 int offset = 0;
 
@@ -110,8 +105,6 @@ char* boardChars[16] = {
 	"1", "2", "3", "4", "5", "6", "7", "8",
 	"a", "b", "c", "d", "e", "f", "g", "h"
 };
-
-// TODO: Remove calcualtion of characters each frame
 
 void boardPosLoad(
 	SDL_Surface* surface,
@@ -206,7 +199,7 @@ void tchsTitleEdit(int localOffset) {
 
 int winInit() {
 
-	if (SDL_Init(SDL_INIT_EVERYTHING) >= 0) {
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) >= 0) {
 
 		IMG_Init(IMG_INIT_PNG);
 		TTF_Init();
@@ -280,60 +273,6 @@ void winRender() {
 	boardPosLoad(surfTmp, textTmp, rectPosY6, 2,  5 );
 	boardPosLoad(surfTmp, textTmp, rectPosY7, 1,  6 );
 	boardPosLoad(surfTmp, textTmp, rectPosY8, 0,  7 );
-
-	if (mouseHold) {
-
-		// Check if the mouse is in the board space
-
-		if ((mouseX > 104)&&(mouseX < 616)&&(mouseY > 104)&&(mouseY < 616)) {
-
-			/*
-			 * Either picking a new piece or moving a piece
-			 */
-
-			boardX = (int)((mouseX - 104) / 64); boardX = boardX * (!boardFlipped) + (7 - boardX) * (boardFlipped);
-			boardY = (int)((mouseY - 104) / 64); boardY = boardY * (!boardFlipped) + (7 - boardY) * (boardFlipped);
-
-			currPieceType = getPieceType(tchs[getPos64(boardX, boardY)]);
-
-			if (currPieceType == gameTurn) {
-
-				gameGetMoves(boardX, boardY);
-
-				boardXPrev = boardX;
-				boardYPrev = boardY;
-
-			}
-
-			if (
-				(currPieceType == !gameTurn) ||
-				(currPieceType == PIECE_BLANK)
-			) {
-
-				if (availableMoves[getPos64(boardX, boardY)] == 1) {
-
-					clearAvailableMoves();
-
-					// Moved piece:
-					// printf("%c\n", tchs[getPos64(boardXPrev, boardYPrev)]);
-
-					// Newloc:
-					// printf("%c\n", tchs[getPos64(boardX, boardY)]);
-
-					tchs[getPos64(boardX, boardY)] = tchs[getPos64(boardXPrev, boardYPrev)];
-					tchs[getPos64(boardXPrev, boardYPrev)] = '-';
-
-					// TODO: Check if a piece is giving a check here
-
-					gameTurn = !gameTurn;
-
-				}
-
-			}
-
-		}
-
-	}
 
 	boardLoad();
 

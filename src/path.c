@@ -11,10 +11,10 @@
 #include <stdlib.h>
 #include <string.h>
 
+extern char* pathProg; // -> main.c
+
 unsigned int countSlash = 0;
 unsigned int tmpCountSlash = 0;
-
-extern char* pathProg; // -> main.c
 
 void setGlobalPath(char* src) {
 

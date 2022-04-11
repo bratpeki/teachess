@@ -34,13 +34,8 @@
 		) return EXIT_FAILURE;                     \
 	}
 
-extern int   intTmp;   // -> tmp.c
-extern char* charPTmp; // -> tmp.c
-
-char colorChars[6];
-
-json_object* jsonColors;
-json_object* jsonConfig;
+extern int       intTmp;                   // -> tmp.c
+extern char*     charPTmp;                 // -> tmp.c
 
 extern char      pathBG    [PATH_TXT_LEN]; // -> win.c
 extern char      pathBoard [PATH_TXT_LEN]; // -> win.c
@@ -60,8 +55,13 @@ extern char      pathq     [PATH_TXT_LEN]; // -> win.c
 extern char      pathr     [PATH_TXT_LEN]; // -> win.c
 extern char      pathFont  [PATH_TXT_LEN]; // -> win.c
 
-extern SDL_Color colorText;                 // -> win.c
-extern SDL_Color colorTextBoard;            // -> win.c
+extern SDL_Color colorText;                // -> win.c
+extern SDL_Color colorTextBoard;           // -> win.c
+
+char colorChars[6];
+
+json_object* jsonColors;
+json_object* jsonConfig;
 
 char* paths[JSON_EL_NUM][3] = {
 

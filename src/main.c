@@ -14,11 +14,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+extern int gameTurn; // -> game.c
+
 SDL_bool stateRunning;
 
 char* pathProg;
-
-extern int gameTurn; // -> game.c
 
 int main(int argc, char* argv[]) {
 
@@ -39,9 +39,10 @@ int main(int argc, char* argv[]) {
 		stateRunning = SDL_TRUE;
 		gameTurn = PIECE_WHITE;
 
+		winRender();
+
 		while (stateRunning) {
 			eventHandle();
-			winRender();
 		}
 
 		winQuit();
