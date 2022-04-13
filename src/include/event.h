@@ -6,9 +6,5 @@
 
 void eventHandle();
 
-/* Handle the mouse events specifically */
-
-void mouseHandle();
-
 #endif
 

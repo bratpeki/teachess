@@ -26,7 +26,7 @@ int main(int argc, char* argv[]) {
 
 	printf("Log (main.c): pathProg loaded as %s\n", pathProg);
 
-	if ( winInit() ) {
+	if ( winInit() == EXIT_FAILURE ) {
 
 		printf ("Log (main.c): Couldn't initialize the graphical components. Exiting...\n");
 

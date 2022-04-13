@@ -32,52 +32,6 @@ int boardXPrev, boardYPrev;
 int currPieceType;
 int mouseX, mouseY = 0;
 
-void mouseHandle() {
-
-	// Check if the mouse is in the board space
-
-	if ((mouseX > 104)&&(mouseX < 616)&&(mouseY > 104)&&(mouseY < 616)) {
-
-		// Either picking a new piece or moving a piece
-
-		boardX = (int)((mouseX - 104) / 64); boardX = boardX * (!boardFlipped) + (7 - boardX) * (boardFlipped);
-		boardY = (int)((mouseY - 104) / 64); boardY = boardY * (!boardFlipped) + (7 - boardY) * (boardFlipped);
-
-		currPieceType = getPieceType(tchs[getPos64(boardX, boardY)]);
-
-		if (currPieceType == gameTurn) {
-
-			gameGetMoves(boardX, boardY);
-
-			boardXPrev = boardX;
-			boardYPrev = boardY;
-
-		}
-
-		if (
-			(currPieceType == !gameTurn) ||
-			(currPieceType == PIECE_BLANK)
-		) {
-
-			if (availableMoves[getPos64(boardX, boardY)] == 1) {
-
-				clearAvailableMoves();
-
-				tchs[getPos64(boardX, boardY)] = tchs[getPos64(boardXPrev, boardYPrev)];
-				tchs[getPos64(boardXPrev, boardYPrev)] = '-';
-
-				// TODO: Check if a piece is giving a check here
-
-				gameTurn = !gameTurn;
-
-			}
-
-		}
-
-	}
-
-}
-
 void eventHandle() {
 
 	if (SDL_WaitEvent(&event)) {
@@ -86,17 +40,52 @@ void eventHandle() {
 
 		switch (event.type) {
 
-			case SDL_QUIT:            stateRunning = SDL_FALSE; break;
-			case SDL_MOUSEBUTTONDOWN: mouseHandle();            break;
+			case SDL_QUIT: stateRunning = SDL_FALSE; break;
+
+			case SDL_MOUSEBUTTONDOWN:
+
+				if ((mouseX < 104)&&(mouseX > 616)&&(mouseY < 104)&&(mouseY > 616)) return;
+
+				boardX = (int)((mouseX - 104) / 64); boardX = boardX * (!boardFlipped) + (7 - boardX) * (boardFlipped);
+				boardY = (int)((mouseY - 104) / 64); boardY = boardY * (!boardFlipped) + (7 - boardY) * (boardFlipped);
+
+				currPieceType = getPieceType(tchs[getPos64(boardX, boardY)]);
+
+				if (currPieceType == gameTurn) {
+
+					gameGetMoves(boardX, boardY);
+
+					boardXPrev = boardX;
+					boardYPrev = boardY;
+
+				}
+
+				if (
+					(currPieceType == !gameTurn) ||
+					(currPieceType == PIECE_BLANK)
+				) {
+
+					if (availableMoves[getPos64(boardX, boardY)] == 1) {
+
+						clearAvailableMoves();
+
+						tchs[getPos64(boardX, boardY)] = tchs[getPos64(boardXPrev, boardYPrev)];
+						tchs[getPos64(boardXPrev, boardYPrev)] = '-';
+
+						// TODO: Check if a piece is giving a check here
+
+						gameTurn = !gameTurn;
+
+					}
+
+				}
+
+				break;
 
 			case SDL_KEYDOWN:
-
 			switch (event.key.keysym.sym) {
 
 				case SDLK_ESCAPE: stateRunning = SDL_FALSE; break;
-
-				// TODO: Handle the board characters only when flipping the board
-				//       This spares the CPU of having to calculate what character is needed every render
 
 				case SDLK_f: boardFlipped = !boardFlipped; break;
 

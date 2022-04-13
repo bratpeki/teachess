@@ -65,6 +65,7 @@ json_object* jsonConfig;
 
 char* paths[JSON_EL_NUM][3] = {
 
+	/*variable     JSON value    path to image          */
 	{ pathBG,     "bgImage",    "img/background/%s.png" },
 	{ pathBoard,  "boardImage", "img/board/%s.png"      },
 	{ pathCheck , "check",      "img/check/%s.png"      },
