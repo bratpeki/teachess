@@ -16,6 +16,7 @@
 #include <SDL2/SDL_keycode.h>
 #include <SDL2/SDL_mouse.h>
 #include <SDL2/SDL_stdinc.h>
+
 #include <stdio.h>
 
 extern SDL_bool boardFlipped;       // -> win.c

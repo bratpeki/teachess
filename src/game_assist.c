@@ -16,6 +16,7 @@ extern int  availableMoves[64]; // -> game.c
 extern int  spotX;              // -> game.c
 extern int  spotY;              // -> game.c
 
+char boardOuterChars[8] = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h' };
 char currentNotation[CHAR_COUNT_GAME_NOTATION];
 int  bishopTmp;
 
@@ -48,7 +49,8 @@ void getGameNotation(int x1, int y1, int x2, int y2) {
 
 	for (int i = 0; i < CHAR_COUNT_GAME_NOTATION - 1; i++) currentNotation[i] = ' ';
 
-	printf ("1. %d-%d\n2. %d-%d\n", x1, y1, x2, y2);
+	// printf ("1. %d-%d\n2. %d-%d\n", x1, y1, x2, y2);
+	printf("%c%d\n", boardOuterChars[x2], 8 - y2);
 
 }
 
