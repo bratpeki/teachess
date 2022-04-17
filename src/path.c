@@ -5,7 +5,7 @@
  * Header: ./include/path.h
  */
 
-#include "./include/path.h"
+#include "include/path.h"
 
 #include <stdio.h>
 #include <stdlib.h>

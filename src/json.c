@@ -5,9 +5,9 @@
  * Header: ./include/json.h
  */
 
-#include "./include/config.h"
-#include "./include/json.h"
-#include "./include/path.h"
+#include "include/config.h"
+#include "include/json.h"
+#include "include/path.h"
 
 #include <SDL2/SDL_pixels.h>
 
@@ -65,7 +65,6 @@ json_object* jsonConfig;
 
 char* paths[JSON_EL_NUM][3] = {
 
-	/*variable     JSON value    path to image          */
 	{ pathBG,     "bgImage",    "img/background/%s.png" },
 	{ pathBoard,  "boardImage", "img/board/%s.png"      },
 	{ pathCheck , "check",      "img/check/%s.png"      },

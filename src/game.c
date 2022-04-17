@@ -5,9 +5,9 @@
  * Header: game.h
  */
 
-#include "./include/game.h"
-#include "./include/game_assist.h"
-#include "./include/tchs.h"
+#include "include/game.h"
+#include "include/game_assist.h"
+#include "include/tchs.h"
 
 #include <stdio.h>
 
@@ -32,8 +32,6 @@ int gameTurn;
 int piecePos;
 int pieceType;
 int spotX, spotY;
-
-// TODO: Game logic
 
 void gameGetMoves(int boardX, int boardY) {
 

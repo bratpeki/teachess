@@ -5,17 +5,18 @@
  * Header: event.h
  */
 
-#include "./include/event.h"
-#include "./include/game.h"
-#include "./include/game_assist.h"
-#include "./include/tchs.h"
-#include "./include/win.h"
+#include "include/event.h"
+#include "include/game.h"
+#include "include/game_assist.h"
+#include "include/tchs.h"
+#include "include/win.h"
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_events.h>
 #include <SDL2/SDL_keycode.h>
 #include <SDL2/SDL_mouse.h>
 #include <SDL2/SDL_stdinc.h>
+#include <stdio.h>
 
 extern SDL_bool boardFlipped;       // -> win.c
 extern SDL_bool stateRunning;       // -> main.c
@@ -26,11 +27,10 @@ extern int      minOffset;          // -> win.c
 extern int      offset;             // -> win.c
 
 SDL_Event event;
-
-int boardX, boardY;
-int boardXPrev, boardYPrev;
-int currPieceType;
-int mouseX, mouseY = 0;
+int       boardX, boardY;
+int       boardXPrev, boardYPrev;
+int       currPieceType;
+int       mouseX, mouseY = 0;
 
 void eventHandle() {
 
@@ -73,6 +73,8 @@ void eventHandle() {
 						tchs[getPos64(boardXPrev, boardYPrev)] = '-';
 
 						// TODO: Check if a piece is giving a check here
+
+						getGameNotation(boardXPrev, boardYPrev, boardX, boardY);
 
 						gameTurn = !gameTurn;
 

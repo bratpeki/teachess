@@ -4,6 +4,13 @@
 
 #include <SDL2/SDL_stdinc.h>
 
+/*
+ * By some, the maximum number of characters for a move is 8
+ * more is included for padding and the "\0" character
+ */
+
+#define CHAR_COUNT_GAME_NOTATION 10
+
 /* Return the piece type */
 
 int getPieceType(char c);
@@ -15,6 +22,13 @@ int checkSpotType(int pieceX, int pieceY, int pieceType);
 /* Clear availableMoves */
 
 void clearAvailableMoves();
+
+/*
+ * Convert piece movement for (x1, y1) to (x2, y2) into proper game notatio
+ * Store the notation in currentNotation
+ */
+
+void getGameNotation(int x1, int y1, int x2, int y2);
 
 /*
  * Check one diagonal of a bishop's, rook's or queen's movement

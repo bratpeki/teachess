@@ -5,12 +5,12 @@
  * Header: win.h
  */
 
-#include "./include/config.h"
-#include "./include/game.h"
-#include "./include/game_assist.h"
-#include "./include/json.h"
-#include "./include/tchs.h"
-#include "./include/win.h"
+#include "include/config.h"
+#include "include/game.h"
+#include "include/game_assist.h"
+#include "include/json.h"
+#include "include/tchs.h"
+#include "include/win.h"
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
