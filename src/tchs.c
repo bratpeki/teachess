@@ -20,7 +20,6 @@
 extern int gameTurn;  // -> game.c
 extern int minOffset; // -> win.c
 extern int offset;    // -> win.c
-extern int intTmp;    // -> tmp.c
 
 char tchsTitle[PATH_TXT_LEN] = "TeaChess";
 int  tchsTitleLen            = 8;

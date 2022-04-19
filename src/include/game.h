@@ -17,9 +17,19 @@
 
 #define getPos64(x, y) (x + 8*(y))
 
-/* Get all avalable moves for a piece on (boardX, boardY) and store them in availableMoves */
+/*
+ * Get all avalable moves for a piece on (boardX, boardY)
+ * Store them in availableMoves
+ */
 
 void gameGetMoves(int boardX, int boardY);
+
+/*
+ * Convert piece movement for (x1, y1) to (x2, y2) into proper game notatio
+ * Store the notation in currentNotation
+ */
+
+void gameGetNotation(int x1, int y1, int x2, int y2);
 
 #endif
 

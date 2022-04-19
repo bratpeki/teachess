@@ -24,13 +24,6 @@ int checkSpotType(int pieceX, int pieceY, int pieceType);
 void clearAvailableMoves();
 
 /*
- * Convert piece movement for (x1, y1) to (x2, y2) into proper game notatio
- * Store the notation in currentNotation
- */
-
-void getGameNotation(int x1, int y1, int x2, int y2);
-
-/*
  * Check one diagonal of a bishop's, rook's or queen's movement
  * coef1 and coef2 should be either 1 or -1
  * The retrun value is weather the bishop's path ran into an opposite king

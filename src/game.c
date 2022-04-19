@@ -13,7 +13,9 @@
 
 extern char tchs[64];     // -> tchs.c
 extern int  boardFlipped; // -> win.c
-extern int  intTmp;       // -> tmp.c
+
+char boardOuterChars[8] = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h' };
+char currentNotation[CHAR_COUNT_GAME_NOTATION];
 
 int availableMoves[64];
 int checkStopMoves[64];
@@ -116,13 +118,9 @@ void gameGetMoves(int boardX, int boardY) {
 
 		case 'P':
 
-			// one-step move
-
 			if (getPieceType(tchs[piecePos - 8]) == PIECE_BLANK) {
 
 				availableMoves[piecePos - 8] = 1;
-
-				// two-step move
 
 				if (boardY == 6)
 					availableMoves[piecePos - 16] = (getPieceType(tchs[piecePos - 16]) == PIECE_BLANK);
@@ -174,5 +172,27 @@ void gameGetMoves(int boardX, int boardY) {
 
 	}
 
-};
+}
+
+void gameGetNotation(int x1, int y1, int x2, int y2) {
+
+	/* Clearing the content of the game notation */
+
+	for (int i = 0; i < CHAR_COUNT_GAME_NOTATION - 1; i++) currentNotation[i] = ' ';
+
+	// printf ("1. %d-%d\n2. %d-%d\n", x1, y1, x2, y2);
+
+	if (
+			(tchs[getPos64(x1, y1)] != 'p') &&
+			(tchs[getPos64(x1, y1)] != 'P')
+			)
+		printf("%c", tchs[getPos64(x1, y1)]);
+
+	printf("%c%d", boardOuterChars[x2], 8 - y2);
+
+	printf("\n");
+
+	printf("Ate: %d\n", (tchs[getPos64(x2, y2)] != '-') && (tchs[getPos64(x2, y2)] != '.'));
+
+}
 

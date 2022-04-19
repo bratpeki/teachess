@@ -13,12 +13,9 @@
 extern char charTmp;            // -> tmp.c
 extern char tchs[64];           // -> tchs.c
 extern int  availableMoves[64]; // -> game.c
+extern int  intTmp;             // -> tmp.c
 extern int  spotX;              // -> game.c
 extern int  spotY;              // -> game.c
-
-char boardOuterChars[8] = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h' };
-char currentNotation[CHAR_COUNT_GAME_NOTATION];
-int  bishopTmp;
 
 int getPieceType(char c) {
 
@@ -43,17 +40,6 @@ int getPieceType(char c) {
 
 };
 
-void getGameNotation(int x1, int y1, int x2, int y2) {
-
-	/* Clearing the content of the game notation */
-
-	for (int i = 0; i < CHAR_COUNT_GAME_NOTATION - 1; i++) currentNotation[i] = ' ';
-
-	// printf ("1. %d-%d\n2. %d-%d\n", x1, y1, x2, y2);
-	printf("%c%d\n", boardOuterChars[x2], 8 - y2);
-
-}
-
 int checkSpotType(int pieceX, int pieceY, int pieceType) {
 
 	// TODO: return "out of bounds" exit code rather than false
@@ -76,12 +62,12 @@ SDL_bool gameCheckLine(
 		int* arrayToFill
 		) {
 
-	bishopTmp = 0;
+	intTmp = 0;
 
-	while (++bishopTmp) {
+	while (++intTmp) {
 
-		spotX = boardX + coef1 * bishopTmp;
-		spotY = boardY + coef2 * bishopTmp;
+		spotX = boardX + coef1 * intTmp;
+		spotY = boardY + coef2 * intTmp;
 
 		if (checkSpotType(spotX, spotY, pieceCollType)) {
 

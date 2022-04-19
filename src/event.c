@@ -35,90 +35,88 @@ int       mouseX, mouseY = 0;
 
 void eventHandle() {
 
-	if (SDL_WaitEvent(&event)) {
+	if (!SDL_WaitEvent(&event)) return;
 
-		SDL_GetMouseState(&mouseX, &mouseY);
+	SDL_GetMouseState(&mouseX, &mouseY);
 
-		switch (event.type) {
+	switch (event.type) {
 
-			case SDL_QUIT: stateRunning = SDL_FALSE; break;
+		case SDL_QUIT: stateRunning = SDL_FALSE; break;
 
-			case SDL_MOUSEBUTTONDOWN:
+		case SDL_MOUSEBUTTONDOWN:
 
-				if ((mouseX < 104)&&(mouseX > 616)&&(mouseY < 104)&&(mouseY > 616)) return;
+			if ((mouseX < 104)&&(mouseX > 616)&&(mouseY < 104)&&(mouseY > 616)) return;
 
-				boardX = (int)((mouseX - 104) / 64); boardX = boardX * (!boardFlipped) + (7 - boardX) * (boardFlipped);
-				boardY = (int)((mouseY - 104) / 64); boardY = boardY * (!boardFlipped) + (7 - boardY) * (boardFlipped);
+			boardX = (int)((mouseX - 104) / 64); boardX = boardX * (!boardFlipped) + (7 - boardX) * (boardFlipped);
+			boardY = (int)((mouseY - 104) / 64); boardY = boardY * (!boardFlipped) + (7 - boardY) * (boardFlipped);
 
-				currPieceType = getPieceType(tchs[getPos64(boardX, boardY)]);
+			currPieceType = getPieceType(tchs[getPos64(boardX, boardY)]);
 
-				if (currPieceType == gameTurn) {
+			if (currPieceType == gameTurn) {
 
-					gameGetMoves(boardX, boardY);
+				gameGetMoves(boardX, boardY);
 
-					boardXPrev = boardX;
-					boardYPrev = boardY;
-
-				}
-
-				if (
-					(currPieceType == !gameTurn) ||
-					(currPieceType == PIECE_BLANK)
-				) {
-
-					if (availableMoves[getPos64(boardX, boardY)] == 1) {
-
-						clearAvailableMoves();
-
-						tchs[getPos64(boardX, boardY)] = tchs[getPos64(boardXPrev, boardYPrev)];
-						tchs[getPos64(boardXPrev, boardYPrev)] = '-';
-
-						// TODO: Check if a piece is giving a check here
-
-						getGameNotation(boardXPrev, boardYPrev, boardX, boardY);
-
-						gameTurn = !gameTurn;
-
-					}
-
-				}
-
-				break;
-
-			case SDL_KEYDOWN:
-			switch (event.key.keysym.sym) {
-
-				case SDLK_ESCAPE: stateRunning = SDL_FALSE; break;
-
-				case SDLK_f: boardFlipped = !boardFlipped; break;
-
-				case SDLK_a: offset--;           break;
-				case SDLK_d: offset++;           break;
-				case SDLK_s: offset = minOffset; break;
-
-				case SDLK_1:
-					tchsRead("wDefault");
-					break;
-
-				case SDLK_2:
-					tchsRead("bRuy Lopez Mainline (5 Moves)");
-					break;
-
-				case SDLK_3:
-					tchsRead("wRook Endgame Example");
-					break;
-
-				case SDLK_4:
-					tchsRead("wExample");
-					break;
+				boardXPrev = boardX;
+				boardYPrev = boardY;
 
 			}
 
+			if (
+				(currPieceType == !gameTurn) ||
+				(currPieceType == PIECE_BLANK)
+			) {
+
+				if (availableMoves[getPos64(boardX, boardY)] == 1) {
+
+					clearAvailableMoves();
+
+					gameGetNotation(boardXPrev, boardYPrev, boardX, boardY);
+
+					tchs[getPos64(boardX, boardY)] = tchs[getPos64(boardXPrev, boardYPrev)];
+					tchs[getPos64(boardXPrev, boardYPrev)] = '-';
+
+					// TODO: Check if a piece is giving a check here
+
+					gameTurn = !gameTurn;
+
+				}
+
+			}
+
+			break;
+
+		case SDL_KEYDOWN:
+		switch (event.key.keysym.sym) {
+
+			case SDLK_ESCAPE: stateRunning = SDL_FALSE; break;
+
+			case SDLK_f: boardFlipped = !boardFlipped; break;
+
+			case SDLK_a: offset--;           break;
+			case SDLK_d: offset++;           break;
+			case SDLK_s: offset = minOffset; break;
+
+			case SDLK_1:
+				tchsRead("wDefault");
+				break;
+
+			case SDLK_2:
+				tchsRead("bRuy Lopez Mainline (5 Moves)");
+				break;
+
+			case SDLK_3:
+				tchsRead("wRook Endgame Example");
+				break;
+
+			case SDLK_4:
+				tchsRead("wExample");
+				break;
+
 		}
 
-		winRender();
-
 	}
+
+	winRender();
 
 }
 
