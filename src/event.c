@@ -33,6 +33,8 @@ int       boardXPrev, boardYPrev;
 int       currPieceType;
 int       mouseX, mouseY = 0;
 
+// TODO: Organize the event handler better and check for performance optimizations
+
 void eventHandle() {
 
 	if (!SDL_WaitEvent(&event)) return;
