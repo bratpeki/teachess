@@ -34,14 +34,14 @@
 		) return EXIT_FAILURE;                     \
 	}
 
-extern int       intTmp;                   // -> tmp.c
-extern char*     charPTmp;                 // -> tmp.c
-
+extern SDL_Color colorText;                // -> win.c
+extern SDL_Color colorTextBoard;           // -> win.c
+extern char      pathAMove [PATH_TXT_LEN]; // -> win.c
+extern char      pathB     [PATH_TXT_LEN]; // -> win.c
 extern char      pathBG    [PATH_TXT_LEN]; // -> win.c
 extern char      pathBoard [PATH_TXT_LEN]; // -> win.c
-extern char      pathAMove [PATH_TXT_LEN]; // -> win.c
 extern char      pathCheck [PATH_TXT_LEN]; // -> win.c
-extern char      pathB     [PATH_TXT_LEN]; // -> win.c
+extern char      pathFont  [PATH_TXT_LEN]; // -> win.c
 extern char      pathK     [PATH_TXT_LEN]; // -> win.c
 extern char      pathN     [PATH_TXT_LEN]; // -> win.c
 extern char      pathP     [PATH_TXT_LEN]; // -> win.c
@@ -53,10 +53,8 @@ extern char      pathn     [PATH_TXT_LEN]; // -> win.c
 extern char      pathp     [PATH_TXT_LEN]; // -> win.c
 extern char      pathq     [PATH_TXT_LEN]; // -> win.c
 extern char      pathr     [PATH_TXT_LEN]; // -> win.c
-extern char      pathFont  [PATH_TXT_LEN]; // -> win.c
-
-extern SDL_Color colorText;                // -> win.c
-extern SDL_Color colorTextBoard;           // -> win.c
+extern char*     charPTmp;                 // -> tmp.c
+extern int       intTmp;                   // -> tmp.c
 
 char colorChars[6];
 
