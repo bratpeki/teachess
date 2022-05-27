@@ -11,10 +11,10 @@
 
 #include <stdio.h>
 
-extern char tchs[64];     // -> tchs.c
-extern int  boardFlipped; // -> win.c
+extern char  tchs[64];       // -> tchs.c
+extern char* boardChars[16]; // -> win.c
+extern int   boardFlipped;   // -> win.c
 
-char boardOuterChars[8] = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h' };
 char currentNotation[CHAR_COUNT_GAME_NOTATION];
 
 int availableMoves[64];
@@ -188,11 +188,15 @@ void gameGetNotation(int x1, int y1, int x2, int y2) {
 			)
 		printf("%c", tchs[getPos64(x1, y1)]);
 
-	printf("%c%d", boardOuterChars[x2], 8 - y2);
+	if ( (tchs[getPos64(x2, y2)] != '-') && (tchs[getPos64(x2, y2)] != '.') ) {
+		printf("%c%dx", boardChars[8 + x1][0], 8 - y1);
+	}
+
+	printf("%c%d", boardChars[8 + x2][0], 8 - y2);
 
 	printf("\n");
 
-	printf("Ate: %d\n", (tchs[getPos64(x2, y2)] != '-') && (tchs[getPos64(x2, y2)] != '.'));
+	// printf("Ate: %d\n", (tchs[getPos64(x2, y2)] != '-') && (tchs[getPos64(x2, y2)] != '.'));
 
 }
 

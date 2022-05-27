@@ -45,6 +45,7 @@ int main(int argc, char* argv[]) {
 
 	while (stateRunning) {
 		eventHandle();
+		// eventHandle calls winRender whenever it processe new input
 	}
 
 	winQuit();
