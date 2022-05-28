@@ -37,7 +37,7 @@ int       mouseX, mouseY = 0;
 
 void eventHandle() {
 
-	if (!SDL_WaitEvent(&event)) return;
+	SDL_WaitEvent(&event);
 
 	SDL_GetMouseState(&mouseX, &mouseY);
 
