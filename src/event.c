@@ -118,7 +118,5 @@ void eventHandle() {
 
 	}
 
-	winRender();
-
 }
 

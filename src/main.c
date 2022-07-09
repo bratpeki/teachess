@@ -5,10 +5,10 @@
 
 #include "include/event.h"
 #include "include/game.h"
+#include "include/game_assist.h"
 #include "include/path.h"
 #include "include/tchs.h"
 #include "include/win.h"
-#include "include/game_assist.h"
 
 #include <SDL2/SDL_stdinc.h>
 
@@ -41,11 +41,9 @@ int main(int argc, char* argv[]) {
 
 	currentNotation[CHAR_COUNT_GAME_NOTATION - 1] = '\0';
 
-	winRender();
-
 	while (stateRunning) {
+		winRender();
 		eventHandle();
-		// eventHandle calls winRender whenever it processe new input
 	}
 
 	winQuit();

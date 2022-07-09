@@ -69,13 +69,13 @@ int pieceLegalCheck(char piece) {
 
 }
 
-FILE* fp;                  // TCHS File contents
-char  ptchs[PATH_TXT_LEN]; // Path to the TCHS
-char* ctchs;               // TCHS characters
-char* gptchs;              // Global path to the TCHS
-int   k, K;                // King counters
-int   tchsLen;             // Lenght of the TCHS file, character-wise
-int   tchsCount;           // TCHS character count
+FILE*        fp;                  // TCHS File contents
+char         ptchs[PATH_TXT_LEN]; // Path to the TCHS
+char*        ctchs;               // TCHS characters
+char*        gptchs;              // Global path to the TCHS
+int          k, K;                // King counters
+unsigned int tchsLen;             // Lenght of the TCHS file, character-wise
+int          tchsCount;           // TCHS character count
 
 int tchsRead(char* name) {
 

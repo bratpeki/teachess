@@ -1,4 +1,3 @@
-
 # TeaChess - A chess explanation tool
 
 ## What is TeaChess?
@@ -49,4 +48,3 @@ RNBQCBNR
 ## How is it made?
 
 TeaChess is made using SDL2 for C.
-

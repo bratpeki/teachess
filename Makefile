@@ -1,5 +1,5 @@
 
-CC=gcc -std=c99
+CC=gcc -std=c99 -Wall -Wextra -O2 -pedantic
 C=$(shell find . -name "*.c")
 OUT=teachess.out
 LNK=-lSDL2 -lSDL2_image -lSDL2_ttf -ljson-c

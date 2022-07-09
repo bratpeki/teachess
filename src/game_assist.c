@@ -38,7 +38,7 @@ int getPieceType(char c) {
 	else
 		return PIECE_BLACK;
 
-};
+}
 
 int checkSpotType(int pieceX, int pieceY, int pieceType) {
 
