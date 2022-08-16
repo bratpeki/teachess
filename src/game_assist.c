@@ -42,9 +42,7 @@ int getPieceType(char c) {
 
 int checkSpotType(int pieceX, int pieceY, int pieceType) {
 
-	// TODO: return "out of bounds" exit code rather than false
-
-	if ((pieceX < 0) || (pieceX > 7) || (pieceY < 0) || (pieceY > 7)) return SDL_FALSE;
+	if ((pieceX < 0) || (pieceX > 7) || (pieceY < 0) || (pieceY > 7)) return STATE_OUT_OF_BOUNDS;
 
 	return (getPieceType(tchs[getPos64(pieceX, pieceY)]) == pieceType);
 
@@ -69,7 +67,7 @@ SDL_bool gameCheckLine(
 		spotX = boardX + coef1 * intTmp;
 		spotY = boardY + coef2 * intTmp;
 
-		if (checkSpotType(spotX, spotY, pieceCollType)) {
+		if (checkSpotType(spotX, spotY, pieceCollType) == SDL_TRUE) {
 
 			arrayToFill[getPos64(spotX, spotY)] = 1;
 
@@ -80,7 +78,7 @@ SDL_bool gameCheckLine(
 			break;
 
 		}
-		else if (checkSpotType(spotX, spotY, PIECE_BLANK))
+		else if (checkSpotType(spotX, spotY, PIECE_BLANK) == SDL_TRUE)
 			arrayToFill[getPos64(spotX, spotY)] = 1;
 		else break;
 

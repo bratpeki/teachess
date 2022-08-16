@@ -9,6 +9,8 @@
 #include "include/game_assist.h"
 #include "include/tchs.h"
 
+#include <SDL2/SDL_stdinc.h>
+
 #include <stdio.h>
 
 extern char  tchs[64];       // -> tchs.c
@@ -83,8 +85,8 @@ void gameGetMoves(int boardX, int boardY) {
 				spotX = boardX + nMoves[i][0];
 				spotY = boardY + nMoves[i][1];
 				if (
-						checkSpotType(spotX, spotY, !pieceType) ||
-						checkSpotType(spotX, spotY, PIECE_BLANK)
+						(checkSpotType(spotX, spotY, !pieceType)  == SDL_TRUE) ||
+						(checkSpotType(spotX, spotY, PIECE_BLANK) == SDL_TRUE)
 						)
 					availableMoves[getPos64(spotX, spotY)] = 1;
 			}
@@ -145,8 +147,8 @@ void gameGetMoves(int boardX, int boardY) {
 				spotX = boardX + kMoves[i][0];
 				spotY = boardY + kMoves[i][1];
 				if (
-						(checkSpotType(spotX, spotY, !pieceType)) ||
-						(checkSpotType(spotX, spotY, PIECE_BLANK))
+						(checkSpotType(spotX, spotY, !pieceType)  == SDL_TRUE) ||
+						(checkSpotType(spotX, spotY, PIECE_BLANK) == SDL_TRUE)
 					)
 					availableMoves[getPos64(spotX, spotY)] = 1;
 			}
@@ -160,8 +162,8 @@ void gameGetMoves(int boardX, int boardY) {
 				spotX = boardX + kMoves[i][0];
 				spotY = boardY + kMoves[i][1];
 				if (
-						(checkSpotType(spotX, spotY, !pieceType)) ||
-						(checkSpotType(spotX, spotY, PIECE_BLANK))
+						(checkSpotType(spotX, spotY, !pieceType) == SDL_TRUE) ||
+						(checkSpotType(spotX, spotY, PIECE_BLANK) == SDL_TRUE)
 				   )
 					availableMoves[getPos64(spotX, spotY)] = 1;
 			}

@@ -11,11 +11,23 @@
 
 #define CHAR_COUNT_GAME_NOTATION 10
 
-/* Return the piece type */
+/*
+ * Piece type error "out of bounds"
+ * Used by 'checkSpotType'
+ */
+
+#define STATE_OUT_OF_BOUNDS 2
+
+/* Return the piece type (PIECE_WHITE, PIECE_BLACK, PIECE_BLANK) */
 
 int getPieceType(char c);
 
-/* Check that the spot on (spotX, spotY) is of pieceType */
+/*
+ * Check that the spot on (spotX, spotY) is of pieceType
+ * If it is, return SDL_TRUE
+ * If it is not, return SDL_FALSE
+ * If it is out of bounds, return STATE_OUT_OF_BOUNDS
+ */
 
 int checkSpotType(int pieceX, int pieceY, int pieceType);
 
@@ -25,8 +37,8 @@ void clearAvailableMoves();
 
 /*
  * Check one diagonal of a bishop's, rook's or queen's movement
- * coef1 and coef2 should be either 1 or -1
- * The retrun value is weather the bishop's path ran into an opposite king
+ * coef1 and coef2 should be either 0, 1 or -1
+ * The retrun value is weather the bishop's path ran into an opposite piece
  */
 
 SDL_bool gameCheckLine(int boardX, int boardY, int coef1, int coef2, int pieceCollType, int* arrayToFill);
