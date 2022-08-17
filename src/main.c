@@ -32,6 +32,8 @@ int main(int argc, char* argv[]) {
 
 		printf ("Log (main.c): Couldn't initialize the graphical components. Exiting...\n");
 
+		free(pathProg);
+
 		return EXIT_FAILURE;
 
 	}

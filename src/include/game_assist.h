@@ -23,7 +23,7 @@
 int getPieceType(char c);
 
 /*
- * Check that the spot on (spotX, spotY) is of pieceType
+ * Check that the piece on the spot (pieceX, pieceY) is of pieceType
  * If it is, return SDL_TRUE
  * If it is not, return SDL_FALSE
  * If it is out of bounds, return STATE_OUT_OF_BOUNDS
