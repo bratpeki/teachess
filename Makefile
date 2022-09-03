@@ -5,10 +5,10 @@ OUT=teachess.out
 LNK=-lSDL2 -lSDL2_image -lSDL2_ttf -ljson-c
 
 build:
-	@$(CC) -o $(OUT) $(C) $(LNK) -Wall
+	@$(CC) -o $(OUT) $(C) $(LNK)
 
 dbuild:
-	@$(CC) -o $(OUT) $(C) $(LNK) -Wall -g
+	@$(CC) -o $(OUT) $(C) $(LNK) -g
 
 clean:
 	@if [ -f $(OUT) ]; then rm $(OUT); fi
