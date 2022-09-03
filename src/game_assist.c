@@ -40,11 +40,11 @@ int getPieceType(char c) {
 
 }
 
-int checkSpotType(int pieceX, int pieceY, int pieceType) {
+int checkSpotType(int boardX, int boardY, int pieceType) {
 
-	if ((pieceX < 0) || (pieceX > 7) || (pieceY < 0) || (pieceY > 7)) return STATE_OUT_OF_BOUNDS;
+	if ((boardX < 0) || (boardX > 7) || (boardY < 0) || (boardY > 7)) return STATE_OUT_OF_BOUNDS;
 
-	return (getPieceType(tchs[getPos64(pieceX, pieceY)]) == pieceType);
+	return (getPieceType(tchs[getPos64(boardX, boardY)]) == pieceType);
 
 }
 

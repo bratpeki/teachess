@@ -24,19 +24,6 @@ extern int offset;    // -> win.c
 char tchsTitle[PATH_TXT_LEN] = "TeaChess";
 int  tchsTitleLen            = 8;
 
-char tchs[64] = {
-	'r', 'n', 'b', 'q', 'c', 'b', 'n', 'r',
-	'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p',
-	'-', '-', '-', '-', '-', '-', '-', '-',
-	'-', '-', '-', '-', '-', '-', '-', '-',
-	'-', '-', '-', '-', '-', '-', '-', '-',
-	'-', '-', '-', '-', '-', '-', '-', '-',
-	'P', 'P', 'P', 'P', 'P', 'P', 'P', 'P',
-	'R', 'N', 'B', 'Q', 'C', 'B', 'N', 'R',
-};
-
-char tchsPreload[64];
-
 /*
  * Piece list:
  *
@@ -52,6 +39,19 @@ char tchsPreload[64];
  * q/Q - queen
  * r/R - rook
  */
+
+char tchs[64] = {
+	'r', 'n', 'b', 'q', 'c', 'b', 'n', 'r',
+	'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p',
+	'-', '-', '-', '-', '-', '-', '-', '-',
+	'-', '-', '-', '-', '-', '-', '-', '-',
+	'-', '-', '-', '-', '-', '-', '-', '-',
+	'-', '-', '-', '-', '-', '-', '-', '-',
+	'P', 'P', 'P', 'P', 'P', 'P', 'P', 'P',
+	'R', 'N', 'B', 'Q', 'C', 'B', 'N', 'R',
+};
+
+char tchsPreload[64];
 
 char pieceLegal[22] = {
 	'-', '.',
@@ -105,9 +105,11 @@ int tchsRead(char* name) {
 		if ( !pieceLegalCheck(ctchs[i]) ) {
 
 			if ( (ctchs[i] != '\n') && (ctchs[i] != '\0') ) {
+
 				printf("Log (tchs.c): Unknown char in %s (%c)\n", gptchs, ctchs[i]);
 				free(gptchs); free(ctchs);
 				return EXIT_FAILURE;
+
 			}
 
 		}
