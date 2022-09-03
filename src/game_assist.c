@@ -50,9 +50,6 @@ int checkSpotType(int boardX, int boardY, int pieceType) {
 
 void clearAvailableMoves() { for (unsigned int i = 0; i < 64; i++) availableMoves[i] = 0; }
 
-// TODO: Check if boardX and boardY are needed here
-//       Maybe a check system needs them there
-
 SDL_bool gameCheckLine(
 		int boardX, int boardY,
 		int coef1, int coef2,

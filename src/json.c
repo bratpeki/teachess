@@ -106,12 +106,12 @@ int jsonLoadConf() {
 }
 
 int textLoadLocal(
-		char* key,
-		struct json_object *val,
-		char* pathVar,
-		char* keycmp,
-		const char* pathToFile
-		) {
+	char* key,
+	struct json_object *val,
+	char* pathVar,
+	char* keycmp,
+	const char* pathToFile
+	) {
 
 	if ( strcmp(key, keycmp) == EXIT_SUCCESS ) {
 
@@ -121,11 +121,15 @@ int textLoadLocal(
 		strcpy(pathVar, charPTmp);
 		free(charPTmp);
 
+		printf("pathVar: %s\n", pathVar);
+
 		if (access(pathVar, F_OK) == EXIT_SUCCESS) {
 
 			printf(TEXT_LOAD_SUCCESS, pathVar);
 
 		} else {
+
+			// TODO: Check if pathVar should be freed here
 
 			printf(TEXT_LOAD_FAILURE, pathVar, key);
 			return EXIT_FAILURE;
@@ -133,6 +137,8 @@ int textLoadLocal(
 		}
 
 	}
+
+	// TODO: Check if this here has use at all
 
 	if (strlen(pathVar) > PATH_TXT_LEN) {
 
