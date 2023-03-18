@@ -7,6 +7,9 @@ openings, puzzles and other forms of chess problems. Unlike other solutions,
 TeaChess focuses on being fast, simple and extensible. Most functionality is
 keyboard-based, allowing for quick and versitile usage.
 
+TeaChess is **far from finished**, and I might continue development in the future,
+using FEN instead of TCHS.
+
 ## TCHS files
 
 TeaChess has a specific file associated with it: the TCHS filetype (`.tchs`).
@@ -48,3 +51,7 @@ RNBQCBNR
 ## How is it made?
 
 TeaChess is made using SDL2 for C.
+
+## Preview
+
+![](./img/preview.png)
