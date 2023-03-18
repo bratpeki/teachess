@@ -54,4 +54,6 @@ TeaChess is made using SDL2 for C.
 
 ## Preview
 
-![](./img/preview.png)
+![](./img/preview/1.png)
+
+![](./img/preview/2.png)
